@@ -4,6 +4,13 @@ package pl.appnode.napwatch;
         import android.os.Bundle;
         import android.view.Menu;
         import android.view.MenuItem;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import java.util.ArrayList;
+        import java.util.List;
+
+
+
 
 
 public class MainActivity extends Activity {
@@ -11,8 +18,18 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
+        recList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recList.setLayoutManager(llm);
+
+        ContactAdapter ca = new ContactAdapter(createList(30));
+        recList.setAdapter(ca);
     }
+
 
 
     @Override
