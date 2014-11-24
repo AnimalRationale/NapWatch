@@ -6,11 +6,9 @@ package pl.appnode.napwatch;
         import android.view.MenuItem;
         import android.support.v7.widget.LinearLayoutManager;
         import android.support.v7.widget.RecyclerView;
+
         import java.util.ArrayList;
         import java.util.List;
-
-
-
 
 
 public class MainActivity extends Activity {
@@ -26,8 +24,8 @@ public class MainActivity extends Activity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
 
-        ContactAdapter ca = new ContactAdapter(createList(30));
-        recList.setAdapter(ca);
+        AlarmAdapter aa = new AlarmAdapter(createList(30));
+        recList.setAdapter(aa);
     }
 
 
@@ -52,5 +50,21 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<AlarmInfo> createList(int size) {
+
+        List<AlarmInfo> result = new ArrayList<AlarmInfo>();
+        for (int i=1; i <= size; i++) {
+            AlarmInfo ai = new AlarmInfo();
+            ai.name = AlarmInfo.NAME_PREFIX + i;
+            ai.description = AlarmInfo.DESCRIPTION_PREFIX + i;
+            ai.duration = AlarmInfo.DURATION_PREFIX + i + " minutes";
+
+            result.add(ai);
+
+        }
+
+        return result;
     }
 }
