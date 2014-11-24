@@ -16,11 +16,11 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/bkg_card"
             android:text="Alarm title"
             android:gravity="center_vertical"
-            android:textColor="@android:color/white"
-            android:textSize="14dp"/>
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14dp"
+            android:layout_marginLeft="12dp"/>
 
         <TextView
             android:id="@+id/txtName"
@@ -31,7 +31,7 @@
             android:textSize="10dp"
             android:layout_below="@id/title"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="18dp"/>
 
         <TextView
             android:id="@+id/txtDescription"

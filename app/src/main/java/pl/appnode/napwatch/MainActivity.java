@@ -22,7 +22,6 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-
         AlarmAdapter aa = new AlarmAdapter(createList(30));
         recList.setAdapter(aa);
     }
@@ -42,7 +41,6 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -59,11 +57,8 @@ public class MainActivity extends Activity {
             ai.name = AlarmInfo.NAME_PREFIX + i;
             ai.description = AlarmInfo.DESCRIPTION_PREFIX + i;
             ai.duration = AlarmInfo.DURATION_PREFIX + i + " minutes";
-
             result.add(ai);
-
         }
-
         return result;
     }
 }
