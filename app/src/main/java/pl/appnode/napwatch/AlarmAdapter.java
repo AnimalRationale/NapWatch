@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
+import android.view.View.OnClickListener;
+
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
@@ -50,5 +52,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             vDescription = (TextView)  v.findViewById(R.id.txtDescription);
             vTitle = (TextView) v.findViewById(R.id.title);
         }
+    }
+    public void addAlarm(int position, AlarmInfo item) {
+        alarmList.add(position, item);
+        notifyItemInserted(position);
+    }
+
+    public void removeAlarm(AlarmInfo item) {
+        int position = alarmList.indexOf(item);
+        alarmList.remove(position);
+        notifyItemRemoved(position);
     }
 }

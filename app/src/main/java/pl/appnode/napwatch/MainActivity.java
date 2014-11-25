@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        AlarmAdapter aa = new AlarmAdapter(createList(30));
+        AlarmAdapter aa = new AlarmAdapter(createList(22));
         recList.setAdapter(aa);
     }
 
