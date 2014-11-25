@@ -27,10 +27,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     @Override
     public void onBindViewHolder(AlarmViewHolder alarmViewHolder, int i) {
         AlarmInfo ai = alarmList.get(i);
-        alarmViewHolder.vName.setText(ai.name);
         alarmViewHolder.vDescription.setText(ai.description);
-        alarmViewHolder.vDuration.setText(ai.duration);
-        alarmViewHolder.vTitle.setText(ai.name + " " + ai.description);
+        alarmViewHolder.vTitle.setText(ai.name + ' ' +ai.duration);
     }
 
     @Override
@@ -44,16 +42,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     public static class AlarmViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView vName;
         protected TextView vDescription;
-        protected TextView vDuration;
         protected TextView vTitle;
 
         public AlarmViewHolder(View v) {
             super(v);
-            vName =  (TextView) v.findViewById(R.id.txtName);
             vDescription = (TextView)  v.findViewById(R.id.txtDescription);
-            vDuration = (TextView)  v.findViewById(R.id.txtDuration);
             vTitle = (TextView) v.findViewById(R.id.title);
         }
     }

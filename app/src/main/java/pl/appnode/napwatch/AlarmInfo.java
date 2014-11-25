@@ -9,7 +9,7 @@ public class AlarmInfo {
     protected String duration;
 
 
-    protected static final String NAME_PREFIX = "Name_";
+    protected static final String NAME_PREFIX = "Alarm_";
     protected static final String DESCRIPTION_PREFIX = "Description_";
     protected static final String DURATION_PREFIX = "Duration_";
 }
