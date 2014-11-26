@@ -29,7 +29,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     @Override
     public void onBindViewHolder(AlarmViewHolder alarmViewHolder, int position) {
-        AlarmInfo ai = alarmList.get(position);
+        final AlarmInfo ai = alarmList.get(position);
         alarmViewHolder.vDescription.setText(ai.description);
         alarmViewHolder.vTitle.setText(ai.name + ' ' +ai.duration);
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
@@ -64,7 +64,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
 
     public void addAlarm(int position) {
-        alarmList.add(position, alarmList.get(1)); // add mock-up
+        alarmList.add(alarmList.get(0)); // add mock-up
         notifyItemInserted(position);
     }
 
