@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
@@ -31,11 +32,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         AlarmInfo ai = alarmList.get(position);
         alarmViewHolder.vDescription.setText(ai.description);
         alarmViewHolder.vTitle.setText(ai.name + ' ' +ai.duration);
-        final AlarmInfo item = alarmList.get(position);
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeAlarm(item);
+                removeAlarm(ai);
             }
         });
     }
@@ -60,8 +60,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             vTitle = (TextView) v.findViewById(R.id.title);
         }
     }
-    public void addAlarm(int position, AlarmInfo item) {
-        alarmList.add(position, item);
+
+
+
+    public void addAlarm(int position) {
+        alarmList.add(position, alarmList.get(1)); // add mock-up
         notifyItemInserted(position);
     }
 

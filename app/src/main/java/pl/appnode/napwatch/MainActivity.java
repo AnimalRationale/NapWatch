@@ -6,8 +6,13 @@ package pl.appnode.napwatch;
         import android.view.MenuItem;
         import android.support.v7.widget.LinearLayoutManager;
         import android.support.v7.widget.RecyclerView;
+        import android.view.View;
+        import android.widget.ImageView;
+        import android.widget.Toast;
+
         import java.util.ArrayList;
         import java.util.List;
+
 
 
 public class MainActivity extends Activity {
@@ -22,11 +27,17 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        AlarmAdapter aa = new AlarmAdapter(createList(22));
+        final AlarmAdapter aa = new AlarmAdapter(createList(22));
         recList.setAdapter(aa);
+        View fab = findViewById(R.id.imageView1);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Hardcoded!", Toast.LENGTH_SHORT).show();
+                aa.addAlarm(aa.getItemCount()+1);
+            }
+        });
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +70,7 @@ public class MainActivity extends Activity {
             ai.duration = AlarmInfo.DURATION_PREFIX + i + " minutes";
             result.add(ai);
         }
+
         return result;
     }
 }
