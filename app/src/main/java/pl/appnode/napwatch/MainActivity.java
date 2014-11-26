@@ -7,7 +7,6 @@ package pl.appnode.napwatch;
         import android.support.v7.widget.LinearLayoutManager;
         import android.support.v7.widget.RecyclerView;
         import android.view.View;
-        import android.widget.ImageView;
         import android.widget.Toast;
 
         import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class MainActivity extends Activity {
         recList.setLayoutManager(llm);
         final AlarmAdapter aa = new AlarmAdapter(createList(22));
         recList.setAdapter(aa);
-        View fab = findViewById(R.id.imageView1);
+        View fab = findViewById(R.id.fab1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
