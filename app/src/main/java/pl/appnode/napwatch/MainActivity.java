@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
             AlarmInfo ai = new AlarmInfo();
             ai.name = AlarmInfo.NAME_PREFIX + i;
             ai.description = AlarmInfo.DESCRIPTION_PREFIX + i;
-            ai.duration = AlarmInfo.DURATION_PREFIX + i + " minutes";
+            ai.duration = 10;
             result.add(ai);
         }
 

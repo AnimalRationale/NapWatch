@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
@@ -31,7 +32,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     public void onBindViewHolder(AlarmViewHolder alarmViewHolder, int position) {
         final AlarmInfo ai = alarmList.get(position);
         alarmViewHolder.vDescription.setText(ai.description);
-        alarmViewHolder.vTitle.setText(ai.name + ' ' +ai.duration);
+        alarmViewHolder.vTitle.setText(ai.name + ' ' +ai.duration +ai.DURATION_SUFFIX);
+        alarmViewHolder.vDuration.setText(ai.duration + "");
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,11 +55,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         protected TextView vDescription;
         protected TextView vTitle;
+        protected Button vDuration;
 
         public AlarmViewHolder(View v) {
             super(v);
             vDescription = (TextView)  v.findViewById(R.id.txtDescription);
             vTitle = (TextView) v.findViewById(R.id.title);
+            vDuration = (Button) v.findViewById(R.id.roundBtn1);
         }
     }
 

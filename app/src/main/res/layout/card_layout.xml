@@ -13,15 +13,19 @@
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:padding="6dip" >
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+        <Button
+            android:id="@+id/roundBtn1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="6dip"
             android:contentDescription="TODO"
-            android:src="@drawable/ic_alarm_grey600_48dp" />
+            android:background="@drawable/round_button"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="0"
+            android:textColor="#fff" />
+
 
         <TextView
             android:id="@+id/txtDescription"
@@ -29,7 +33,7 @@
             android:layout_height="26dip"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/icon"
+            android:layout_toRightOf="@id/roundBtn1"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:text="Description"
@@ -43,7 +47,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_toRightOf="@id/icon"
+            android:layout_toRightOf="@id/roundBtn1"
             android:gravity="center_vertical"
             android:text="Example application"
             android:textColor="@android:color/holo_blue_bright"
