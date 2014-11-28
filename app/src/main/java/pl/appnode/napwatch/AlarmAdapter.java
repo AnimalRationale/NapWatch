@@ -1,8 +1,5 @@
 package pl.appnode.napwatch;
 
-/**
- * Created by Monki on 2014-11-24.
- */
 import android.app.Activity;
 import android.app.Dialog;
 import android.support.v7.widget.RecyclerView;
@@ -88,46 +85,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     public void setAlarm(AlarmInfo item) {
         int position = alarmList.indexOf(item);
         AlarmInfo alarm = alarmList.get(position);
-        alarm.duration = setAlarmDialog(MainActivity);
+        alarm.duration = 10;
     }
 
-    public int setAlarmDialog(Activity activity) {
+    public void setAlarmDialog(Activity activity) {
 
-        final Dialog minutesDialog = new Dialog(activity);
-        minutesDialog.setTitle("Set timer minutes:"); // TODO: string in resoureces!
-        minutesDialog.setContentView(R.layout.slider_dialog);
-        final TextView minutesTxt = (TextView) minutesDialog.findViewById(R.id.minutes_txt);
-        final SeekBar minutesSeek = (SeekBar)minutesDialog.findViewById(R.id.minutes_seek);
-        minutesSeek.setMax(100);
-        minutesSeek.setProgress(100);
-        minutesSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            //change to progress
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                minutesTxt.setText(Integer.toString(progress) + "minutes");
-            }
-
-            //methods to implement but not necessary to amend
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        Button okBtn = (Button)minutesDialog.findViewById(R.id.minutes_ok);
-        okBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public int onClick(View v) {
-//respond to level
-                int chosenTime = minutesSeek.getProgress();
-                return chosenTime;
-                minutesDialog.dismiss();
-            }
-        });
-        minutesDialog.show();
-        return 0;
     }
 
     public void startAlarm(AlarmInfo item) {

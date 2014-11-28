@@ -1,8 +1,5 @@
 package pl.appnode.napwatch;
 
-/**
- * Created by Monki on 2014-11-23.
- */
 public class AlarmInfo {
     protected String name;
     protected String description;
