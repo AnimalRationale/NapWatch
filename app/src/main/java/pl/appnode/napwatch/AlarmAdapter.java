@@ -33,7 +33,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         final AlarmInfo ai = alarmList.get(position);
         alarmViewHolder.vDescription.setText(ai.description);
         alarmViewHolder.vTitle.setText(ai.name + ' ' +ai.duration +ai.DURATION_SUFFIX);
-        alarmViewHolder.vDuration.setText(ai.duration + "");
+        // alarmViewHolder.vDuration.setText(ai.duration + "");
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

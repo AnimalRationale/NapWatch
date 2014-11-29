@@ -27,8 +27,6 @@
             android:textColor="#fff" />
 
 
-
-
         <SeekBar android:id="@+id/minutes_seek"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -46,7 +44,7 @@
             android:layout_alignWithParentIfMissing="true"
             android:layout_toRightOf="@id/roundBtn1"
             android:gravity="center_vertical"
-            android:text="Example application"
+            android:text="Alarm"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="16sp" />
 
