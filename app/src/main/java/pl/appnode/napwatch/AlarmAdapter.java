@@ -33,6 +33,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         final AlarmInfo ai = alarmList.get(position);
         alarmViewHolder.vTitle.setText(ai.name);
         alarmViewHolder.vDuration.setText(ai.duration + "");
+        alarmViewHolder.vMinutesBar.setMax(100);
+        alarmViewHolder.vMinutesBar.setProgress(ai.duration);
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +45,22 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onClick(View v) {
                 startAlarm(ai);
+            }
+        });
+        alarmViewHolder.vMinutesBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            //change to progress
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                setDuration(ai, progress);
+            }
+
+            //methods to implement but not necessary to amend
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
     }
@@ -60,11 +78,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         protected TextView vTitle;
         protected Button vDuration;
+        protected SeekBar vMinutesBar;
 
         public AlarmViewHolder(View v) {
             super(v);
             vTitle = (TextView) v.findViewById(R.id.title);
             vDuration = (Button) v.findViewById(R.id.roundBtn1);
+            vMinutesBar = (SeekBar) v.findViewById(R.id.minutes_seek);
         }
     }
 
@@ -79,18 +99,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         notifyItemRemoved(position);
     }
 
-    public void setAlarm(AlarmInfo item) {
-        int position = alarmList.indexOf(item);
-        AlarmInfo alarm = alarmList.get(position);
-        alarm.duration = 10;
-    }
-
-    public void setAlarmDialog(Activity activity) {
-
-    }
-
     public void startAlarm(AlarmInfo item) {
         int position = alarmList.indexOf(item); // TODO
 
+    }
+
+    public void setDuration(AlarmInfo item, int duration) {
+        int position = alarmList.indexOf(item);
+        AlarmInfo alarm = alarmList.get(position);
+        alarm.duration = duration;
+        notifyItemChanged(position);
     }
 }
