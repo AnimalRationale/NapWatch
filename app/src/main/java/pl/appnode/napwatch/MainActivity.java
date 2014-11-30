@@ -69,7 +69,6 @@ public class MainActivity extends Activity {
         for (int i=1; i <= size; i++) {
             AlarmInfo ai = new AlarmInfo();
             ai.name = AlarmInfo.NAME_PREFIX + i;
-            ai.description = AlarmInfo.DESCRIPTION_PREFIX + i;
             ai.duration = 10;
             result.add(ai);
         }
