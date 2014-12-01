@@ -30,8 +30,9 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        final AlarmAdapter aa = new AlarmAdapter(createList(22));
+        final AlarmAdapter aa = new AlarmAdapter(createList(4));
         recList.setAdapter(aa);
+
         View fab = findViewById(R.id.fab1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +71,7 @@ public class MainActivity extends Activity {
             AlarmInfo ai = new AlarmInfo();
             ai.name = AlarmInfo.NAME_PREFIX + i;
             ai.duration = 10;
+            ai.isOn = false;
             result.add(ai);
         }
 

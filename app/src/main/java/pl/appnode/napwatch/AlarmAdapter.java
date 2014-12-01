@@ -2,6 +2,7 @@ package pl.appnode.napwatch;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
+
+import org.apache.http.protocol.RequestDate;
 
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
@@ -33,6 +36,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         final AlarmInfo ai = alarmList.get(position);
         alarmViewHolder.vTitle.setText(ai.name);
         alarmViewHolder.vDuration.setText(ai.duration + "");
+        if (!ai.isOn) {
+            alarmViewHolder.vDuration.setBackgroundColor(Color.GREEN);
+            alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
+        } else {
+            alarmViewHolder.vDuration.setBackgroundColor(Color.RED);
+            alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
+        }
         alarmViewHolder.vMinutesBar.setMax(100);
         alarmViewHolder.vMinutesBar.setProgress(ai.duration);
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
@@ -54,7 +64,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 setDuration(ai, progress);
             }
 
-            //methods to implement but not necessary to amend
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -101,7 +110,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     public void startAlarm(AlarmInfo item) {
         int position = alarmList.indexOf(item); // TODO
-
+        AlarmInfo alarm = alarmList.get(position);
+        if (!alarm.isOn) {
+            alarm.isOn = true;
+            notifyItemChanged(position);
+        } else {
+            alarm.isOn = false;
+            notifyItemChanged(position);
+        }
     }
 
     public void setDuration(AlarmInfo item, int duration) {
