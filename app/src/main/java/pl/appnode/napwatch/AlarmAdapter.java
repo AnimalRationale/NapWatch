@@ -37,10 +37,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vTitle.setText(ai.name);
         alarmViewHolder.vDuration.setText(ai.duration + "");
         if (!ai.isOn) {
-            alarmViewHolder.vDuration.setBackgroundColor(Color.GREEN);
+            alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
         } else {
-            alarmViewHolder.vDuration.setBackgroundColor(Color.RED);
+            alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
         }
         alarmViewHolder.vMinutesBar.setMax(100);
