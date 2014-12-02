@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
 
     private void loadAlarms() {
         SharedPreferences alarms = getSharedPreferences(PREFS_NAME, 0);
-        
+
     }
 
     private List<AlarmInfo> createList(int size) {
