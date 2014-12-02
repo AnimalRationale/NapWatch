@@ -1,7 +1,6 @@
 package pl.appnode.napwatch;
 
         import android.app.Activity;
-        import android.app.Dialog;
         import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.view.Menu;
@@ -9,11 +8,9 @@ package pl.appnode.napwatch;
         import android.support.v7.widget.LinearLayoutManager;
         import android.support.v7.widget.RecyclerView;
         import android.view.View;
-        import android.widget.Button;
-        import android.widget.SeekBar;
-        import android.widget.TextView;
         import android.widget.Toast;
 
+        import java.lang.reflect.Array;
         import java.util.ArrayList;
         import java.util.List;
 
@@ -21,7 +18,7 @@ package pl.appnode.napwatch;
 
 public class MainActivity extends Activity {
 
-    public static final String PREFS_NAME = "NapWatchPrefsFile";
+    public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +65,14 @@ public class MainActivity extends Activity {
     }
 
     private void loadAlarms() {
-        SharedPreferences alarms = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
+        if (!alarmsPrefs.contains("Alarm_1")) {
+            String alarmsTitles[] = {"Alarm 1", "Alarm 2", "Alarm 3", "Alarm 4" };
+            int alarmsDurations[] = {10, 15, 20, 30};
+            for (i = 1; i++; i > 4) {
+                
+            }
+        }
 
     }
 
