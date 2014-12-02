@@ -2,6 +2,7 @@ package pl.appnode.napwatch;
 
         import android.app.Activity;
         import android.app.Dialog;
+        import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.view.Menu;
         import android.view.MenuItem;
@@ -19,6 +20,8 @@ package pl.appnode.napwatch;
 
 
 public class MainActivity extends Activity {
+
+    public static final String PREFS_NAME = "NapWatchPrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,11 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadAlarms() {
+        SharedPreferences alarms = getSharedPreferences(PREFS_NAME, 0);
+        
     }
 
     private List<AlarmInfo> createList(int size) {
