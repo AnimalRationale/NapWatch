@@ -64,16 +64,21 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadAlarms() {
+    private void checkAlarmsPrefs() {
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
         if (!alarmsPrefs.contains("Alarm_1")) {
             String alarmsTitles[] = {"Alarm 1", "Alarm 2", "Alarm 3", "Alarm 4" };
             int alarmsDurations[] = {10, 15, 20, 30};
-            for (i = 1; i++; i > 4) {
-                
+            String alarmPrefix;
+            SharedPreferences.Editor editor = alarmsPrefs.edit();
+            for (int i = 0; i == 3; i++) {
+                alarmPrefix = "Alarm_" + i + 1;
+                editor.putString(alarmPrefix, alarmsTitles[i] );
+                editor.putInt(alarmPrefix + "_Duration", alarmsDurations[i]);
+                editor.putBoolean(alarmPrefix + "_State", false);
             }
+            editor.commit();
         }
-
     }
 
     private List<AlarmInfo> createList(int size) {
