@@ -69,16 +69,20 @@ public class MainActivity extends Activity {
     private void checkAlarmsPrefs() {
 
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
-        if (!alarmsPrefs.contains("Alarm_1")) {
+        if (true) {
+            Log.i(TAG, "Create SharedPrefs.");
             String alarmsTitles[] = {"Alarm 1", "Alarm 2", "Alarm 3", "Alarm 4" };
             int alarmsDurations[] = {10, 15, 20, 30};
             String alarmPrefix;
+            Log.i(TAG, "Before Editor.");
             SharedPreferences.Editor editor = alarmsPrefs.edit();
+            Log.i(TAG, "After Editor.");
             for (int i = 0; i <= 3; i++) {
                 alarmPrefix = "Alarm_" + i + 1;
                 editor.putString(alarmPrefix, alarmsTitles[i] );
                 editor.putInt(alarmPrefix + "_Duration", alarmsDurations[i]);
                 editor.putBoolean(alarmPrefix + "_State", false);
+                Log.i(TAG, "Create SharedPrefs #" + i);
             }
             editor.commit();
         }
@@ -96,9 +100,9 @@ public class MainActivity extends Activity {
         for (int i = 1; i <= 4; i++) {
             alarmPrefix = "Alarm_" + i;
             AlarmInfo ai = new AlarmInfo();
-            ai.name = alarmsPrefs.getString(alarmPrefix, "Def " + i);
-            ai.duration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12);
-            ai.isOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", true);
+            ai.name = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
+            ai.duration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
+            ai.isOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             Log.i(TAG, "before Result add #" + i);
             result.add(ai);
             Log.i(TAG, "Result add #" + i);
