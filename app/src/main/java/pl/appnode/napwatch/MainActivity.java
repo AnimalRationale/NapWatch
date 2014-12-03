@@ -66,7 +66,12 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
+        SharedPreferences.Editor editor = alarmsPrefs.edit();
+    }
 
     private void checkAlarmsPrefs() {
 
