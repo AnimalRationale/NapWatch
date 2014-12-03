@@ -66,26 +66,20 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    
+
     private void checkAlarmsPrefs() {
 
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
-        if (true) {
-            Log.i(TAG, "Create SharedPrefs.");
-            String alarmsTitles[] = {"Alarm 1", "Alarm 2", "Alarm 3", "Alarm 4" };
-            int alarmsDurations[] = {10, 15, 20, 30};
-            String alarmPrefix;
-            Log.i(TAG, "Before Editor.");
-            SharedPreferences.Editor editor = alarmsPrefs.edit();
-            Log.i(TAG, "After Editor.");
-            for (int i = 0; i <= 3; i++) {
-                alarmPrefix = "Alarm_" + i + 1;
-                editor.putString(alarmPrefix, alarmsTitles[i] );
-                editor.putInt(alarmPrefix + "_Duration", alarmsDurations[i]);
-                editor.putBoolean(alarmPrefix + "_State", false);
-                Log.i(TAG, "Create SharedPrefs #" + i);
-            }
-            editor.commit();
-        }
+        SharedPreferences.Editor editor = alarmsPrefs.edit();
+        Log.i(TAG, "After EXTRA Editor.");
+            String alarmPrefix = "Alarm_1";
+            editor.putString("Alarm_1", "Alarm 1" );
+            editor.putInt(alarmPrefix + "_Duration", 80);
+            editor.putBoolean(alarmPrefix + "_State", true);
+            Log.i(TAG, "Create SharedPrefs mockup!");
+
+        editor.commit();
     }
 
     private List<AlarmInfo> createList() {
@@ -98,8 +92,8 @@ public class MainActivity extends Activity {
 
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
-            alarmPrefix = "Alarm_" + i;
             AlarmInfo ai = new AlarmInfo();
+            alarmPrefix = "Alarm_" + i;
             ai.name = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             ai.duration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
             ai.isOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
