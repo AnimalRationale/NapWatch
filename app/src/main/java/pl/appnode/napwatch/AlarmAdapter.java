@@ -1,23 +1,23 @@
 package pl.appnode.napwatch;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.graphics.Color;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
 
-import org.apache.http.protocol.RequestDate;
 
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
+
+    private static final String TAG = "AlarmAdapter";
 
     private List<AlarmInfo> alarmList;
 
@@ -70,6 +70,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
     }

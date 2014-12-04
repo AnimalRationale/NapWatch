@@ -10,17 +10,15 @@ package pl.appnode.napwatch;
         import android.support.v7.widget.RecyclerView;
         import android.view.View;
         import android.widget.Toast;
-
-        import java.lang.reflect.Array;
         import java.util.ArrayList;
         import java.util.List;
-
 
 
 public class MainActivity extends Activity {
 
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     private static final String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +30,10 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
+        Log.i(TAG, "Before Setting Adapter..");
         final AlarmAdapter aa = new AlarmAdapter(createList());
         recList.setAdapter(aa);
-
+        Log.i(TAG, "After Setting Adapter..");
         View fab = findViewById(R.id.fab1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +68,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
+        SharedPreferences alarmsPrefs = getSharedPreferences(MainActivity.ALARMS_PREFS_FILE, 0);
         SharedPreferences.Editor editor = alarmsPrefs.edit();
     }
 
@@ -77,7 +76,7 @@ public class MainActivity extends Activity {
 
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
         SharedPreferences.Editor editor = alarmsPrefs.edit();
-        Log.i(TAG, "After EXTRA Editor.");
+
             String alarmPrefix = "Alarm_1";
             editor.putString("Alarm_1", "Alarm 1" );
             editor.putInt(alarmPrefix + "_Duration", 80);
