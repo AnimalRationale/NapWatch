@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
 
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     private static final String TAG = "MainActivity";
+    public AlarmAdapter aa;
 
 
     @Override
@@ -30,18 +31,10 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        Log.i(TAG, "Before Setting Adapter..");
-        final AlarmAdapter aa = new AlarmAdapter(createList());
+        Log.i(TAG, "Before Setting Adapter.");
+        aa = new AlarmAdapter(createList());
         recList.setAdapter(aa);
-        Log.i(TAG, "After Setting Adapter..");
-        View fab = findViewById(R.id.fab1);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Hardcoded!", Toast.LENGTH_SHORT).show();
-                aa.addAlarm(aa.getItemCount()+1);
-            }
-        });
+        Log.i(TAG, "After Setting Adapter.");
     }
 
     @Override
@@ -70,6 +63,7 @@ public class MainActivity extends Activity {
         super.onPause();
         SharedPreferences alarmsPrefs = getSharedPreferences(MainActivity.ALARMS_PREFS_FILE, 0);
         SharedPreferences.Editor editor = alarmsPrefs.edit();
+        aa.addAlarm(aa.getItemCount()+1);
     }
 
     private void checkAlarmsPrefs() {
