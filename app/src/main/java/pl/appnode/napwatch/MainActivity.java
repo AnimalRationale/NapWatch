@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
 
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     private static final String TAG = "MainActivity";
-    public AlarmAdapter aa;
+    protected AlarmAdapter aa;
 
 
     @Override
@@ -63,7 +63,19 @@ public class MainActivity extends Activity {
         super.onPause();
         SharedPreferences alarmsPrefs = getSharedPreferences(MainActivity.ALARMS_PREFS_FILE, 0);
         SharedPreferences.Editor editor = alarmsPrefs.edit();
-        aa.addAlarm(aa.getItemCount()+1);
+
+        for (int i = 0; i <= 3; i++) {
+            String alarmPrefix = "Alarm_" + (i + 1);
+            AlarmInfo alarm = aa.alarmList.get(i);
+
+            editor.putString(alarmPrefix, alarm.name);
+            editor.putInt(alarmPrefix + "_Duration", alarm.duration);
+            editor.putBoolean(alarmPrefix + "_State", alarm.isOn);
+            Log.i(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.duration + ": " + alarm.isOn);
+        }
+
+        editor.commit();
+        Log.i(TAG, "COMMITED SharedPrefs.");
     }
 
     private void checkAlarmsPrefs() {
@@ -84,7 +96,7 @@ public class MainActivity extends Activity {
         Log.i(TAG, "Create list.");
 
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
-        checkAlarmsPrefs();
+        // checkAlarmsPrefs();
 
         String alarmPrefix;
 

@@ -19,9 +19,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     private static final String TAG = "AlarmAdapter";
 
-    private List<AlarmInfo> alarmList;
+    protected List<AlarmInfo> alarmList;
 
-    public AlarmAdapter(List<AlarmInfo> alarmList) {
+    protected AlarmAdapter(List<AlarmInfo> alarmList) {
         this.alarmList = alarmList;
     }
 
@@ -96,11 +96,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             vDuration = (Button) v.findViewById(R.id.roundBtn1);
             vMinutesBar = (SeekBar) v.findViewById(R.id.minutes_seek);
         }
-    }
-
-    public void addAlarm(int position) {
-        alarmList.add(alarmList.get(0)); // add mock-up
-        notifyItemInserted(position);
     }
 
     public void removeAlarm(AlarmInfo item) {
