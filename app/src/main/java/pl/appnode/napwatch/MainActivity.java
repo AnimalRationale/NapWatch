@@ -54,7 +54,6 @@ public class MainActivity extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -67,7 +66,6 @@ public class MainActivity extends Activity {
         for (int i = 0; i <= 3; i++) {
             String alarmPrefix = "Alarm_" + (i + 1);
             AlarmInfo alarm = aa.alarmList.get(i);
-
             editor.putString(alarmPrefix, alarm.name);
             editor.putInt(alarmPrefix + "_Duration", alarm.duration);
             editor.putBoolean(alarmPrefix + "_State", alarm.isOn);
@@ -78,28 +76,11 @@ public class MainActivity extends Activity {
         Log.i(TAG, "COMMITED SharedPrefs.");
     }
 
-    private void checkAlarmsPrefs() {
-
-        SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
-        SharedPreferences.Editor editor = alarmsPrefs.edit();
-
-            String alarmPrefix = "Alarm_1";
-            editor.putString("Alarm_1", "Alarm 1" );
-            editor.putInt(alarmPrefix + "_Duration", 80);
-            editor.putBoolean(alarmPrefix + "_State", true);
-            Log.i(TAG, "Create SharedPrefs mockup!");
-
-        editor.commit();
-    }
-
     private List<AlarmInfo> createList() {
         Log.i(TAG, "Create list.");
 
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
-        // checkAlarmsPrefs();
-
         String alarmPrefix;
-
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
             AlarmInfo ai = new AlarmInfo();
@@ -114,19 +95,4 @@ public class MainActivity extends Activity {
         Log.i(TAG, "RETURN!");
         return result;
     }
-
-    private List<AlarmInfo> createList(int size) {
-
-        List<AlarmInfo> result = new ArrayList<AlarmInfo>();
-        for (int i=1; i <= size; i++) {
-            AlarmInfo ai = new AlarmInfo();
-            ai.name = AlarmInfo.NAME_PREFIX + i;
-            ai.duration = 10;
-            ai.isOn = false;
-            result.add(ai);
-        }
-
-        return result;
-    }
-
 }
