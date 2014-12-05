@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">NapWatch</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="card_name">Alarm 0</string>
+    <string name="edit_name">Alarm title</string>
+    <string name="edit_cancel">Cancel</string>
     <string name="action_settings">Settings</string>
 
 </resources>
