@@ -1,8 +1,6 @@
 package pl.appnode.napwatch;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +10,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
-
 
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
@@ -104,6 +101,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         ai.name = "Changed";
         notifyItemChanged(position);
     }
+
 
     public void startAlarm(AlarmInfo item) {
         int position = alarmList.indexOf(item); // TODO
