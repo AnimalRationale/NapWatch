@@ -1,7 +1,9 @@
 package pl.appnode.napwatch;
 
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,13 +104,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         notifyItemChanged(position);
     }
 
-
     public void startAlarm(AlarmInfo item) {
         int position = alarmList.indexOf(item); // TODO
         AlarmInfo alarm = alarmList.get(position);
         if (!alarm.isOn) {
             alarm.isOn = true;
             notifyItemChanged(position);
+            startService(new Intent(MainActivity, AlarmBroadcastService.class)); // TODO context, intent 
+            Log.i(TAG, "Started service.");
         } else {
             alarm.isOn = false;
             notifyItemChanged(position);
