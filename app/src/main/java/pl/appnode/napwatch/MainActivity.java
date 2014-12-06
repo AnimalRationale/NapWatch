@@ -8,8 +8,6 @@ package pl.appnode.napwatch;
         import android.view.MenuItem;
         import android.support.v7.widget.LinearLayoutManager;
         import android.support.v7.widget.RecyclerView;
-        import android.view.View;
-        import android.widget.Toast;
         import java.util.ArrayList;
         import java.util.List;
 
