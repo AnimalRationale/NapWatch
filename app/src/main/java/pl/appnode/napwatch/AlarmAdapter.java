@@ -115,7 +115,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             notifyItemChanged(position);
             Intent intent = new Intent(mContext, AlarmBroadcastService.class);
             startService(intent);
-            // TODO context, intent
+            // TODO startService
             Log.i(TAG, "Started service.");
         } else {
             alarm.isOn = false;
