@@ -1,7 +1,6 @@
 package pl.appnode.napwatch;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -22,10 +21,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     protected List<AlarmInfo> alarmList;
 
-    protected AlarmAdapter(List<AlarmInfo> alarmList) {
+    public Context mContext;
+
+    public AlarmAdapter(List<AlarmInfo> alarmList, Context context) {
         this.alarmList = alarmList;
+        mContext = context;
     }
-    final Activity activity = parent.AlarmAdapter.this;
 
     @Override
     public int getItemCount() {
@@ -112,7 +113,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         if (!alarm.isOn) {
             alarm.isOn = true;
             notifyItemChanged(position);
-            startService(new Intent(this, AlarmBroadcastService.class)); // TODO context, intent
+            Intent intent = new Intent(mContext, AlarmBroadcastService.class);
+            startService(intent);
+            // TODO context, intent
             Log.i(TAG, "Started service.");
         } else {
             alarm.isOn = false;

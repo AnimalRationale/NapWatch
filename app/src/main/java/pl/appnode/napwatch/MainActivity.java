@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
         Log.i(TAG, "Before Setting Adapter.");
-        aa = new AlarmAdapter(createList());
+        aa = new AlarmAdapter(createList(), MainActivity.this);
         recList.setAdapter(aa);
         Log.i(TAG, "After Setting Adapter.");
     }
