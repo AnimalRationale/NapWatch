@@ -10,8 +10,8 @@ public class AlarmBroadcastService extends Service {
 
     private final static String TAG = "::AlarmBroadcastService";
 
-    public static final String COUNTDOWN_BCAST = "pl.appnode.napwatch";
-    Intent mBI = new Intent(COUNTDOWN_BCAST);
+    public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
+    Intent mBI = new Intent(COUNTDOWN_BROADCAST);
 
     CountDownTimer mCDT = null;
 
@@ -21,7 +21,7 @@ public class AlarmBroadcastService extends Service {
 
         Log.i(TAG, "Starting timer.");
 
-        mCDT = new CountDownTimer(30000, 1000) {
+        mCDT = new CountDownTimer(30000, 5000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
