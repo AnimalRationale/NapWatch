@@ -21,7 +21,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     protected List<AlarmInfo> alarmList;
 
-    public Context mContext;
+    private Context mContext;
 
     public AlarmAdapter(List<AlarmInfo> alarmList, Context context) {
         this.alarmList = alarmList;
@@ -114,7 +114,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarm.isOn = true;
             notifyItemChanged(position);
             Intent intent = new Intent(mContext, AlarmBroadcastService.class);
-            startService(intent);
+            mContext.startService(intent);
             // TODO startService
             Log.i(TAG, "Started service.");
         } else {
