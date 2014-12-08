@@ -11,9 +11,9 @@ public class AlarmBroadcastService extends Service {
     private final static String TAG = "::AlarmBroadcastService";
 
     public static final String COUNTDOWN_BCAST = "pl.appnode.napwatch";
-    Intent bi = new Intent(COUNTDOWN_BCAST);
+    Intent mBI = new Intent(COUNTDOWN_BCAST);
 
-    CountDownTimer cdt = null;
+    CountDownTimer mCDT = null;
 
     @Override
     public void onCreate() {
@@ -21,13 +21,13 @@ public class AlarmBroadcastService extends Service {
 
         Log.i(TAG, "Starting timer.");
 
-        cdt = new CountDownTimer(30000, 1000) {
+        mCDT = new CountDownTimer(30000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
                 Log.i(TAG, "Countdown seconds remaining: " + millisUntilFinished / 1000);
-                bi.putExtra("countdown", millisUntilFinished);
-                sendBroadcast(bi);
+                mBI.putExtra("countdown", millisUntilFinished);
+                sendBroadcast(mBI);
             }
 
             @Override
@@ -36,13 +36,13 @@ public class AlarmBroadcastService extends Service {
             }
         };
 
-        cdt.start();
+        mCDT.start();
     }
 
     @Override
     public void onDestroy() {
 
-        cdt.cancel();
+        mCDT.cancel();
         Log.i(TAG, "CountDownTimer cancelled.");
         super.onDestroy();
     }

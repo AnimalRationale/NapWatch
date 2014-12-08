@@ -1,9 +1,9 @@
 package pl.appnode.napwatch;
 
 public class AlarmInfo {
-    protected String name;
-    protected int duration;
-    protected boolean isOn;
+    protected String mName;
+    protected int mDuration;
+    protected boolean mIsOn;
 
 
     protected static final String NAME_PREFIX = "Alarm ";

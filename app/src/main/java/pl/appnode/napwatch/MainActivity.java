@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
 
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     private static final String TAG = "MainActivity";
-    protected AlarmAdapter aa;
+    protected AlarmAdapter mAA;
 
 
     @Override
@@ -30,8 +30,8 @@ public class MainActivity extends Activity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
         Log.i(TAG, "Before Setting Adapter.");
-        aa = new AlarmAdapter(createList(), MainActivity.this);
-        recList.setAdapter(aa);
+        mAA = new AlarmAdapter(createList(), MainActivity.this);
+        recList.setAdapter(mAA);
         Log.i(TAG, "After Setting Adapter.");
     }
 
@@ -63,11 +63,11 @@ public class MainActivity extends Activity {
 
         for (int i = 0; i <= 3; i++) {
             String alarmPrefix = "Alarm_" + (i + 1);
-            AlarmInfo alarm = aa.alarmList.get(i);
-            editor.putString(alarmPrefix, alarm.name);
-            editor.putInt(alarmPrefix + "_Duration", alarm.duration);
-            editor.putBoolean(alarmPrefix + "_State", alarm.isOn);
-            Log.i(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.duration + ": " + alarm.isOn);
+            AlarmInfo alarm = mAA.mAlarmList.get(i);
+            editor.putString(alarmPrefix, alarm.mName);
+            editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
+            editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
+            Log.i(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": " + alarm.mIsOn);
         }
 
         editor.commit();
@@ -83,9 +83,9 @@ public class MainActivity extends Activity {
         for (int i = 1; i <= 4; i++) {
             AlarmInfo ai = new AlarmInfo();
             alarmPrefix = "Alarm_" + i;
-            ai.name = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
-            ai.duration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
-            ai.isOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
+            ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
+            ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
+            ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             Log.i(TAG, "before Result add #" + i);
             result.add(ai);
             Log.i(TAG, "Result add #" + i);

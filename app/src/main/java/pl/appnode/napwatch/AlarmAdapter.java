@@ -19,26 +19,26 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     private static final String TAG = "AlarmAdapter";
 
-    protected List<AlarmInfo> alarmList;
+    protected List<AlarmInfo> mAlarmList;
 
     private Context mContext;
 
     public AlarmAdapter(List<AlarmInfo> alarmList, Context context) {
-        this.alarmList = alarmList;
+        this.mAlarmList = alarmList;
         mContext = context;
     }
 
     @Override
     public int getItemCount() {
-        return alarmList.size();
+        return mAlarmList.size();
     }
 
     @Override
     public void onBindViewHolder(AlarmViewHolder alarmViewHolder, int position) {
-        final AlarmInfo ai = alarmList.get(position);
-        alarmViewHolder.vTitle.setText(ai.name);
-        alarmViewHolder.vDuration.setText(ai.duration + "");
-        if (!ai.isOn) {
+        final AlarmInfo ai = mAlarmList.get(position);
+        alarmViewHolder.vTitle.setText(ai.mName);
+        alarmViewHolder.vDuration.setText(ai.mDuration + "");
+        if (!ai.mIsOn) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
         } else {
@@ -46,7 +46,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
         }
         alarmViewHolder.vMinutesBar.setMax(100);
-        alarmViewHolder.vMinutesBar.setProgress(ai.duration);
+        alarmViewHolder.vMinutesBar.setProgress(ai.mDuration);
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,32 +101,32 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     public void editAlarm(AlarmInfo item) {
-        int position = alarmList.indexOf(item);
-        AlarmInfo ai = alarmList.get(position);
-        ai.name = "Changed";
+        int position = mAlarmList.indexOf(item);
+        AlarmInfo ai = mAlarmList.get(position);
+        ai.mName = "Changed";
         notifyItemChanged(position);
     }
 
     public void startAlarm(AlarmInfo item) {
-        int position = alarmList.indexOf(item); // TODO
-        AlarmInfo alarm = alarmList.get(position);
-        if (!alarm.isOn) {
-            alarm.isOn = true;
+        int position = mAlarmList.indexOf(item); // TODO
+        AlarmInfo alarm = mAlarmList.get(position);
+        if (!alarm.mIsOn) {
+            alarm.mIsOn = true;
             notifyItemChanged(position);
             Intent intent = new Intent(mContext, AlarmBroadcastService.class);
             mContext.startService(intent);
             // TODO startService
             Log.i(TAG, "Started service.");
         } else {
-            alarm.isOn = false;
+            alarm.mIsOn = false;
             notifyItemChanged(position);
         }
     }
 
     public void setDuration(AlarmInfo item, int duration) {
-        int position = alarmList.indexOf(item);
-        AlarmInfo alarm = alarmList.get(position);
-        alarm.duration = duration;
+        int position = mAlarmList.indexOf(item);
+        AlarmInfo alarm = mAlarmList.get(position);
+        alarm.mDuration = duration;
         notifyItemChanged(position);
     }
 }
