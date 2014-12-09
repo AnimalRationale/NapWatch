@@ -113,8 +113,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         if (!alarm.mIsOn) {
             alarm.mIsOn = true;
             notifyItemChanged(position);
-            Intent intent = new Intent(mContext, AlarmBroadcastService.class);
-            mContext.startService(intent);
+            Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
+            serviceIntent.putExtra("AlarmId", "Alarm"+ position);
+            serviceIntent.putExtra("AlarmName", alarm.mName);
+            serviceIntent.putExtra("AlarmDuration", alarm.mDuration);
+            mContext.startService(serviceIntent);
             // TODO: startService with proper values
             Log.d(TAG, "Started service.");
         } else {

@@ -17,7 +17,8 @@
         </activity>
         <service
             android:name=".AlarmBroadcastService"
-            android:icon="@drawable/ic_alarm_add_grey600_48dp" />
+            android:icon="@drawable/ic_alarm_add_grey600_48dp"
+            android:exported="false" />
     </application>
 
 </manifest>
