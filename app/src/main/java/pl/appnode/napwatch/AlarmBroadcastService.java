@@ -2,6 +2,7 @@ package pl.appnode.napwatch;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
@@ -12,6 +13,7 @@ public class AlarmBroadcastService extends Service {
 
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     Intent mBI = new Intent(COUNTDOWN_BROADCAST);
+    int mStartMode;       // indicates how to behave if the service is killed
 
     CountDownTimer mCDT = null;
 
@@ -19,8 +21,13 @@ public class AlarmBroadcastService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Log.d(TAG, "Starting timer.");
 
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "Starting timer.");
+        extras = intent.getExtras();
         mCDT = new CountDownTimer(30000, 5000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -35,8 +42,9 @@ public class AlarmBroadcastService extends Service {
                 Log.d(TAG, "Timer finished.");
             }
         };
-
         mCDT.start();
+
+        return mStartMode;
     }
 
     @Override
