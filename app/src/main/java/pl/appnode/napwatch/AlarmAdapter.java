@@ -108,15 +108,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     public void startAlarm(AlarmInfo item) {
-        int position = mAlarmList.indexOf(item); // TODO
+        int position = mAlarmList.indexOf(item);
         AlarmInfo alarm = mAlarmList.get(position);
         if (!alarm.mIsOn) {
             alarm.mIsOn = true;
             notifyItemChanged(position);
             Intent intent = new Intent(mContext, AlarmBroadcastService.class);
             mContext.startService(intent);
-            // TODO startService
-            Log.i(TAG, "Started service.");
+            // TODO: startService with proper values
+            Log.d(TAG, "Started service.");
         } else {
             alarm.mIsOn = false;
             notifyItemChanged(position);

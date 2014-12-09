@@ -29,10 +29,10 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        Log.i(TAG, "Before Setting Adapter.");
+        Log.d(TAG, "Before Setting Adapter.");
         mAA = new AlarmAdapter(createList(), MainActivity.this);
         recList.setAdapter(mAA);
-        Log.i(TAG, "After Setting Adapter.");
+        Log.d(TAG, "After Setting Adapter.");
     }
 
     @Override
@@ -67,15 +67,15 @@ public class MainActivity extends Activity {
             editor.putString(alarmPrefix, alarm.mName);
             editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
-            Log.i(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": " + alarm.mIsOn);
+            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": " + alarm.mIsOn);
         }
 
         editor.commit();
-        Log.i(TAG, "COMMITED SharedPrefs.");
+        Log.d(TAG, "COMMITED SharedPrefs.");
     }
 
     private List<AlarmInfo> createList() {
-        Log.i(TAG, "Create list.");
+        Log.d(TAG, "Create list.");
 
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
@@ -86,11 +86,11 @@ public class MainActivity extends Activity {
             ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
-            Log.i(TAG, "before Result add #" + i);
+            Log.d(TAG, "before Result add #" + i);
             result.add(ai);
-            Log.i(TAG, "Result add #" + i);
+            Log.d(TAG, "Result add #" + i);
         }
-        Log.i(TAG, "RETURN!");
+        Log.d(TAG, "RETURN!");
         return result;
     }
 }

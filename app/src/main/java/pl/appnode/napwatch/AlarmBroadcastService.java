@@ -19,20 +19,20 @@ public class AlarmBroadcastService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Log.i(TAG, "Starting timer.");
+        Log.d(TAG, "Starting timer.");
 
         mCDT = new CountDownTimer(30000, 5000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                Log.i(TAG, "Countdown seconds remaining: " + millisUntilFinished / 1000);
+                Log.d(TAG, "Countdown seconds remaining: " + millisUntilFinished / 1000);
                 mBI.putExtra("countdown", millisUntilFinished);
                 sendBroadcast(mBI);
             }
 
             @Override
             public void onFinish() {
-                Log.i(TAG, "Timer finished.");
+                Log.d(TAG, "Timer finished.");
             }
         };
 
@@ -43,7 +43,7 @@ public class AlarmBroadcastService extends Service {
     public void onDestroy() {
 
         mCDT.cancel();
-        Log.i(TAG, "CountDownTimer cancelled.");
+        Log.d(TAG, "CountDownTimer cancelled.");
         super.onDestroy();
     }
 
