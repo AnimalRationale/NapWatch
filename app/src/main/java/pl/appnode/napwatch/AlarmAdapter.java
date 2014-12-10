@@ -1,7 +1,9 @@
 package pl.appnode.napwatch;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.List;
@@ -101,10 +104,32 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     public void editAlarm(AlarmInfo item) {
-        int position = mAlarmList.indexOf(item);
-        AlarmInfo ai = mAlarmList.get(position);
-        ai.mName = "Changed";
-        notifyItemChanged(position);
+
+        final int position = mAlarmList.indexOf(item);
+        final AlarmInfo ai = mAlarmList.get(position);
+
+        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        View promptView = layoutInflater.inflate(R.layout.name_edit_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+        alertDialogBuilder.setView(promptView);
+        final EditText input = (EditText) promptView.findViewById(R.id.alarmNameText);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // get user input and set it to result
+                        ai.mName = input.getText().toString();
+                        notifyItemChanged(position);
+                    }
+                })
+                .setNegativeButton(R.string.edit_cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,	int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertD = alertDialogBuilder.create();
+        alertD.show();
     }
 
     public void startAlarm(AlarmInfo item) {
