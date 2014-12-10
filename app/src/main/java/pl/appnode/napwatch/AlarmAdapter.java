@@ -63,7 +63,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             }
         });
         alarmViewHolder.vMinutesBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            //change to progress
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setDuration(ai, progress);
@@ -117,7 +116,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 .setCancelable(false)
                 .setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // get user input and set it to result
                         ai.mName = input.getText().toString();
                         notifyItemChanged(position);
                     }
@@ -143,7 +141,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             serviceIntent.putExtra("AlarmName", alarm.mName);
             serviceIntent.putExtra("AlarmDuration", alarm.mDuration);
             mContext.startService(serviceIntent);
-            // TODO: startService with proper values
             Log.d(TAG, "Started service.");
         } else {
             alarm.mIsOn = false;

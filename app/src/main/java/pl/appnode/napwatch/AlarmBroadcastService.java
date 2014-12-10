@@ -62,11 +62,6 @@ public class AlarmBroadcastService extends Service {
         super.onDestroy();
     }
 
-//    @Override
-//    public int onStartCommand(Intent intent, int flags, int startId) {
-//        return super.onStartCommand(intent, flags, startId);
-//    }
-
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
