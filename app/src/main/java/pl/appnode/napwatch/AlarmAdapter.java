@@ -146,15 +146,18 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             serviceIntent.putExtra("AlarmDuration", alarm.mDuration);
             mContext.startService(serviceIntent);
             Log.d(TAG, "Started service.");
-        } else {
-            alarm.mIsOn = false;
-            notifyItemChanged(position);
         }
     }
 
     public void stopAlarm(AlarmInfo item) {
-        Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
-        mContext.stopService(serviceIntent); //TODO: alarm recognition :)
+        int position = mAlarmList.indexOf(item);
+        AlarmInfo alarm = mAlarmList.get(position);
+        if (alarm.mIsOn) {
+            alarm.mIsOn = false;
+            notifyItemChanged(position);
+            Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
+            mContext.stopService(serviceIntent); //TODO: alarm recognition :)
+        }
     }
 
     public void setDuration(AlarmInfo item, int duration) {

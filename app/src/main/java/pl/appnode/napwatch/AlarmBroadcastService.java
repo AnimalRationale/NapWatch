@@ -35,7 +35,7 @@ public class AlarmBroadcastService extends Service {
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
 
         Log.d(TAG, "Starting timer for " + mAlarmId + " = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
-        mCDT = new CountDownTimer(mAlarmDuration * 1000, 10000) {
+        mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
