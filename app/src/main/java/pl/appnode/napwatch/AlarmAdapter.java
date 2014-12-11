@@ -59,7 +59,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startAlarm(ai);
+                if (!ai.mIsOn) {
+                    startAlarm(ai);
+                } else {
+                    stopAlarm(ai);
+                }
             }
         });
         alarmViewHolder.vMinutesBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -146,6 +150,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarm.mIsOn = false;
             notifyItemChanged(position);
         }
+    }
+
+    public void stopAlarm(AlarmInfo item) {
+        Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
+        mContext.stopService(serviceIntent); //TODO: alarm recognition :)
     }
 
     public void setDuration(AlarmInfo item, int duration) {
