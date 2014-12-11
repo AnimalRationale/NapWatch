@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
             editor.putString(alarmPrefix, alarm.mName);
             editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
-            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": " + alarm.mIsOn);
+            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ":: isOn: " + alarm.mIsOn);
         }
 
         editor.commit();

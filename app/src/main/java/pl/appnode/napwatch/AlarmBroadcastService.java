@@ -2,7 +2,9 @@ package pl.appnode.napwatch;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Bundle;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
@@ -17,6 +19,9 @@ public class AlarmBroadcastService extends Service {
     String mAlarmName;
     int mAlarmDuration;
 
+    Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+    Ringtone mRingtone;
+
     int mStartMode;       // indicates how to behave if the service is killed
 
     CountDownTimer mCDT = null;
@@ -29,6 +34,14 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        if(mAlert == null){
+            mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            if(mAlert == null) {
+                mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            }
+        }
+        mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
         mAlarmId = intent.getExtras().get("AlarmId").toString();
         mAlarmName = intent.getExtras().get("AlarmName").toString();
@@ -46,6 +59,7 @@ public class AlarmBroadcastService extends Service {
 
             @Override
             public void onFinish() {
+                mRingtone.play();
                 Log.d(TAG, "Timer finished.");
             }
         };
@@ -58,6 +72,7 @@ public class AlarmBroadcastService extends Service {
     public void onDestroy() {
 
         mCDT.cancel();
+        mRingtone.stop();
         Log.d(TAG, "CountDownTimer cancelled.");
         super.onDestroy();
     }
