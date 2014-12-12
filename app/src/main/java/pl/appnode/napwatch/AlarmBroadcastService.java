@@ -15,7 +15,7 @@ public class AlarmBroadcastService extends Service {
 
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     Intent mBI = new Intent(COUNTDOWN_BROADCAST);
-    String mAlarmId;
+    int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
 
@@ -43,7 +43,7 @@ public class AlarmBroadcastService extends Service {
         }
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
-        mAlarmId = intent.getExtras().get("AlarmId").toString();
+        mAlarmId = (Integer) intent.getExtras().get("AlarmId");
         mAlarmName = intent.getExtras().get("AlarmName").toString();
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
 
