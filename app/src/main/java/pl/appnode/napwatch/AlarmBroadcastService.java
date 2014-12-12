@@ -48,6 +48,12 @@ public class AlarmBroadcastService extends Service {
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
 
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
+
+        new Thread(new Runnable() {
+            public void run() {
+
+
+
         mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -60,11 +66,14 @@ public class AlarmBroadcastService extends Service {
             @Override
             public void onFinish() {
                 mRingtone.play();
-                Log.d(TAG, "Timer finished.");
+                Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
             }
         };
         mCDT.start();
 
+
+            }
+        }).start();
         return mStartMode;
     }
 
