@@ -4,6 +4,7 @@ package pl.appnode.napwatch;
         import android.content.BroadcastReceiver;
         import android.content.Context;
         import android.content.Intent;
+        import android.content.IntentFilter;
         import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.util.Log;
@@ -43,6 +44,13 @@ public class MainActivity extends Activity {
         mAA = new AlarmAdapter(createList(), MainActivity.this);
         recList.setAdapter(mAA);
         Log.d(TAG, "After Setting Adapter.");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(mCountDownBroadcast, new IntentFilter(AlarmBroadcastService.COUNTDOWN_BROADCAST));
+        Log.i(TAG, "OnResume registered broadcast receiver.");
     }
 
     @Override
@@ -107,7 +115,7 @@ public class MainActivity extends Activity {
     private void updateTime(Intent intent) {
         if (intent.getExtras() != null) {
             long timeToFinish = intent.getLongExtra("countdown", 0);
-            Log.d(TAG, "Countdown seconds remaining: " +  timeToFinish);
+            Log.d(TAG, "Countdown time remaining: " +  timeToFinish);
         }
     }
 }
