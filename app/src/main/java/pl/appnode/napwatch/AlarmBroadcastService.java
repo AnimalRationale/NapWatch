@@ -46,13 +46,12 @@ public class AlarmBroadcastService extends Service {
         mAlarmId = (Integer) intent.getExtras().get("AlarmId");
         mAlarmName = intent.getExtras().get("AlarmName").toString();
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
-
+        MainActivity.isService = true;
+        Log.d(TAG, "Setting isService TRUE.");
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
 
-        new Thread(new Runnable() {
-            public void run() {
-
-
+//        new Thread(new Runnable() {
+//            public void run() {
 
         mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
             @Override
@@ -71,9 +70,9 @@ public class AlarmBroadcastService extends Service {
         };
         mCDT.start();
 
+//            }
+//        }).start();
 
-            }
-        }).start();
         return mStartMode;
     }
 
@@ -83,6 +82,8 @@ public class AlarmBroadcastService extends Service {
         mCDT.cancel();
         mRingtone.stop();
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
+        Log.d(TAG, "Setting isService FALSE.");
+        MainActivity.isService = false;
         super.onDestroy();
     }
 
