@@ -1,6 +1,9 @@
 package pl.appnode.napwatch;
 
         import android.app.Activity;
+        import android.content.BroadcastReceiver;
+        import android.content.Context;
+        import android.content.Intent;
         import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.util.Log;
@@ -19,6 +22,12 @@ public class MainActivity extends Activity {
     protected AlarmAdapter mAA;
     public static boolean isService = false;
 
+    private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateTime(intent); // or whatever method used to update your GUI fields
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,5 +102,12 @@ public class MainActivity extends Activity {
         }
         Log.d(TAG, "RETURN!");
         return result;
+    }
+
+    private void updateTime(Intent intent) {
+        if (intent.getExtras() != null) {
+            long timeToFinish = intent.getLongExtra("countdown", 0);
+            Log.d(TAG, "Countdown seconds remaining: " +  timeToFinish);
+        }
     }
 }
