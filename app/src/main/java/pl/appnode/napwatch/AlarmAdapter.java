@@ -17,7 +17,6 @@ import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
 
-
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
     private static final String TAG = "AlarmAdapter";

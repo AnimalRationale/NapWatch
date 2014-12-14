@@ -58,7 +58,7 @@ public class AlarmBroadcastService extends Service {
             public void onTick(long millisUntilFinished) {
 
                 Log.d(TAG, "Countdown seconds remaining: " + millisUntilFinished / 1000);
-                mBI.putExtra("countdown", millisUntilFinished);
+                mBI.putExtra("countdown", millisUntilFinished / 1000);
                 sendBroadcast(mBI);
             }
 
