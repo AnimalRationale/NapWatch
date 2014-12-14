@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
     private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            updateTime(intent); // or whatever method used to update your GUI fields
+            updateTime(intent);
         }
     };
 
@@ -115,7 +115,9 @@ public class MainActivity extends Activity {
     private void updateTime(Intent intent) {
         if (intent.getExtras() != null) {
             long timeToFinish = intent.getLongExtra("countdown", 0);
+            int position = intent.getIntExtra("AlarmID", 0);
             Log.d(TAG, "Countdown time remaining: " +  timeToFinish);
+            AlarmInfo alarm = mAA.mAlarmList.get(position);
         }
     }
 }

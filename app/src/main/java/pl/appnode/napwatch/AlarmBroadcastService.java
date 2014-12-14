@@ -50,14 +50,12 @@ public class AlarmBroadcastService extends Service {
         Log.d(TAG, "Setting isService TRUE.");
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
 
-//        new Thread(new Runnable() {
-//            public void run() {
-
         mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
                 Log.d(TAG, "Countdown seconds remaining: " + millisUntilFinished / 1000);
+                mBI.putExtra("AlarmID", mAlarmId);
                 mBI.putExtra("countdown", millisUntilFinished / 1000);
                 sendBroadcast(mBI);
             }
@@ -69,10 +67,6 @@ public class AlarmBroadcastService extends Service {
             }
         };
         mCDT.start();
-
-//            }
-//        }).start();
-
         return mStartMode;
     }
 
