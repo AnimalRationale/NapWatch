@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.util.Log;
 
-public class AlarmCountdownTimer extends CountDownTimer {
+public class AlarmCountDownTimer extends CountDownTimer {
 
     private final static String TAG = "::Service.AlarmCountdownTimer";
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
@@ -15,9 +15,13 @@ public class AlarmCountdownTimer extends CountDownTimer {
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
-    
+
     Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone mRingtone;
+
+    public CountDownTimer (long millisInFuture, long countDownInterval) {
+        super();
+    }
 
     @Override
     public void onTick(long millisUntilFinished) {
