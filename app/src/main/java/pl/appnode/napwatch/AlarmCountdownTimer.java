@@ -1,5 +1,6 @@
 package pl.appnode.napwatch;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -15,12 +16,14 @@ public class AlarmCountDownTimer extends CountDownTimer {
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
+    Context mContext;
 
     Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone mRingtone;
 
-    public CountDownTimer (long millisInFuture, long countDownInterval) {
-        super();
+    public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, Context context) {
+        super(millisInFuture, countDownInterval);
+        mContext = context;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         Log.d(TAG, "Countdown seconds remaining: " + millisUntilFinished / 1000);
         mBI.putExtra("AlarmID", mAlarmId);
         mBI.putExtra("countdown", millisUntilFinished / 1000);
-        sendBroadcast(mBI);
+        mContext.sendBroadcast(mBI);
     }
 
     @Override
