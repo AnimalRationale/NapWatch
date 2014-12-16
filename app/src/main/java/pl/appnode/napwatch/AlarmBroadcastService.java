@@ -50,7 +50,7 @@ public class AlarmBroadcastService extends Service {
         Log.d(TAG, "Setting isService TRUE.");
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
 
-        mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
+        mCDT = new AlarmCountDownTimer(mAlarmDuration * 1000, 1000, 0, this) {
             @Override
             public void onTick(long millisUntilFinished) {
 
