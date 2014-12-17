@@ -24,7 +24,9 @@ public class AlarmBroadcastService extends Service {
 
     int mStartMode;       // indicates how to behave if the service is killed
 
-    CountDownTimer mCDT = null;
+    AlarmCountDownTimer mCDT = null;
+
+    AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
     @Override
     public void onCreate() {
