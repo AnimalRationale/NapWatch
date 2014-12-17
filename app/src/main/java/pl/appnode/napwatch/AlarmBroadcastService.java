@@ -1,5 +1,7 @@
 package pl.appnode.napwatch;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.media.Ringtone;
@@ -43,6 +45,18 @@ public class AlarmBroadcastService extends Service {
                 mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }
         }
+
+        NotificationManager mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+
+        Notification mNotify = new Notification.Builder(this)
+                .setContentTitle("Alarm started!")
+                .setContentText("Have a good nap :)")
+                .setSmallIcon(R.drawable.ic_launcher)
+                .build();
+
+        mNM.notify(1, mNotify);
+
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
         mAlarmId = (Integer) intent.getExtras().get("AlarmId");
