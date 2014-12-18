@@ -46,6 +46,7 @@ public class AlarmBroadcastService extends Service {
                 mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }
         }
+
         Intent resultIntent = new Intent(this, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(MainActivity.class);
@@ -96,7 +97,7 @@ public class AlarmBroadcastService extends Service {
     public void onDestroy() {
 
         mCDT.cancel();
-        mRingtone.stop();
+        if (mRingtone != null) mRingtone.stop();
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting isService FALSE.");
         MainActivity.isService = false;
