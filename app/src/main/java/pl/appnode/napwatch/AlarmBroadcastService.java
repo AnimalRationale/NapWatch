@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -27,7 +28,7 @@ public class AlarmBroadcastService extends Service {
 
     int mStartMode;       // indicates how to behave if the service is killed
 
-    AlarmCountDownTimer mCDT = null;
+    CountDownTimer mCDT = null;
 
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
@@ -73,7 +74,7 @@ public class AlarmBroadcastService extends Service {
         Log.d(TAG, "Setting isService TRUE.");
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
 
-        mCDT = new AlarmCountDownTimer(mAlarmDuration * 1000, 1000, 0, this) {
+        mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -97,7 +98,7 @@ public class AlarmBroadcastService extends Service {
     public void onDestroy() {
 
         mCDT.cancel();
-        if (mRingtone != null) mRingtone.stop();
+        mRingtone.stop();
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting isService FALSE.");
         MainActivity.isService = false;
