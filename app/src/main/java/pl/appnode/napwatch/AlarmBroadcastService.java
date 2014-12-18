@@ -1,14 +1,15 @@
 package pl.appnode.napwatch;
 
-import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 public class AlarmBroadcastService extends Service {
@@ -45,17 +46,22 @@ public class AlarmBroadcastService extends Service {
                 mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }
         }
-
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
         NotificationManager mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-
-
-        Notification mNotify = new Notification.Builder(this)
+        NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
                 .setContentTitle("Alarm started!")
                 .setContentText("Have a good nap :)")
-                .setSmallIcon(R.drawable.ic_launcher)
-                .build();
-
-        mNM.notify(1, mNotify);
+                .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
+                .setContentIntent(resultPendingIntent);
+        mNM.notify(1, mNotify.build());
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
