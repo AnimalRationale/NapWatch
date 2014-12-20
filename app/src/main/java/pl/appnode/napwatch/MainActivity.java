@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
     public void onResume() {
         super.onResume();
         registerReceiver(mCountDownBroadcast, new IntentFilter(AlarmBroadcastService.COUNTDOWN_BROADCAST));
-        Log.i(TAG, "OnResume registered broadcast receiver.");
+        Log.d(TAG, "OnResume registered broadcast receiver.");
     }
 
     @Override
@@ -90,6 +90,18 @@ public class MainActivity extends Activity {
 
         editor.commit();
         Log.d(TAG, "COMMITED SharedPrefs.");
+        unregisterReceiver(mCountDownBroadcast);
+        Log.d(TAG, "OnPause unregistered broadcast receiver.");
+    }
+
+    @Override
+    public void onStop() {
+        try {
+            unregisterReceiver(mCountDownBroadcast);
+        } catch (Exception e) {
+            // Receiver was probably stopped in onPause()
+        }
+        super.onStop();
     }
 
     private List<AlarmInfo> createList() {
