@@ -59,7 +59,7 @@ public class AlarmBroadcastService extends Service {
                 );
         NotificationManager mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
-                .setContentTitle("Alarm started!")
+                .setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) started!")
                 .setContentText("Have a good nap :)")
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent);

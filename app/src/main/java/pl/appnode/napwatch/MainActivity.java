@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
         try {
             unregisterReceiver(mCountDownBroadcast);
         } catch (Exception e) {
-            // Receiver was probably stopped in onPause()
+            // Receiver should be stopped in onPause()
         }
         super.onStop();
     }
