@@ -41,6 +41,10 @@ public class AlarmBroadcastService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        mAlarmId = (Integer) intent.getExtras().get("AlarmId");
+        mAlarmName = intent.getExtras().get("AlarmName").toString();
+        mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
+
         if(mAlert == null){
             mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             if(mAlert == null) {
@@ -67,9 +71,6 @@ public class AlarmBroadcastService extends Service {
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
-        mAlarmId = (Integer) intent.getExtras().get("AlarmId");
-        mAlarmName = intent.getExtras().get("AlarmName").toString();
-        mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
         MainActivity.isService = true;
         Log.d(TAG, "Setting isService TRUE.");
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
