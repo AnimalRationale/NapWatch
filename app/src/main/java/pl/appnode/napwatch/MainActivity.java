@@ -33,18 +33,16 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!isService) {
-            setContentView(R.layout.activity_main);
-            RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
-            recList.setHasFixedSize(true);
-            LinearLayoutManager llm = new LinearLayoutManager(this);
-            llm.setOrientation(LinearLayoutManager.VERTICAL);
-            recList.setLayoutManager(llm);
-            Log.d(TAG, "Before Setting Adapter.");
-            mAA = new AlarmAdapter(createList(), MainActivity.this);
-            recList.setAdapter(mAA);
-            Log.d(TAG, "After Setting Adapter.");
-        }
+        setContentView(R.layout.activity_main);
+        RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
+        recList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recList.setLayoutManager(llm);
+        Log.d(TAG, "Before Setting Adapter.");
+        mAA = new AlarmAdapter(createList(), MainActivity.this);
+        recList.setAdapter(mAA);
+        Log.d(TAG, "After Setting Adapter.");
     }
 
     @Override
