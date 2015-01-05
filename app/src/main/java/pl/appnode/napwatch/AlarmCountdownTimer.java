@@ -23,6 +23,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, Context context) {
         super(millisInFuture, countDownInterval);
+        int mAlarmId = alarmId;
         mContext = context;
     }
 
