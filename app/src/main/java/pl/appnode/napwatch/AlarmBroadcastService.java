@@ -44,7 +44,7 @@ public class AlarmBroadcastService extends Service {
 
         if (isService) {
             Log.d(TAG, "Already running! Ignoring...");
-            return START_NOT_STICKY;
+            return mStartMode;
         }
         Log.d(TAG,"Starting service.");
 
