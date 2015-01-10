@@ -29,6 +29,7 @@ public class AlarmBroadcastService extends Service {
     int mStartMode;       // indicates how to behave if the service is killed
 
     CountDownTimer mCDT = null;
+    private boolean isService;
 
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
@@ -40,6 +41,12 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        if (isService) {
+            Log.d(TAG, "Already running! Ignoring...");
+            return START_NOT_STICKY;
+        }
+        Log.d(TAG,"Starting service.");
 
         mAlarmId = (Integer) intent.getExtras().get("AlarmId");
         mAlarmName = intent.getExtras().get("AlarmName").toString();
@@ -71,7 +78,7 @@ public class AlarmBroadcastService extends Service {
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
-        MainActivity.isService = true;
+        isService = true;
         Log.d(TAG, "Setting isService TRUE.");
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
 
@@ -102,7 +109,7 @@ public class AlarmBroadcastService extends Service {
         mRingtone.stop();
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting isService FALSE.");
-        MainActivity.isService = false;
+        isService = false;
         super.onDestroy();
     }
 
