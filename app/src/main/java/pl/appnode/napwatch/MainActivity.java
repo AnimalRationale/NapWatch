@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     private static final String TAG = "MainActivity";
     protected AlarmAdapter mAA;
+    public static boolean isService;
 
     private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
         @Override
