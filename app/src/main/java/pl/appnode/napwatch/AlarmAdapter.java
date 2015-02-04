@@ -166,7 +166,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     public void updateTime (int position) {
         AlarmInfo alarm = mAlarmList.get(position);
         if (alarm.mIsOn) {
-            
+
         }
     }
 

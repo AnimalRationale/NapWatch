@@ -69,12 +69,13 @@ public class AlarmBroadcastService extends Service {
                 );
 
         NotificationManager mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        int notifyID = mAlarmId;
         NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
                 .setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) started!")
                 .setContentText("Have a good nap :)")
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent);
-        mNM.notify(1, mNotify.build());
+        mNM.notify(notifyID, mNotify.build());
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
@@ -104,7 +105,6 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public void onDestroy() {
-
         mCDT.cancel();
         mRingtone.stop();
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
