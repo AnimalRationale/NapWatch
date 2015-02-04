@@ -19,6 +19,7 @@ public class AlarmBroadcastService extends Service {
 
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     Intent mBI = new Intent(COUNTDOWN_BROADCAST);
+
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
@@ -67,10 +68,9 @@ public class AlarmBroadcastService extends Service {
                         0,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
-
-        NotificationManager mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        int notifyID = mAlarmId;
-        NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
+        final NotificationManager mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        final int notifyID = mAlarmId;
+        final NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
                 .setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) started!")
                 .setContentText("Have a good nap :)")
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
@@ -96,6 +96,9 @@ public class AlarmBroadcastService extends Service {
             @Override
             public void onFinish() {
                 mRingtone.play();
+                mNotify.setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) finished!")
+                        .setContentText("Have a good day :)");
+                mNM.notify(notifyID, mNotify.build());
                 Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
             }
         };
