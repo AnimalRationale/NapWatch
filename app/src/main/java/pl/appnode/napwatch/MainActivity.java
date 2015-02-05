@@ -95,6 +95,11 @@ public class MainActivity extends Activity {
 
     @Override
     public void onStop() {
+        if (isService) {
+            Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
+            stopService(serviceIntent);
+            Log.d(TAG, "OnStop stopping service.");
+        };
         try {
             unregisterReceiver(mCountDownBroadcast);
         } catch (Exception e) {
