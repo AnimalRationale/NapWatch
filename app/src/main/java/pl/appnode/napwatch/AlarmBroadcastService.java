@@ -3,6 +3,7 @@ package pl.appnode.napwatch;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -19,7 +20,7 @@ public class AlarmBroadcastService extends Service {
 
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     Intent mBI = new Intent(COUNTDOWN_BROADCAST);
-
+    int notifyID = 0;
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
@@ -68,8 +69,8 @@ public class AlarmBroadcastService extends Service {
                         0,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
-        final NotificationManager mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        final int notifyID = mAlarmId;
+        notifyID = mAlarmId;
+        final NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
                 .setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) started!")
                 .setContentText("Have a good nap :)")
@@ -96,7 +97,7 @@ public class AlarmBroadcastService extends Service {
             @Override
             public void onFinish() {
                 mRingtone.play();
-                mNotify.setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) finished!")
+                mNotify.setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration + " minutes) finished!")
                         .setContentText("Have a good day :)");
                 mNM.notify(notifyID, mNotify.build());
                 Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
@@ -108,6 +109,8 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public void onDestroy() {
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(notifyID);
         mCDT.cancel();
         mRingtone.stop();
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
