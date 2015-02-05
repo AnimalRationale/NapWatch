@@ -62,6 +62,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Alarm TAPPED.");
                 if (!ai.mIsOn) {
                     startAlarm(ai);
                 } else {
@@ -141,7 +142,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         int position = mAlarmList.indexOf(item);
         AlarmInfo alarm = mAlarmList.get(position);
         if (!alarm.mIsOn && !MainActivity.isService) {
-            alarm.mIsOn = true;
             notifyItemChanged(position);
             Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
             serviceIntent.putExtra("AlarmId", position);
@@ -149,6 +149,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             serviceIntent.putExtra("AlarmDuration", alarm.mDuration);
             mContext.startService(serviceIntent);
             Log.d(TAG, "Service started.");
+            alarm.mIsOn = true;
+            Log.d(TAG, "Alarm ON.");
         }
     }
 
@@ -156,10 +158,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         int position = mAlarmList.indexOf(item);
         AlarmInfo alarm = mAlarmList.get(position);
         if (alarm.mIsOn) {
-            alarm.mIsOn = false;
             notifyItemChanged(position);
             Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
             mContext.stopService(serviceIntent); //TODO: alarm recognition :)
+            alarm.mIsOn = false;
+            Log.d(TAG, "Alarm OFF.");
         }
     }
 
