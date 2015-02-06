@@ -72,10 +72,10 @@ public class AlarmBroadcastService extends Service {
         notifyID = mAlarmId;
         final NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
-                .setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) started!")
-                .setContentText("Have a good nap :)")
+                .setContentTitle(mAlarmDuration + " minutes left")
+                .setContentText("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) started!")
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
-                .setContentIntent(resultPendingIntent);
+                .setContentIntent(resultPendingIntent); // TODO: use resources you dumb coder :) !
         mNM.notify(notifyID, mNotify.build());
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
@@ -92,6 +92,8 @@ public class AlarmBroadcastService extends Service {
                 mBI.putExtra("AlarmID", mAlarmId);
                 mBI.putExtra("countdown", millisUntilFinished / 1000);
                 sendBroadcast(mBI);
+                mNotify.setContentTitle(millisUntilFinished / 1000 + " minutes left");
+                mNM.notify(notifyID, mNotify.build());
             }
 
             @Override
