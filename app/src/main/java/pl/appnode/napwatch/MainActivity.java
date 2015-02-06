@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
         if (isService) {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
             stopService(serviceIntent);
-            Log.d(TAG, "OnStop stopping service.");
+            Log.d(TAG, "OnDestroy stopping service.");
         };
         super.onDestroy();
     }
