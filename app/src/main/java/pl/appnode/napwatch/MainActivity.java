@@ -134,6 +134,8 @@ public class MainActivity extends Activity {
             int position = intent.getIntExtra("AlarmID", 0);
             Log.d(TAG, "Countdown time remaining: " +  timeToFinish);
             AlarmInfo alarm = mAA.mAlarmList.get(position);
+            alarm.mDuration = (int) timeToFinish;
+            mAA.notifyItemChanged(position);
         }
     }
 }
