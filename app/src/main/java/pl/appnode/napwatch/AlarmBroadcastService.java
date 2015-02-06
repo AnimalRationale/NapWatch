@@ -101,6 +101,11 @@ public class AlarmBroadcastService extends Service {
                         .setContentText("Have a good day :)");
                 mNM.notify(notifyID, mNotify.build());
                 Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
+
+                mBI.putExtra("AlarmID", mAlarmId);
+                mBI.putExtra("countdown", Long.valueOf(0)); // working on millisecs/Long will generate warning with int;
+                sendBroadcast(mBI);
+                Log.d(TAG, "Countdown finished.");
             }
         };
         mCDT.start();
