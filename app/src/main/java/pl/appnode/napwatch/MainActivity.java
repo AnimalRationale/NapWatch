@@ -95,17 +95,22 @@ public class MainActivity extends Activity {
 
     @Override
     public void onStop() {
-        if (isService) {
-            Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
-            stopService(serviceIntent);
-            Log.d(TAG, "OnStop stopping service.");
-        };
         try {
             unregisterReceiver(mCountDownBroadcast);
         } catch (Exception e) {
             // Receiver should be stopped in onPause()
         }
         super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (isService) {
+            Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
+            stopService(serviceIntent);
+            Log.d(TAG, "OnStop stopping service.");
+        };
+        super.onDestroy();
     }
 
     private List<AlarmInfo> createList() {
