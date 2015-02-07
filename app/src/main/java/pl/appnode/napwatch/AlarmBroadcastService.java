@@ -61,21 +61,26 @@ public class AlarmBroadcastService extends Service {
         }
 
         Intent resultIntent = new Intent(this, MainActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(MainActivity.class);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
+        resultIntent.setAction(Intent.ACTION_MAIN);
+        resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//        stackBuilder.addParentStack(MainActivity.class);
+//        stackBuilder.addNextIntent(resultIntent);
+//        PendingIntent resultPendingIntent =
+//                stackBuilder.getPendingIntent(
+//                        0,
+//                        PendingIntent.FLAG_UPDATE_CURRENT
+//                );
+
+        // resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0);
         notifyID = mAlarmId;
         final NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
-                .setContentTitle(mAlarmDuration + " minutes left")
-                .setContentText("Alarm " + mAlarmId + " (" + mAlarmDuration +" minutes) started!")
+                .setContentTitle(mAlarmDuration + getResources().getString(R.string.notification_title))
+                .setContentText(getResources().getString(R.string.notification_text01) + mAlarmId + getResources().getString(R.string.notification_text02) + mAlarmDuration + getResources().getString(R.string.notification_text03))
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
-                .setContentIntent(resultPendingIntent); // TODO: use resources you dumb coder :) !
+                .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(notifyID, mNotify.build());
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);

@@ -104,6 +104,11 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     public void onDestroy() {
         if (isService) {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
