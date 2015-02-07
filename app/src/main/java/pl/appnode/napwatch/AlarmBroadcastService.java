@@ -69,7 +69,7 @@ public class AlarmBroadcastService extends Service {
         final NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
                 .setContentTitle(mAlarmDuration + getResources().getString(R.string.notification_title))
-                .setContentText(getResources().getString(R.string.notification_text01) + mAlarmId + getResources().getString(R.string.notification_text02) + mAlarmDuration + getResources().getString(R.string.notification_text03))
+                .setContentText(mAlarmName + getResources().getString(R.string.notification_text02) + mAlarmDuration + getResources().getString(R.string.notification_text03))
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(notifyID, mNotify.build());

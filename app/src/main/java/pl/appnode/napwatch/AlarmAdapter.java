@@ -44,11 +44,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + "");
-        } else if (ai.mIsOn && MainActivity.isService) {
+        } else if (ai.mIsOn & MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
             alarmViewHolder.vDuration.setText(ai.mDurationCounter + "");
-        } else if (ai.mIsOn && !MainActivity.isService) {
+        } else if (ai.mIsOn & !MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + "");
@@ -66,12 +66,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // isService = " + MainActivity.isService);
-                if (!ai.mIsOn && !MainActivity.isService) {
+                if (!ai.mIsOn & !MainActivity.isService) {
                     startAlarm(ai);
-                } else if (ai.mIsOn && MainActivity.isService) {
+                } else if (ai.mIsOn & MainActivity.isService) {
                     stopAlarm(ai);
-                } else if (!ai.mIsOn && MainActivity.isService) {
-                    ai.mIsOn = true;
+                } else if (!ai.mIsOn & MainActivity.isService) {
+                    return;
+                } else if (ai.mIsOn & !MainActivity.isService) {
+                    ai.mIsOn = false;
                 }
             }
         });
