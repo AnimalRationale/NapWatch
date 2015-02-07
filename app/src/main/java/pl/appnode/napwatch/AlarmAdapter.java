@@ -77,14 +77,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setDuration(ai, progress);
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
     }
