@@ -39,16 +39,19 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     public void onBindViewHolder(AlarmViewHolder alarmViewHolder, int position) {
         final AlarmInfo ai = mAlarmList.get(position);
         alarmViewHolder.vTitle.setText(ai.mName);
-        alarmViewHolder.vDuration.setText(ai.mDuration + "");
+
         if (!ai.mIsOn) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
+            alarmViewHolder.vDuration.setText(ai.mDuration + "");
         } else if (ai.mIsOn && MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
+            alarmViewHolder.vDuration.setText(ai.mDurationCounter + "");
         } else if (ai.mIsOn && !MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
+            alarmViewHolder.vDuration.setText(ai.mDuration + "");
             ai.mIsOn = false;
         }
         alarmViewHolder.vMinutesBar.setMax(100);
@@ -176,6 +179,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         int position = mAlarmList.indexOf(item);
         AlarmInfo alarm = mAlarmList.get(position);
         alarm.mDuration = duration;
+        alarm.mDurationCounter = duration;
         notifyItemChanged(position);
     }
 }

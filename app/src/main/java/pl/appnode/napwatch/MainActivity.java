@@ -129,6 +129,7 @@ public class MainActivity extends Activity {
             alarmPrefix = "Alarm_" + i;
             ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
+            ai.mDurationCounter = ai.mDuration;
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             Log.d(TAG, "before Result add #" + i);
             result.add(ai);
@@ -144,7 +145,7 @@ public class MainActivity extends Activity {
             int position = intent.getIntExtra("AlarmID", 0);
             Log.d(TAG, "Countdown time remaining: " +  timeToFinish);
             AlarmInfo alarm = mAA.mAlarmList.get(position);
-            alarm.mDuration = (int) timeToFinish;
+            alarm.mDurationCounter = (int) timeToFinish;
             mAA.notifyItemChanged(position);
         }
     }
