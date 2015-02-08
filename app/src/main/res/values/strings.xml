@@ -10,5 +10,6 @@
     <string name="notification_title">\u0020 minutes left</string>
     <string name="notification_text01">Alarm \u0020</string>
     <string name="notification_text02">\u0020 (</string>
-    <string name="notification_text03">\u0020 minutes) started!</string>
+    <string name="notification_text03_minutes">\u0020 minutes) started!</string>
+    <string name="notification_text03_seconds">\u0020 seconds) started!</string>
 </resources>
