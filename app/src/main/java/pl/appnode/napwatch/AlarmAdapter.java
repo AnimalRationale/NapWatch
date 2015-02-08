@@ -66,10 +66,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // isService = " + MainActivity.isService);
-                if (!ai.mIsOn & !MainActivity.isService) {
-                    startAlarm(ai);
-                } else if (ai.mIsOn & MainActivity.isService) {
+                if (ai.mIsOn & MainActivity.isService) {
                     stopAlarm(ai);
+                } else if (!ai.mIsOn & !MainActivity.isService) {
+                    startAlarm(ai);
                 } else if (!ai.mIsOn & MainActivity.isService) {
                     return;
                 } else if (ai.mIsOn & !MainActivity.isService) {
