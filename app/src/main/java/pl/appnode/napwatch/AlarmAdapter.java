@@ -24,8 +24,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     protected List<AlarmInfo> mAlarmList;
 
     private Context mContext;
-    
-    int[] mActiveAlarms = new int[4];
+
+    public int[] mActiveAlarms = new int[4];
 
     public AlarmAdapter(List<AlarmInfo> alarmList, Context context) {
         this.mAlarmList = alarmList;
@@ -38,7 +38,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     @Override
-    public void onBindViewHolder(AlarmViewHolder alarmViewHolder, int position) {
+    public void onBindViewHolder(AlarmViewHolder alarmViewHolder, final int position) {
         final AlarmInfo ai = mAlarmList.get(position);
         alarmViewHolder.vTitle.setText(ai.mName);
 
@@ -69,12 +69,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // isService = " + MainActivity.isService);
-                if (ai.mIsOn & MainActivity.isService) {
+                if (ai.mIsOn & MainActivity.isService & mActiveAlarms[position] == 3) {
+                    mActiveAlarms[position] = 2;
                     stopAlarm(ai);
-                } else if (!ai.mIsOn & !MainActivity.isService) {
+                } else if (!ai.mIsOn & !MainActivity.isService & mActiveAlarms[position] == 0) {
+                    mActiveAlarms[position] = 2;
                     startAlarm(ai);
                 } else if (!ai.mIsOn & MainActivity.isService) {
-                    return;
                 } else if (ai.mIsOn & !MainActivity.isService) {
                     ai.mIsOn = false;
                 }
