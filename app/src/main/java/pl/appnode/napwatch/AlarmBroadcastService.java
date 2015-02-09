@@ -90,6 +90,7 @@ public class AlarmBroadcastService extends Service {
                 sendBroadcast(mBI);
                 mNotify.setContentTitle(millisUntilFinished / 1000 + " minutes left");
                 mNM.notify(notifyID, mNotify.build());
+                MainActivity.AlarmState[mAlarmId] = 2;
             }
 
             @Override

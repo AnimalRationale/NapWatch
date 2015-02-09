@@ -26,6 +26,7 @@
             android:background="@drawable/round_button_background"
             android:gravity="center_vertical|center_horizontal"
             android:text="0"
+            android:textAllCaps="false"
             android:textColor="#fff" />
 
         <SeekBar

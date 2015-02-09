@@ -25,8 +25,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     private Context mContext;
 
-    public int[] mActiveAlarms = new int[4];
-
     public AlarmAdapter(List<AlarmInfo> alarmList, Context context) {
         this.mAlarmList = alarmList;
         mContext = context;
@@ -69,14 +67,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // isService = " + MainActivity.isService);
-                if (ai.mIsOn & MainActivity.isService & mActiveAlarms[position] == 3) {
-                    mActiveAlarms[position] = 2;
+                if (ai.mIsOn & MainActivity.isService & MainActivity.AlarmState[position] == 2) {
+                    MainActivity.AlarmState[position] = 1;
                     stopAlarm(ai);
-                } else if (!ai.mIsOn & !MainActivity.isService & mActiveAlarms[position] == 0) {
-                    mActiveAlarms[position] = 2;
+                } else if (!ai.mIsOn & !MainActivity.isService & MainActivity.AlarmState[position] == 0) {
+                    MainActivity.AlarmState[position] = 1;
                     startAlarm(ai);
                 } else if (!ai.mIsOn & MainActivity.isService) {
-                } else if (ai.mIsOn & !MainActivity.isService) {
+                } else if (ai.mIsOn & !MainActivity.isService & MainActivity.AlarmState[position] != 1) {
                     ai.mIsOn = false;
                 }
             }
@@ -168,6 +166,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
         mContext.stopService(serviceIntent); //TODO: alarm recognition :)
         alarm.mIsOn = false;
+        MainActivity.AlarmState[position] = 0;
         Log.d(TAG, "Alarm OFF.");
         notifyItemChanged(position);
     }
