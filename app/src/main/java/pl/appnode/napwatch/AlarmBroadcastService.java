@@ -95,8 +95,8 @@ public class AlarmBroadcastService extends Service {
             @Override
             public void onFinish() {
                 mRingtone.play();
-                mNotify.setContentTitle("Alarm " + mAlarmId + " (" + mAlarmDuration + " minutes) finished!")
-                        .setContentText("Have a good day :)");
+                mNotify.setContentTitle(mAlarmName + getResources().getString(R.string.notification_text02) + mAlarmDuration + getResources().getString(R.string.notification_text03_finished_seconds))
+                        .setContentText(getResources().getString(R.string.notification_text_finished));
                 mNM.notify(notifyID, mNotify.build());
                 Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
 

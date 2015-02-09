@@ -12,4 +12,7 @@
     <string name="notification_text02">\u0020 (</string>
     <string name="notification_text03_minutes">\u0020 minutes) started!</string>
     <string name="notification_text03_seconds">\u0020 seconds) started!</string>
+    <string name="notification_text03_finished_minutes">\u0020 minutes) finished.</string>
+    <string name="notification_text03_finished_seconds">\u0020 seconds) finished.</string>
+    <string name="notification_text_finished">Have a good day :)!</string>
 </resources>
