@@ -24,6 +24,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     protected List<AlarmInfo> mAlarmList;
 
     private Context mContext;
+    
+    int[] mActiveAlarms = new int[4];
 
     public AlarmAdapter(List<AlarmInfo> alarmList, Context context) {
         this.mAlarmList = alarmList;
@@ -56,6 +58,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         }
         alarmViewHolder.vMinutesBar.setMax(100);
         alarmViewHolder.vMinutesBar.setProgress(ai.mDuration);
+
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
