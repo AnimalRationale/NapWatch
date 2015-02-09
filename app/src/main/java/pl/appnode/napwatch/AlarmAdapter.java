@@ -45,15 +45,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         if (!ai.mIsOn) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-            alarmViewHolder.vDuration.setText(ai.mDuration + "");
+            alarmViewHolder.vDuration.setText(ai.mDuration + "m");
         } else if (ai.mIsOn & MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-            alarmViewHolder.vDuration.setText(ai.mDurationCounter + "");
+            alarmViewHolder.vDuration.setText(ai.mDurationCounter + "m");
         } else if (ai.mIsOn & !MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-            alarmViewHolder.vDuration.setText(ai.mDuration + "");
+            alarmViewHolder.vDuration.setText(ai.mDuration + "m");
             ai.mIsOn = false;
         }
         alarmViewHolder.vMinutesBar.setMax(100);
