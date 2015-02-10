@@ -1,5 +1,9 @@
 package pl.appnode.napwatch;
 
+import static pl.appnode.napwatch.StateConstants.OFF;
+import static pl.appnode.napwatch.StateConstants.SWITCHING;
+import static pl.appnode.napwatch.StateConstants.ON;
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -11,7 +15,6 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 public class AlarmBroadcastService extends Service {
