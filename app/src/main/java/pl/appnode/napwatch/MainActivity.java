@@ -84,8 +84,9 @@ public class MainActivity extends Activity {
             AlarmInfo alarm = mAA.mAlarmList.get(i);
             editor.putString(alarmPrefix, alarm.mName);
             editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
+            editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
-            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ":: isOn: " + alarm.mIsOn);
+            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnit + " :: isOn: " + alarm.mIsOn);
         }
 
         editor.commit();
@@ -131,6 +132,7 @@ public class MainActivity extends Activity {
             ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
             ai.mDurationCounter = ai.mDuration;
+            ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", 0);
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             Log.d(TAG, "before Result add #" + i);
             result.add(ai);
