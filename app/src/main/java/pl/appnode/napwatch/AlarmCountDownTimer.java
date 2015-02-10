@@ -1,5 +1,9 @@
 package pl.appnode.napwatch;
 
+import static pl.appnode.napwatch.StateConstants.OFF;
+import static pl.appnode.napwatch.StateConstants.SWITCHING;
+import static pl.appnode.napwatch.StateConstants.ON;
+
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
@@ -13,7 +17,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private final static String TAG = "::Service.AlarmCountdownTimer";
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     Intent mBI = new Intent(COUNTDOWN_BROADCAST);
-    int mAlarmId;
+    private int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
     Context mContext;
@@ -23,7 +27,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, Context context) {
         super(millisInFuture, countDownInterval);
-        int mAlarmId = alarmId;
+        mAlarmId = alarmId;
         mContext = context;
     }
 

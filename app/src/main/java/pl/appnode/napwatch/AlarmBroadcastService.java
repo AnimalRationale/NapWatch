@@ -40,17 +40,18 @@ public class AlarmBroadcastService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         if (MainActivity.isService) {
             Log.d(TAG, "Service already running! Ignoring.");
             return mStartMode;
         }
         Log.d(TAG,"Starting service.");
+
+        MainActivity.isService = true;
+        Log.d(TAG, "Setting isService TRUE.");
 
         mAlarmId = (Integer) intent.getExtras().get("AlarmId");
         mAlarmName = intent.getExtras().get("AlarmName").toString();
@@ -79,8 +80,6 @@ public class AlarmBroadcastService extends Service {
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
-        MainActivity.isService = true;
-        Log.d(TAG, "Setting isService TRUE.");
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
 
         mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
