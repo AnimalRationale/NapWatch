@@ -1,5 +1,8 @@
 package pl.appnode.napwatch;
 
+import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.StateConstants.MINUTE;
+
         import android.app.Activity;
         import android.content.BroadcastReceiver;
         import android.content.Context;
@@ -132,7 +135,7 @@ public class MainActivity extends Activity {
             ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
             ai.mDurationCounter = ai.mDuration;
-            ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", 0);
+            ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", MINUTE);
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             Log.d(TAG, "before Result add #" + i);
             result.add(ai);

@@ -1,9 +1,5 @@
 package pl.appnode.napwatch;
 
-import static pl.appnode.napwatch.StateConstants.OFF;
-import static pl.appnode.napwatch.StateConstants.SWITCHING;
-import static pl.appnode.napwatch.StateConstants.ON;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +15,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
+
+import static pl.appnode.napwatch.StateConstants.OFF;
+import static pl.appnode.napwatch.StateConstants.SWITCHING;
+import static pl.appnode.napwatch.StateConstants.ON;
+import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.StateConstants.MINUTE;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
@@ -41,8 +43,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     @Override
     public void onBindViewHolder(AlarmViewHolder alarmViewHolder, final int position) {
         final AlarmInfo ai = mAlarmList.get(position);
-        alarmViewHolder.vTitle.setText(ai.mName);
 
+        alarmViewHolder.vTitle.setText(ai.mName);
+        if (ai.mTimeUnit == SECOND) {
+
+        }
+        
         if (!ai.mIsOn) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
