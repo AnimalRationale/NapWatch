@@ -3,20 +3,20 @@ package pl.appnode.napwatch;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 
-        import android.app.Activity;
-        import android.content.BroadcastReceiver;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.content.IntentFilter;
-        import android.content.SharedPreferences;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import java.util.ArrayList;
-        import java.util.List;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -81,13 +81,19 @@ public class MainActivity extends Activity {
         super.onPause();
         SharedPreferences alarmsPrefs = getSharedPreferences(MainActivity.ALARMS_PREFS_FILE, 0);
         SharedPreferences.Editor editor = alarmsPrefs.edit();
-
+        int timeUnit = 0;
         for (int i = 0; i <= 3; i++) {
             String alarmPrefix = "Alarm_" + (i + 1);
             AlarmInfo alarm = mAA.mAlarmList.get(i);
             editor.putString(alarmPrefix, alarm.mName);
             editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
-            editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
+            switch (alarm.mTimeUnit) {
+                case "s":  timeUnit = 0;
+                    break;
+                case "m":  timeUnit = 10;
+                    break;
+            }
+            editor.putInt(alarmPrefix + "_TimeUnit", timeUnit);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
             Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnit + " :: isOn: " + alarm.mIsOn);
         }
@@ -128,6 +134,7 @@ public class MainActivity extends Activity {
 
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
+        int timeUnit = 0;
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
             AlarmInfo ai = new AlarmInfo();
@@ -135,7 +142,13 @@ public class MainActivity extends Activity {
             ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
             ai.mDurationCounter = ai.mDuration;
-            ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", MINUTE);
+            timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", MINUTE);
+            switch (timeUnit) {
+                case SECOND:  ai.mTimeUnit = getResources().getString(R.string.time_unit_seconds);
+                    break;
+                case MINUTE:  ai.mTimeUnit = getResources().getString(R.string.time_unit_minutes);
+                    break;
+            }
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             Log.d(TAG, "before Result add #" + i);
             result.add(ai);

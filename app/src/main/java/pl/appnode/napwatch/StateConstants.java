@@ -9,5 +9,5 @@ public final class StateConstants {
     public static final int SWITCHING = 1;
     public static final int ON = 2;
     public static final int SECOND = 0;
-    public static final int MINUTE = 0;
+    public static final int MINUTE = 1;
 }
