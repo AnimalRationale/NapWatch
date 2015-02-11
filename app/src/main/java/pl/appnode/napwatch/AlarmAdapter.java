@@ -44,23 +44,26 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     public void onBindViewHolder(AlarmViewHolder alarmViewHolder, final int position) {
         final AlarmInfo ai = mAlarmList.get(position);
 
+        String timeUnit = "";
         alarmViewHolder.vTitle.setText(ai.mName);
         if (ai.mTimeUnit == SECOND) {
-
+            timeUnit = "s";
+        } else if (ai.mTimeUnit == MINUTE) {
+            timeUnit = "m";
         }
-        
+
         if (!ai.mIsOn) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-            alarmViewHolder.vDuration.setText(ai.mDuration + "m");
+            alarmViewHolder.vDuration.setText(ai.mDuration + timeUnit);
         } else if (ai.mIsOn & MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-            alarmViewHolder.vDuration.setText(ai.mDurationCounter + "m");
+            alarmViewHolder.vDuration.setText(ai.mDurationCounter + timeUnit);
         } else if (ai.mIsOn & !MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-            alarmViewHolder.vDuration.setText(ai.mDuration + "m");
+            alarmViewHolder.vDuration.setText(ai.mDuration + timeUnit);
             ai.mIsOn = false;
         }
         alarmViewHolder.vMinutesBar.setMax(100);
