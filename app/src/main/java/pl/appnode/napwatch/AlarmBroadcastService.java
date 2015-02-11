@@ -75,7 +75,7 @@ public class AlarmBroadcastService extends Service {
         final NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
                 .setContentTitle(mAlarmDuration + getResources().getString(R.string.notification_title))
-                .setContentText(mAlarmName + getResources().getString(R.string.notification_text02) + mAlarmDuration + " " + mAlarmUnit)
+                .setContentText(mAlarmName + getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + getResources().getString(R.string.notification_text03))
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(notifyID, mNotify.build());
@@ -92,7 +92,7 @@ public class AlarmBroadcastService extends Service {
                 mBI.putExtra("AlarmID", mAlarmId);
                 mBI.putExtra("countdown", millisUntilFinished / 1000);
                 sendBroadcast(mBI);
-                mNotify.setContentTitle(millisUntilFinished / 1000 + " " + mAlarmUnit + " left");
+                mNotify.setContentTitle(millisUntilFinished / 1000 + mAlarmUnit + getResources().getString(R.string.notification_title));
                 mNM.notify(notifyID, mNotify.build());
                 MainActivity.AlarmState[mAlarmId] = 2;
             }
@@ -100,7 +100,7 @@ public class AlarmBroadcastService extends Service {
             @Override
             public void onFinish() {
                 mRingtone.play();
-                mNotify.setContentTitle(mAlarmName + getResources().getString(R.string.notification_text02) + mAlarmDuration + " " + mAlarmUnit)
+                mNotify.setContentTitle(mAlarmName + getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + getResources().getString(R.string.notification_text03_finished))
                         .setContentText(getResources().getString(R.string.notification_text_finished));
                 mNM.notify(notifyID, mNotify.build());
                 Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
