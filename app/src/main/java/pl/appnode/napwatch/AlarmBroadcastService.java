@@ -75,14 +75,14 @@ public class AlarmBroadcastService extends Service {
         final NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final NotificationCompat.Builder mNotify = new NotificationCompat.Builder(this)
                 .setContentTitle(mAlarmDuration + getResources().getString(R.string.notification_title))
-                .setContentText(mAlarmName + getResources().getString(R.string.notification_text02) + mAlarmDuration + getResources().getString(R.string.notification_text03_seconds))
+                .setContentText(mAlarmName + getResources().getString(R.string.notification_text02) + mAlarmDuration + " " + mAlarmUnit)
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(notifyID, mNotify.build());
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
-        Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " +mAlarmUnit);
+        Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
 
         mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
             @Override
