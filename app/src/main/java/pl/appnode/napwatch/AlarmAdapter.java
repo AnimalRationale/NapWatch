@@ -157,6 +157,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         serviceIntent.putExtra("AlarmId", position);
         serviceIntent.putExtra("AlarmName", alarm.mName);
         serviceIntent.putExtra("AlarmDuration", alarm.mDuration);
+        serviceIntent.putExtra("AlarmUnit", alarm.mTimeUnit);
         mContext.startService(serviceIntent);
         Log.d(TAG, "Service started.");
 

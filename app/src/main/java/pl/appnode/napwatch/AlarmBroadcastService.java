@@ -27,6 +27,7 @@ public class AlarmBroadcastService extends Service {
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
+    String mAlarmUnit;
 
     Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone mRingtone;
@@ -56,6 +57,7 @@ public class AlarmBroadcastService extends Service {
         mAlarmId = (Integer) intent.getExtras().get("AlarmId");
         mAlarmName = intent.getExtras().get("AlarmName").toString();
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
+        mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
 
         if(mAlert == null){
             mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -80,7 +82,7 @@ public class AlarmBroadcastService extends Service {
 
         mRingtone = RingtoneManager.getRingtone(getApplicationContext(), mAlert);
 
-        Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " minutes." );
+        Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " +mAlarmUnit);
 
         mCDT = new CountDownTimer(mAlarmDuration * 1000, 1000) {
             @Override
@@ -90,7 +92,7 @@ public class AlarmBroadcastService extends Service {
                 mBI.putExtra("AlarmID", mAlarmId);
                 mBI.putExtra("countdown", millisUntilFinished / 1000);
                 sendBroadcast(mBI);
-                mNotify.setContentTitle(millisUntilFinished / 1000 + " minutes left");
+                mNotify.setContentTitle(millisUntilFinished / 1000 + " " + mAlarmUnit + " left");
                 mNM.notify(notifyID, mNotify.build());
                 MainActivity.AlarmState[mAlarmId] = 2;
             }
