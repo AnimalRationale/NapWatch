@@ -4,7 +4,8 @@ public class AlarmInfo {
     protected String mName;
     protected int mDuration;
     protected int mDurationCounter;
-    protected String mTimeUnit;
+    protected int mTimeUnit;
+    protected String mTimeUnitSymbol;
     protected boolean mIsOn;
 }
 

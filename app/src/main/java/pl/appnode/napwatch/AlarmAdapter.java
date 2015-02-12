@@ -19,8 +19,6 @@ import android.view.View.OnClickListener;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.SWITCHING;
 import static pl.appnode.napwatch.StateConstants.ON;
-import static pl.appnode.napwatch.StateConstants.SECOND;
-import static pl.appnode.napwatch.StateConstants.MINUTE;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
@@ -47,15 +45,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         if (!ai.mIsOn) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-            alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnit);
+            alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
         } else if (ai.mIsOn & MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-            alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnit);
+            alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
         } else if (ai.mIsOn & !MainActivity.isService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-            alarmViewHolder.vDuration.setText(ai.mDuration +ai.mTimeUnit);
+            alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
             ai.mIsOn = false;
         }
         alarmViewHolder.vMinutesBar.setMax(100);
@@ -157,7 +155,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         serviceIntent.putExtra("AlarmId", position);
         serviceIntent.putExtra("AlarmName", alarm.mName);
         serviceIntent.putExtra("AlarmDuration", alarm.mDuration);
-        serviceIntent.putExtra("AlarmUnit", alarm.mTimeUnit);
+        serviceIntent.putExtra("AlarmUnit", alarm.mTimeUnitSymbol);
         mContext.startService(serviceIntent);
         Log.d(TAG, "Service started.");
 

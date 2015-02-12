@@ -87,15 +87,9 @@ public class MainActivity extends Activity {
             AlarmInfo alarm = mAA.mAlarmList.get(i);
             editor.putString(alarmPrefix, alarm.mName);
             editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
-            switch (alarm.mTimeUnit) {
-                case "s":  timeUnit = 0;
-                    break;
-                case "m":  timeUnit = 10;
-                    break;
-            }
-            editor.putInt(alarmPrefix + "_TimeUnit", timeUnit);
+            editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
-            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnit + " :: isOn: " + alarm.mIsOn);
+            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnitSymbol + " :: isOn: " + alarm.mIsOn);
         }
 
         editor.commit();
@@ -142,11 +136,11 @@ public class MainActivity extends Activity {
             ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
             ai.mDurationCounter = ai.mDuration;
-            timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", MINUTE);
-            switch (timeUnit) {
-                case SECOND:  ai.mTimeUnit = getResources().getString(R.string.time_unit_seconds);
+            ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", MINUTE);
+            switch (ai.mTimeUnit) {
+                case SECOND:  ai.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);
                     break;
-                case MINUTE:  ai.mTimeUnit = getResources().getString(R.string.time_unit_minutes);
+                case MINUTE:  ai.mTimeUnitSymbol = getResources().getString(R.string.time_unit_minutes);
                     break;
             }
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
