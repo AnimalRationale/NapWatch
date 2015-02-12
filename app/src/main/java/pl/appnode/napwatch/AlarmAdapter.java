@@ -128,6 +128,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
         alertDialogBuilder.setView(promptView);
         final EditText input = (EditText) promptView.findViewById(R.id.alarmNameText);
+        input.setText(ai.mName);
         alertDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
