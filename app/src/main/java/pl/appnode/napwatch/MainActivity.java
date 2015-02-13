@@ -128,7 +128,6 @@ public class MainActivity extends Activity {
 
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
-        int timeUnit = 0;
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
             AlarmInfo ai = new AlarmInfo();

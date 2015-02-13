@@ -21,10 +21,11 @@
         <requestFocus />
     </EditText>
     <TextView
-        android:id="@+id/textViewRB"
+        android:id="@+id/textViewRadioButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp" />
+
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

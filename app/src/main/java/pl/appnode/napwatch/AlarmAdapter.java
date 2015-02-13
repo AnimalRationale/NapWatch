@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.List;
@@ -127,16 +128,28 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         View promptView = layoutInflater.inflate(R.layout.name_edit_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
         alertDialogBuilder.setView(promptView);
-        final TextView title = (TextView) promptView.findViewById(R.id.alarmEditTitle);
+        TextView title = (TextView) promptView.findViewById(R.id.alarmEditTitle);
         title.setText(R.string.edit_title);
         title.append("" + (position + 1));
         final EditText input = (EditText) promptView.findViewById(R.id.alarmNameText);
         input.setText(ai.mName);
+        final RadioButton rbSeconds = (RadioButton) promptView.findViewById(R.id.radio_seconds);
+        RadioButton rbMinutes = (RadioButton) promptView.findViewById(R.id.radio_minutes);
+        if (ai.mTimeUnit == 0) {
+            rbSeconds.toggle();
+        } else rbMinutes.toggle();
         alertDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         ai.mName = input.getText().toString();
+                        if (rbSeconds.isChecked()) {
+                            ai.mTimeUnit = 0;
+                            ai.mTimeUnitSymbol = mContext.getResources().getString(R.string.time_unit_seconds);
+                        } else {
+                            ai.mTimeUnit = 1;
+                            ai.mTimeUnitSymbol = mContext.getResources().getString(R.string.time_unit_minutes);
+                        }
                         notifyItemChanged(position);
                     }
                 })
