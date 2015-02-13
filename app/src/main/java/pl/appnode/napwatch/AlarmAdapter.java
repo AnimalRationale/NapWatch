@@ -20,6 +20,8 @@ import android.view.View.OnClickListener;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.SWITCHING;
 import static pl.appnode.napwatch.StateConstants.ON;
+import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.StateConstants.MINUTE;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
@@ -135,7 +137,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         input.setText(ai.mName);
         final RadioButton rbSeconds = (RadioButton) promptView.findViewById(R.id.radio_seconds);
         RadioButton rbMinutes = (RadioButton) promptView.findViewById(R.id.radio_minutes);
-        if (ai.mTimeUnit == 0) {
+        if (ai.mTimeUnit == SECOND) {
             rbSeconds.toggle();
         } else rbMinutes.toggle();
         alertDialogBuilder
@@ -144,10 +146,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     public void onClick(DialogInterface dialog, int id) {
                         ai.mName = input.getText().toString();
                         if (rbSeconds.isChecked()) {
-                            ai.mTimeUnit = 0;
+                            ai.mTimeUnit = SECOND;
                             ai.mTimeUnitSymbol = mContext.getResources().getString(R.string.time_unit_seconds);
                         } else {
-                            ai.mTimeUnit = 1;
+                            ai.mTimeUnit = MINUTE;
                             ai.mTimeUnitSymbol = mContext.getResources().getString(R.string.time_unit_minutes);
                         }
                         notifyItemChanged(position);
