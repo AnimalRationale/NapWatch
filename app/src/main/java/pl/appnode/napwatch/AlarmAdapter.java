@@ -62,7 +62,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                editAlarm(ai);
+                if (!ai.mIsOn) {editAlarm(ai);}
             }
         });
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
