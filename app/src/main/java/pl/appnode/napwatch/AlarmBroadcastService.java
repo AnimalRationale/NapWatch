@@ -94,7 +94,6 @@ public class AlarmBroadcastService extends Service {
                 sendBroadcast(mBI);
                 mNotify.setContentTitle(millisUntilFinished / 1000 + mAlarmUnit + getResources().getString(R.string.notification_title));
                 mNM.notify(notifyID, mNotify.build());
-                MainActivity.AlarmState[mAlarmId] = 2;
             }
 
             @Override
@@ -112,6 +111,7 @@ public class AlarmBroadcastService extends Service {
             }
         };
         mCDT.start();
+        MainActivity.AlarmState[mAlarmId] = ON;
         return mStartMode;
     }
 

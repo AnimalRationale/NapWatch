@@ -169,6 +169,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         int position = mAlarmList.indexOf(item);
         AlarmInfo alarm = mAlarmList.get(position);
         alarm.mIsOn = true;
+        notifyItemChanged(position);
         Log.d(TAG, "Alarm ON.");
         Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
         serviceIntent.putExtra("AlarmId", position);
@@ -177,9 +178,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         serviceIntent.putExtra("AlarmUnit", alarm.mTimeUnitSymbol);
         mContext.startService(serviceIntent);
         Log.d(TAG, "Service started.");
-
-        notifyItemChanged(position);
-
     }
 
     public void stopAlarm(AlarmInfo item) {
