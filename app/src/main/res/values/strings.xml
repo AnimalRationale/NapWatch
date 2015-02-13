@@ -5,7 +5,7 @@
     <string name="card_name">Alarm 0</string>
     <string name="time_unit_seconds">s</string>
     <string name="time_unit_minutes">m</string>
-    <string name="edit_name">Alarm title</string>
+    <string name="edit_title">Timer \u0020</string>
     <string name="edit_ok">OK</string>
     <string name="edit_cancel">Cancel</string>
     <string name="action_settings">Settings</string>

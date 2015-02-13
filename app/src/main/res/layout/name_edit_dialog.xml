@@ -7,12 +7,12 @@
     android:padding="10dp" >
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/alarmEditTitle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/edit_name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        android:gravity="center"
+        android:text="@string/edit_title"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
     <EditText
         android:id="@+id/alarmNameText"
         android:layout_width="match_parent"
@@ -20,10 +20,16 @@
         android:layout_height="wrap_content" >
         <requestFocus />
     </EditText>
+    <TextView
+        android:id="@+id/textViewRB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal" >
         <RadioButton android:id="@+id/radio_seconds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

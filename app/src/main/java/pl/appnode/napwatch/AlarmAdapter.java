@@ -127,6 +127,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         View promptView = layoutInflater.inflate(R.layout.name_edit_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
         alertDialogBuilder.setView(promptView);
+        final TextView title = (TextView) promptView.findViewById(R.id.alarmEditTitle);
+        title.setText(R.string.edit_title);
+        title.append("" + (position + 1));
         final EditText input = (EditText) promptView.findViewById(R.id.alarmNameText);
         input.setText(ai.mName);
         alertDialogBuilder
