@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     protected List<AlarmInfo> mAlarmList;
 
     private Context mContext;
+
+    private long mLastClickTime = 0;
 
     public AlarmAdapter(List<AlarmInfo> alarmList, Context context) {
         this.mAlarmList = alarmList;
@@ -71,6 +74,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 700){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // isService = " + MainActivity.isService);
                 if (ai.mIsOn & MainActivity.isService & MainActivity.AlarmState[position] == ON) {
                     MainActivity.AlarmState[position] = 1;
