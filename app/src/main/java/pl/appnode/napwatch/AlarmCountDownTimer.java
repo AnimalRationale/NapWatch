@@ -14,21 +14,27 @@ import android.util.Log;
 
 public class AlarmCountDownTimer extends CountDownTimer {
 
-    private final static String TAG = "::Service.AlarmCountdownTimer";
+    private final static String TAG = "::AlarmCountdownTimer";
+
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     Intent mBI = new Intent(COUNTDOWN_BROADCAST);
-    private int mAlarmId;
+    int notifyID = 0;
+    int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
-    Context mContext;
+    String mAlarmUnit;
 
     Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone mRingtone;
+    Context mContext;
 
-    public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, Context context) {
+    public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, String title, String alarmUnit, int alarmDuration, Context context) {
         super(millisInFuture, countDownInterval);
         mAlarmId = alarmId;
+        mAlarmName = title;
+        mAlarmUnit = alarmUnit;
         mContext = context;
+        mAlarmDuration = alarmDuration;
     }
 
     @Override
