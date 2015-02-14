@@ -45,7 +45,6 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }
         }
-
         Intent resultIntent = new Intent(mContext, MainActivity.class);
         resultIntent.setAction(Intent.ACTION_MAIN);
         resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -60,7 +59,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(notifyID, mNotify.build());
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), mAlert);
-        MainActivity.AlarmState[mAlarmId] = ON;
+
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
     }
 
