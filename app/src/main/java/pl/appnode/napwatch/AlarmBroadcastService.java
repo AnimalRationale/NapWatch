@@ -59,9 +59,9 @@ public class AlarmBroadcastService extends Service {
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
         mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
 
-        if(mAlert == null){
+        if (mAlert == null) {
             mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            if(mAlert == null) {
+            if (mAlert == null) {
                 mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }
         }
