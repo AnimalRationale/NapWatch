@@ -86,4 +86,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown finished.");
     }
+
+    public void stopRingtone () {
+        mRingtone.stop();
+    }
 }

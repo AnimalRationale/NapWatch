@@ -30,7 +30,7 @@ public class AlarmBroadcastService extends Service {
 
     int mStartMode;       // indicates how to behave if the service is killed
 
-    CountDownTimer mCDT = null;
+    AlarmCountDownTimer mCDT = null;
 
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
@@ -65,8 +65,8 @@ public class AlarmBroadcastService extends Service {
     public void onDestroy() {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(notifyID);
+        mCDT.stopRingtone();
         mCDT.cancel();
-        mRingtone.stop();
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting isService FALSE.");
         MainActivity.isService = false;
