@@ -1,7 +1,5 @@
 package pl.appnode.napwatch;
 
-import static pl.appnode.napwatch.StateConstants.ON;
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,10 +12,9 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 public class AlarmCountDownTimer extends CountDownTimer {
-
     private final static String TAG = "::AlarmCountdownTimer";
-
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
+
     Intent mBI = new Intent(COUNTDOWN_BROADCAST);
     int notifyID = 0;
     NotificationManager mNM;
@@ -26,7 +23,6 @@ public class AlarmCountDownTimer extends CountDownTimer {
     String mAlarmName;
     int mAlarmDuration;
     String mAlarmUnit;
-
     Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone mRingtone;
     Context mContext;
@@ -38,7 +34,6 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mAlarmUnit = alarmUnit;
         mContext = context;
         mAlarmDuration = alarmDuration;
-
         if (mAlert == null) {
             mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             if (mAlert == null) {

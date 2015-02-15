@@ -4,10 +4,6 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -18,20 +14,13 @@ public class AlarmBroadcastService extends Service {
     private final static String TAG = "::AlarmBroadcastService";
 
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
-    Intent mBI = new Intent(COUNTDOWN_BROADCAST);
     int notifyID = 0;
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
     String mAlarmUnit;
-
-    Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-    Ringtone mRingtone;
-
     int mStartMode;       // indicates how to behave if the service is killed
-
     AlarmCountDownTimer mCDT = null;
-
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
     @Override
