@@ -44,8 +44,11 @@ public class AlarmBroadcastService extends Service {
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
         mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
 
-        mCDT = new AlarmCountDownTimer(mAlarmDuration * 1000, 1000, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
-        mCDT.start();
+        if (mAlarms[mAlarmId] != null) {return mStartMode;}
+        notifyID = mAlarmId;
+        
+        mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * 1000, 1000, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
+        mAlarms[mAlarmId].start();
         MainActivity.AlarmState[mAlarmId] = ON;
         return mStartMode;
     }
@@ -54,8 +57,8 @@ public class AlarmBroadcastService extends Service {
     public void onDestroy() {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(notifyID);
-        mCDT.stopRingtone();
-        mCDT.cancel();
+        mAlarms[mAlarmId].stopRingtone();
+        mAlarms[mAlarmId].cancel();
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting isService FALSE.");
         MainActivity.isService = false;
