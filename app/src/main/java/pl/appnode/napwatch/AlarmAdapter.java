@@ -74,8 +74,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.isTapped) {return;}
-                MainActivity.isTapped = true;
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 700){
                     return;
                 }
@@ -84,14 +82,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 if (ai.mIsOn & MainActivity.isService & MainActivity.AlarmState[position] == ON) {
                     MainActivity.AlarmState[position] = 1;
                     stopAlarm(ai);
-                    MainActivity.isTapped = false;
                 } else if (!ai.mIsOn & !MainActivity.isService & MainActivity.AlarmState[position] == OFF) {
                     MainActivity.AlarmState[position] = 1;
                     startAlarm(ai);
-                    MainActivity.isTapped = false;
+                } else if (!ai.mIsOn & MainActivity.isService) {
                 } else if (ai.mIsOn & !MainActivity.isService & MainActivity.AlarmState[position] != SWITCHING) {
                     ai.mIsOn = false;
-                    MainActivity.isTapped = false;
                 }
             }
         });

@@ -25,7 +25,6 @@ public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     protected AlarmAdapter mAA;
     public static boolean isService;
-    public static boolean isTapped = false;
     public static int[] AlarmState = new int[4];
 
     private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
