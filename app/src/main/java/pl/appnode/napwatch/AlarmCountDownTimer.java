@@ -16,7 +16,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
 
     Intent mBI = new Intent(COUNTDOWN_BROADCAST);
-    int notifyID = 0;
+    int notifyId = 0;
     NotificationManager mNM;
     NotificationCompat.Builder mNotify;
     int mAlarmId;
@@ -26,6 +26,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone mRingtone;
     Context mContext;
+    boolean isFinished = false;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, String title, String alarmUnit, int alarmDuration, Context context) {
         super(millisInFuture, countDownInterval);
@@ -45,14 +46,14 @@ public class AlarmCountDownTimer extends CountDownTimer {
         resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext, 0, resultIntent, 0);
-        notifyID = mAlarmId;
+        notifyId = mAlarmId;
         mNM = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotify = new NotificationCompat.Builder(mContext)
                 .setContentTitle(mAlarmDuration + mContext.getResources().getString(R.string.notification_title))
                 .setContentText(mAlarmName + mContext.getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + mContext.getResources().getString(R.string.notification_text03))
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
-        mNM.notify(notifyID, mNotify.build());
+        mNM.notify(notifyId, mNotify.build());
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), mAlert);
 
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
@@ -65,7 +66,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mBI.putExtra("countdown", millisUntilFinished / 1000);
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / 1000 + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
-        mNM.notify(notifyID, mNotify.build());
+        mNM.notify(notifyId, mNotify.build());
     }
 
     @Override
@@ -73,13 +74,14 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mRingtone.play();
         mNotify.setContentTitle(mAlarmName + mContext.getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + mContext.getResources().getString(R.string.notification_text03_finished))
                 .setContentText(mContext.getResources().getString(R.string.notification_text_finished));
-        mNM.notify(notifyID, mNotify.build());
+        mNM.notify(notifyId, mNotify.build());
         Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
 
         mBI.putExtra("AlarmID", mAlarmId);
         mBI.putExtra("countdown", Long.valueOf(0)); // working on millisecs/Long will generate warning with int;
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown finished.");
+        isFinished = true;
     }
 
     public void stopRingtone () {

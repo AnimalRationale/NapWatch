@@ -14,14 +14,18 @@ public class AlarmBroadcastService extends Service {
     private final static String TAG = "::AlarmBroadcastService";
 
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
-    int notifyID = 0;
+    int notifyId = 0;
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
     String mAlarmUnit;
     int mStartMode;       // indicates how to behave if the service is killed
-    AlarmCountDownTimer mCDT = null;
+    
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
+
+    public void destroyAlarm(int alarmId) {
+        if (alarmId >= 0 & alarmId < 4) { mAlarms[alarmId] = null; }
+    }
 
     @Override
     public void onCreate() {
@@ -44,9 +48,13 @@ public class AlarmBroadcastService extends Service {
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
         mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
 
-        if (mAlarms[mAlarmId] != null) {return mStartMode;}
-        notifyID = mAlarmId;
-        
+        if (mAlarms[mAlarmId] != null) {
+            if (!mAlarms[mAlarmId].isFinished) {return mStartMode;}
+            else if (mAlarms[mAlarmId].isFinished) {
+                mAlarms[mAlarmId] = null;
+            }
+        }
+        notifyId = mAlarmId;
         mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * 1000, 1000, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
         mAlarms[mAlarmId].start();
         MainActivity.AlarmState[mAlarmId] = ON;
@@ -56,9 +64,10 @@ public class AlarmBroadcastService extends Service {
     @Override
     public void onDestroy() {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(notifyID);
+        notificationManager.cancel(notifyId);
         mAlarms[mAlarmId].stopRingtone();
         mAlarms[mAlarmId].cancel();
+        mAlarms[mAlarmId] = null;
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting isService FALSE.");
         MainActivity.isService = false;
