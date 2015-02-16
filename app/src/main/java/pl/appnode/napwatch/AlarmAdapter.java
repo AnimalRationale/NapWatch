@@ -84,12 +84,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 if (ai.mIsOn & MainActivity.isService & MainActivity.AlarmState[position] == ON) {
                     MainActivity.AlarmState[position] = ON;
                     stopAlarm(ai);
-                } else if (!ai.mIsOn & !MainActivity.isService & MainActivity.AlarmState[position] == OFF) {
+                } else if (!ai.mIsOn & MainActivity.AlarmState[position] == OFF) {
                     MainActivity.AlarmState[position] = ON;
                     startAlarm(ai);
-                } else if (!ai.mIsOn & MainActivity.isService) {
-                } else if (ai.mIsOn & !MainActivity.isService & MainActivity.AlarmState[position] != SWITCHING) {
-                    ai.mIsOn = false;
                 }
             }
         });
