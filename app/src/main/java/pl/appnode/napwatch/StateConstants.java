@@ -10,4 +10,6 @@ public final class StateConstants {
     public static final int ON = 2;
     public static final int SECOND = 0;
     public static final int MINUTE = 1;
+    public static final int STOP = 0;
+    public static final int START = 1;
 }

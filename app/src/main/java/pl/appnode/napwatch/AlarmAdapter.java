@@ -23,6 +23,8 @@ import static pl.appnode.napwatch.StateConstants.SWITCHING;
 import static pl.appnode.napwatch.StateConstants.ON;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.START;
+import static pl.appnode.napwatch.StateConstants.STOP;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
@@ -183,7 +185,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         serviceIntent.putExtra("AlarmName", alarm.mName);
         serviceIntent.putExtra("AlarmDuration", alarm.mDuration);
         serviceIntent.putExtra("AlarmUnit", alarm.mTimeUnitSymbol);
-        if (!MainActivity.isService) mContext.startService(serviceIntent);
+        serviceIntent.putExtra("AlarmCommand", START);
+        mContext.startService(serviceIntent);
         Log.d(TAG, "Service started.");
     }
 
@@ -191,7 +194,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         int position = mAlarmList.indexOf(item);
         AlarmInfo alarm = mAlarmList.get(position);
         Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
-        mContext.stopService(serviceIntent); //TODO: alarm recognition :)
+        serviceIntent.putExtra("AlarmId", position);
+        serviceIntent.putExtra("AlarmCommand", STOP);
+        mContext.startService(serviceIntent); //TODO: alarm recognition :)
         alarm.mIsOn = false;
         MainActivity.AlarmState[position] = OFF;
         Log.d(TAG, "Alarm OFF.");
