@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import static pl.appnode.napwatch.StateConstants.ON;
+import static pl.appnode.napwatch.StateConstants.STOP;
 
 public class AlarmBroadcastService extends Service {
 
@@ -19,6 +20,7 @@ public class AlarmBroadcastService extends Service {
     String mAlarmName;
     int mAlarmDuration;
     String mAlarmUnit;
+    int mAlarmCommand;
     int mStartMode;       // indicates how to behave if the service is killed
     
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
@@ -47,11 +49,12 @@ public class AlarmBroadcastService extends Service {
         mAlarmName = intent.getExtras().get("AlarmName").toString();
         mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
         mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
+        mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");
 
         if (mAlarms[mAlarmId] != null) {
-            if (!mAlarms[mAlarmId].isFinished) {return mStartMode;}
-            else if (mAlarms[mAlarmId].isFinished) {
+            if (mAlarms[mAlarmId].isFinished | mAlarmCommand == STOP) {
                 mAlarms[mAlarmId] = null;
+                return mStartMode;
             }
         }
         notifyId = mAlarmId;
