@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.ON;
+import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.STOP;
 
 public class AlarmBroadcastService extends Service {
@@ -36,31 +38,30 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (MainActivity.isService) {
-            Log.d(TAG, "Service already running! Ignoring.");
-            return mStartMode;
-        }
         Log.d(TAG,"Starting service.");
-
         MainActivity.isService = true;
         Log.d(TAG, "Setting isService TRUE.");
 
         mAlarmId = (Integer) intent.getExtras().get("AlarmId");
-        mAlarmName = intent.getExtras().get("AlarmName").toString();
-        mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
-        mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
         mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");
-
-        if (mAlarms[mAlarmId] != null) {
-            if (mAlarms[mAlarmId].isFinished | mAlarmCommand == STOP) {
-                mAlarms[mAlarmId] = null;
-                return mStartMode;
-            }
+        if (mAlarms[mAlarmId] != null & mAlarmCommand == STOP) {
+            mAlarms[mAlarmId].stopRingtone();
+            mAlarms[mAlarmId].cancel();
+            mAlarms[mAlarmId] = null;
+            MainActivity.AlarmState[mAlarmId] = OFF;
+            return mStartMode;
         }
-        notifyId = mAlarmId;
-        mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * 1000, 1000, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
-        mAlarms[mAlarmId].start();
-        MainActivity.AlarmState[mAlarmId] = ON;
+        if (mAlarms[mAlarmId] == null & mAlarmCommand == START) {
+            mAlarmName = intent.getExtras().get("AlarmName").toString();
+            mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
+            mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
+            notifyId = mAlarmId;
+            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * 1000, 1000, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
+            mAlarms[mAlarmId].start();
+            MainActivity.AlarmState[mAlarmId] = ON;
+            return mStartMode;
+        }
+        Log.d(TAG, "Command not recognized.");
         return mStartMode;
     }
 
