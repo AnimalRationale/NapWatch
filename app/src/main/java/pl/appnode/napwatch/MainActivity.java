@@ -81,7 +81,6 @@ public class MainActivity extends Activity {
         super.onPause();
         SharedPreferences alarmsPrefs = getSharedPreferences(MainActivity.ALARMS_PREFS_FILE, 0);
         SharedPreferences.Editor editor = alarmsPrefs.edit();
-        int timeUnit = 0;
         for (int i = 0; i <= 3; i++) {
             String alarmPrefix = "Alarm_" + (i + 1);
             AlarmInfo alarm = mAA.mAlarmList.get(i);
@@ -91,7 +90,6 @@ public class MainActivity extends Activity {
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
             Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnitSymbol + " :: isOn: " + alarm.mIsOn);
         }
-
         editor.commit();
         Log.d(TAG, "COMMITED SharedPrefs.");
         unregisterReceiver(mCountDownBroadcast);
