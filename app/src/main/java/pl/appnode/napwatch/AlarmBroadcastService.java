@@ -37,7 +37,7 @@ public class AlarmBroadcastService extends Service {
         Log.d(TAG,"Using service.");
         MainActivity.isService = true;
         Log.d(TAG, "Setting isService TRUE.");
-
+        int timeFactor = 0;
         mAlarmId = (Integer) intent.getExtras().get("AlarmId");
         mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");
         if (mAlarms[mAlarmId] != null & mAlarmCommand == STOP) {
@@ -48,8 +48,9 @@ public class AlarmBroadcastService extends Service {
             mAlarmName = intent.getExtras().get("AlarmName").toString();
             mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
             mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
+            timeFactor = (Integer) intent.getExtras().get("AlarmFactor");
             notifyId = mAlarmId;
-            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * 1000, 1000, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
+            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor, timeFactor, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
             mAlarms[mAlarmId].start();
             MainActivity.AlarmState[mAlarmId] = ON;
             return mStartMode;
