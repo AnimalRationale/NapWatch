@@ -27,10 +27,6 @@ public class AlarmBroadcastService extends Service {
     
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
-    public void destroyAlarm(int alarmId) {
-        if (alarmId >= 0 & alarmId < 4) { mAlarms[alarmId] = null; }
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,17 +34,14 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG,"Starting service.");
+        Log.d(TAG,"Using service.");
         MainActivity.isService = true;
         Log.d(TAG, "Setting isService TRUE.");
 
         mAlarmId = (Integer) intent.getExtras().get("AlarmId");
         mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");
         if (mAlarms[mAlarmId] != null & mAlarmCommand == STOP) {
-            mAlarms[mAlarmId].stopRingtone();
-            mAlarms[mAlarmId].cancel();
-            mAlarms[mAlarmId] = null;
-            MainActivity.AlarmState[mAlarmId] = OFF;
+            stopAlarm(mAlarmId);
             return mStartMode;
         }
         if (mAlarms[mAlarmId] == null & mAlarmCommand == START) {
@@ -68,10 +61,13 @@ public class AlarmBroadcastService extends Service {
     @Override
     public void onDestroy() {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(notifyId);
-        mAlarms[mAlarmId].stopRingtone();
-        mAlarms[mAlarmId].cancel();
-        mAlarms[mAlarmId] = null;
+        for (int i = 0; i < 4; i++) {
+            mAlarms[i].stopRingtone();
+            mAlarms[i].cancel();
+            mAlarms[i] = null;
+            notificationManager.cancel(i);
+            MainActivity.AlarmState[i] = OFF;
+        }
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting isService FALSE.");
         MainActivity.isService = false;
@@ -81,5 +77,14 @@ public class AlarmBroadcastService extends Service {
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
+    }
+
+    public void stopAlarm(int alarmId) {
+        mAlarms[alarmId].stopRingtone();
+        mAlarms[alarmId].cancel();
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(alarmId);
+        mAlarms[alarmId] = null;
+        MainActivity.AlarmState[alarmId] = OFF;
     }
 }
