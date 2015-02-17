@@ -22,6 +22,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
+    int mTimeFactor;
     String mAlarmUnit;
     Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone mRingtone;
@@ -35,6 +36,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mAlarmUnit = alarmUnit;
         mContext = context;
         mAlarmDuration = alarmDuration;
+        mTimeFactor = (int) countDownInterval;
+        Log.d(TAG, "TimeFactor in timer: " + mTimeFactor);
         if (mAlert == null) {
             mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             if (mAlert == null) {
@@ -61,11 +64,11 @@ public class AlarmCountDownTimer extends CountDownTimer {
 
     @Override
     public void onTick(long millisUntilFinished) {
-        Log.d(TAG, "Countdown seconds remaining: " + millisUntilFinished / 1000);
+        Log.d(TAG, "Countdown time remaining: " + millisUntilFinished / mTimeFactor);
         mBI.putExtra("AlarmID", mAlarmId);
-        mBI.putExtra("countdown", millisUntilFinished / 1000);
+        mBI.putExtra("countdown", millisUntilFinished / mTimeFactor);
         mContext.sendBroadcast(mBI);
-        mNotify.setContentTitle(millisUntilFinished / 1000 + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
+        mNotify.setContentTitle(millisUntilFinished / mTimeFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
         mNM.notify(notifyId, mNotify.build());
     }
 
