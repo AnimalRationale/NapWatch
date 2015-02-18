@@ -51,7 +51,7 @@ public class AlarmBroadcastService extends Service {
             timeFactor = (Integer) intent.getExtras().get("AlarmFactor");
             Log.d(TAG, "TimeFactor: " + timeFactor);
             notifyId = mAlarmId;
-            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor, timeFactor, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
+            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor + (timeFactor / 100), timeFactor, mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
             mAlarms[mAlarmId].start();
             MainActivity.AlarmState[mAlarmId] = ON;
             return mStartMode;

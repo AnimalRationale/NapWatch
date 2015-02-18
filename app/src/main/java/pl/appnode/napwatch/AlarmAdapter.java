@@ -177,14 +177,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarm.mIsOn = true;
         notifyItemChanged(position);
         Log.d(TAG, "Alarm ON.");
-        int timeFactor = 0;
-        if (alarm.mTimeUnit == SECOND) { timeFactor = 1000;} else {timeFactor = (1000 * 60);}
+        int timeUnitFactor = 0;
+        if (alarm.mTimeUnit == SECOND) { timeUnitFactor = 1000;} else {timeUnitFactor = (1000 * 60);}
         Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
         serviceIntent.putExtra("AlarmId", position);
         serviceIntent.putExtra("AlarmName", alarm.mName);
         serviceIntent.putExtra("AlarmDuration", alarm.mDuration);
         serviceIntent.putExtra("AlarmUnit", alarm.mTimeUnitSymbol);
-        serviceIntent.putExtra("AlarmFactor", timeFactor);
+        serviceIntent.putExtra("AlarmFactor", timeUnitFactor);
         serviceIntent.putExtra("AlarmCommand", START);
         mContext.startService(serviceIntent);
         Log.d(TAG, "Service started.");

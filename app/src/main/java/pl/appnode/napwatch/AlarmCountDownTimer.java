@@ -22,7 +22,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     int mAlarmId;
     String mAlarmName;
     int mAlarmDuration;
-    int mTimeFactor;
+    int mTimeUnitFactor;
     String mAlarmUnit;
     Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone mRingtone;
@@ -36,8 +36,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mAlarmUnit = alarmUnit;
         mContext = context;
         mAlarmDuration = alarmDuration;
-        mTimeFactor = (int) countDownInterval;
-        Log.d(TAG, "TimeFactor in timer: " + mTimeFactor);
+        mTimeUnitFactor = (int) countDownInterval;
+        Log.d(TAG, "TimeFactor in timer: " + mTimeUnitFactor);
         if (mAlert == null) {
             mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             if (mAlert == null) {
@@ -64,11 +64,11 @@ public class AlarmCountDownTimer extends CountDownTimer {
 
     @Override
     public void onTick(long millisUntilFinished) {
-        Log.d(TAG, "Countdown time remaining: " + millisUntilFinished / mTimeFactor);
+        Log.d(TAG, "Countdown time remaining: " + millisUntilFinished / mTimeUnitFactor);
         mBI.putExtra("AlarmID", mAlarmId);
-        mBI.putExtra("countdown", millisUntilFinished / mTimeFactor);
+        mBI.putExtra("countdown", (millisUntilFinished ) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
-        mNotify.setContentTitle(millisUntilFinished / mTimeFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
+        mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
         mNM.notify(notifyId, mNotify.build());
     }
 
@@ -79,9 +79,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 .setContentText(mContext.getResources().getString(R.string.notification_text_finished));
         mNM.notify(notifyId, mNotify.build());
         Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
-
         mBI.putExtra("AlarmID", mAlarmId);
-        mBI.putExtra("countdown", Long.valueOf(0)); // working on millisecs/Long will generate warning with int;
+        mBI.putExtra("countdown", Long.valueOf(0));
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown finished.");
         isFinished = true;
