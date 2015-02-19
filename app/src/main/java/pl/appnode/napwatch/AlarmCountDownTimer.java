@@ -28,6 +28,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     Ringtone mRingtone;
     Context mContext;
     boolean isFinished = false;
+    int mTimeUntilFinished;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, String title, String alarmUnit, int alarmDuration, Context context) {
         super(millisInFuture, countDownInterval);
@@ -65,6 +66,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     @Override
     public void onTick(long millisUntilFinished) {
         Log.d(TAG, "Countdown time remaining: " + millisUntilFinished / mTimeUnitFactor);
+        mTimeUntilFinished = (int) millisUntilFinished;
         mBI.putExtra("AlarmID", mAlarmId);
         mBI.putExtra("countdown", (millisUntilFinished ) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
@@ -84,6 +86,11 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown finished.");
         isFinished = true;
+    }
+
+    public void broadcastTimeUntilFinished() {
+        mBI.putExtra("AlarmID", mAlarmId);
+        mBI.putExtra("countdown", (mTimeUntilFinished ) / mTimeUnitFactor);
     }
 
     public void stopRingtone () {

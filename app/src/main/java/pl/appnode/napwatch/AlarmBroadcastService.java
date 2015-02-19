@@ -11,6 +11,7 @@ import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.ON;
 import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.STOP;
+import static pl.appnode.napwatch.StateConstants.UPDATE;
 
 public class AlarmBroadcastService extends Service {
 
@@ -54,6 +55,14 @@ public class AlarmBroadcastService extends Service {
             mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor, timeFactor - (timeFactor / 200), mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
             mAlarms[mAlarmId].start();
             MainActivity.AlarmState[mAlarmId] = ON;
+            return mStartMode;
+        }
+        if (mAlarms[mAlarmId] != null & mAlarmCommand == UPDATE) {
+            for (int i = 0; i < 4; i++) {
+                if (mAlarms[i] != null) {
+                    mAlarms[i].broadcastTimeUntilFinished();
+                }
+            }
             return mStartMode;
         }
         Log.d(TAG, "Command not recognized.");
