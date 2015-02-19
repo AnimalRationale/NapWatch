@@ -196,11 +196,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
         serviceIntent.putExtra("AlarmId", position);
         serviceIntent.putExtra("AlarmCommand", STOP);
-        mContext.startService(serviceIntent); //TODO: active alarms recognition, stopping service if no running alarms
+        mContext.startService(serviceIntent);
+        alarm.mDurationCounter = alarm.mDuration;
         alarm.mIsOn = false;
-        Log.d(TAG, "Alarm OFF.");
         notifyItemChanged(position);
         MainActivity.AlarmState[position] = OFF;
+        Log.d(TAG, "Alarm OFF.");
     }
 
     public void updateTime (int position) {
