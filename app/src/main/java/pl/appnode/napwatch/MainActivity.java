@@ -156,6 +156,7 @@ public class MainActivity extends Activity {
             Log.d(TAG, "Countdown time remaining: " +  timeToFinish);
             AlarmInfo alarm = mAA.mAlarmList.get(position);
             alarm.mDurationCounter = (int) timeToFinish;
+            if (!alarm.mIsOn & timeToFinish > 1) {alarm.mIsOn = true;}
             mAA.notifyItemChanged(position);
         }
     }
