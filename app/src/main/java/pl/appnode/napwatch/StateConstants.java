@@ -1,6 +1,10 @@
 package pl.appnode.napwatch;
 
-/** Set of constants used to recognize states of alarms: OFF/ON/SWITCHING. */
+/** Set of constants used to recognize states of alarms:
+ *  OFF/ON/SWITCHING;
+ *  time units SECOND/MINUTE;
+ *  commands in intents send to service for START/STOP alarm timer. */
+
 public final class StateConstants {
 
     private StateConstants() {} /** Private constructor of final class to prevent instantiating. */

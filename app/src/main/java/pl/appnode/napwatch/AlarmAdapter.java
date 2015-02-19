@@ -82,10 +82,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 mLastClickTime = SystemClock.elapsedRealtime();
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // isService = " + MainActivity.isService);
                 if (ai.mIsOn & MainActivity.isService & MainActivity.AlarmState[position] == ON) {
-                    MainActivity.AlarmState[position] = ON;
+                    MainActivity.AlarmState[position] = SWITCHING;
                     stopAlarm(ai);
                 } else if (!ai.mIsOn & MainActivity.AlarmState[position] == OFF) {
-                    MainActivity.AlarmState[position] = ON;
+                    MainActivity.AlarmState[position] = SWITCHING;
                     startAlarm(ai);
                 }
             }
@@ -198,9 +198,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         serviceIntent.putExtra("AlarmCommand", STOP);
         mContext.startService(serviceIntent); //TODO: active alarms recognition, stopping service if no running alarms
         alarm.mIsOn = false;
-        MainActivity.AlarmState[position] = OFF;
         Log.d(TAG, "Alarm OFF.");
         notifyItemChanged(position);
+        MainActivity.AlarmState[position] = OFF;
     }
 
     public void updateTime (int position) {
