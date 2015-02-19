@@ -1,8 +1,5 @@
 package pl.appnode.napwatch;
 
-import static pl.appnode.napwatch.StateConstants.SECOND;
-import static pl.appnode.napwatch.StateConstants.MINUTE;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,6 +15,9 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.UPDATE;
 
 public class MainActivity extends Activity {
 
@@ -54,6 +54,11 @@ public class MainActivity extends Activity {
         super.onResume();
         registerReceiver(mCountDownBroadcast, new IntentFilter(AlarmBroadcastService.COUNTDOWN_BROADCAST));
         Log.d(TAG, "OnResume registered broadcast receiver.");
+        if (isService) {
+            Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
+            serviceIntent.putExtra("AlarmCommand", UPDATE);
+            Log.d(TAG, "Time to finish update on active alarms.");
+        };
     }
 
     @Override
