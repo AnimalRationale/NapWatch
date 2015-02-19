@@ -64,11 +64,13 @@ public class AlarmBroadcastService extends Service {
     public void onDestroy() {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         for (int i = 0; i < 4; i++) {
-            mAlarms[i].stopRingtone();
-            mAlarms[i].cancel();
-            mAlarms[i] = null;
-            notificationManager.cancel(i);
-            MainActivity.AlarmState[i] = OFF;
+            if (mAlarms[i] != null) {
+                mAlarms[i].stopRingtone();
+                mAlarms[i].cancel();
+                mAlarms[i] = null;
+                notificationManager.cancel(i);
+                MainActivity.AlarmState[i] = OFF;
+            }
         }
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting isService FALSE.");
