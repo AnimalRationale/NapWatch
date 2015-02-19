@@ -57,7 +57,8 @@ public class MainActivity extends Activity {
         if (isService) {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
             serviceIntent.putExtra("AlarmCommand", UPDATE);
-            Log.d(TAG, "Time to finish updated on active alarms.");
+            startService(serviceIntent);
+            Log.d(TAG, "Time to finish update intent on active alarms.");
         };
     }
 
