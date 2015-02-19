@@ -57,7 +57,7 @@ public class AlarmBroadcastService extends Service {
             MainActivity.AlarmState[mAlarmId] = ON;
             return mStartMode;
         }
-        if (mAlarms[mAlarmId] != null & mAlarmCommand == UPDATE) {
+        if (mAlarmCommand == UPDATE) {
             for (int i = 0; i < 4; i++) {
                 if (mAlarms[i] != null) {
                     mAlarms[i].broadcastTimeUntilFinished();
