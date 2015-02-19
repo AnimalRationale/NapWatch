@@ -39,8 +39,8 @@ public class AlarmBroadcastService extends Service {
         MainActivity.isService = true;
         Log.d(TAG, "Setting isService TRUE.");
         int timeFactor = 0;
-        mAlarmId = (Integer) intent.getExtras().get("AlarmId");
-        mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");
+        if (intent.getExtras().get("AlarmId") != null) {mAlarmId = (Integer) intent.getExtras().get("AlarmId");}
+        if (intent.getExtras().get("AlarmCommand") != null) {mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");}
         if (mAlarms[mAlarmId] != null & mAlarmCommand == STOP) {
             stopAlarm(mAlarmId);
             return mStartMode;
