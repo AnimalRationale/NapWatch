@@ -12,7 +12,7 @@
     <string name="action_settings">Settings</string>
     <string name="notification_title">\u0020 left</string>
     <string name="notification_text01">Alarm \u0020</string>
-    <string name="notification_text02">\u0020 (</string>
+    <string name="notification_text02">\u0020(</string>
     <string name="notification_text03">) started!</string>
     <string name="notification_text03_finished">) finished.</string>
     <string name="notification_text_finished">Have a good day :)!</string>

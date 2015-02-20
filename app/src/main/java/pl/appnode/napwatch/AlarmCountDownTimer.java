@@ -90,7 +90,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
 
     public void broadcastTimeUntilFinished() {
         mBI.putExtra("AlarmID", mAlarmId);
-        mBI.putExtra("countdown", (mTimeUntilFinished ) / mTimeUnitFactor);
+        if (isFinished == true) { mBI.putExtra("countdown", Long.valueOf(0));}
+            else mBI.putExtra("countdown", (mTimeUntilFinished ) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown time broadcasted on command.");
     }

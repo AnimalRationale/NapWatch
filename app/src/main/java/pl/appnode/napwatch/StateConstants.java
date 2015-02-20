@@ -17,4 +17,5 @@ public final class StateConstants {
     public static final int STOP = 0;
     public static final int START = 1;
     public static final int UPDATE = 1;
+    public static final int EMPTY = 10;
 }

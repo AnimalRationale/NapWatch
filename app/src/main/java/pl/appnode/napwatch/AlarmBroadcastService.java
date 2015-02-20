@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import static pl.appnode.napwatch.StateConstants.EMPTY;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.ON;
 import static pl.appnode.napwatch.StateConstants.START;
@@ -36,16 +37,18 @@ public class AlarmBroadcastService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG,"Using service.");
+        mAlarmId = EMPTY;
         MainActivity.isService = true;
         Log.d(TAG, "Setting isService TRUE.");
         int timeFactor = 0;
         if (intent.getExtras().get("AlarmId") != null) {mAlarmId = (Integer) intent.getExtras().get("AlarmId");}
         if (intent.getExtras().get("AlarmCommand") != null) {mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");}
-        if (mAlarms[mAlarmId] != null & mAlarmCommand == STOP) {
+        Log.d(TAG, "mAlarmId = " + mAlarmId);
+        if (mAlarmId != EMPTY && mAlarms[mAlarmId] != null && mAlarmCommand == STOP) {
             stopAlarm(mAlarmId);
             return mStartMode;
-        }
-        if (mAlarms[mAlarmId] == null & mAlarmCommand == START) {
+        } else
+        if (mAlarmId != EMPTY && mAlarms[mAlarmId] == null && mAlarmCommand == START) {
             mAlarmName = intent.getExtras().get("AlarmName").toString();
             mAlarmDuration = (Integer) intent.getExtras().get("AlarmDuration");
             mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
@@ -56,8 +59,8 @@ public class AlarmBroadcastService extends Service {
             mAlarms[mAlarmId].start();
             MainActivity.AlarmState[mAlarmId] = ON;
             return mStartMode;
-        }
-        if (mAlarmCommand == UPDATE) {
+        } else
+        if (mAlarmId == EMPTY && mAlarmCommand == UPDATE) {
             for (int i = 0; i < 4; i++) {
                 if (mAlarms[i] != null) {
                     mAlarms[i].broadcastTimeUntilFinished();

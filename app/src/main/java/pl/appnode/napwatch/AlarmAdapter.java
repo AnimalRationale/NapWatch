@@ -81,10 +81,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // isService = " + MainActivity.isService);
-                if (ai.mIsOn & MainActivity.isService & MainActivity.AlarmState[position] == ON) {
+                if (ai.mIsOn && MainActivity.isService && MainActivity.AlarmState[position] == ON) {
                     MainActivity.AlarmState[position] = SWITCHING;
                     stopAlarm(ai);
-                } else if (!ai.mIsOn & MainActivity.AlarmState[position] == OFF) {
+                } else if (!ai.mIsOn && MainActivity.AlarmState[position] == OFF) {
                     MainActivity.AlarmState[position] = SWITCHING;
                     startAlarm(ai);
                 }
