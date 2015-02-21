@@ -26,6 +26,7 @@
         <receiver android:name="NapWatchWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="pl.appnode.napwatch.WIDGET_BUTTON" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_info" />
