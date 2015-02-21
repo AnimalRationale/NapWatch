@@ -122,7 +122,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         public AlarmViewHolder(View v) {
             super(v);
             vTitle = (TextView) v.findViewById(R.id.title);
-            vDuration = (Button) v.findViewById(R.id.roundBtn1);
+            vDuration = (Button) v.findViewById(R.id.round_btn1);
             vMinutesBar = (SeekBar) v.findViewById(R.id.minutes_seek);
         }
     }

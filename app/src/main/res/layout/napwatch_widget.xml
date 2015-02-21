@@ -6,15 +6,15 @@
     android:orientation="horizontal" >
 
     <Button
-        android:id="@+id/widgetRoundBtn1"
+        android:id="@+id/widget_round_btn1"
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:background="@drawable/ic_alarm_add_grey600_48dp"
-        android:text="0"
+        android:text=""
         android:textAllCaps="false"
         android:textColor="#fff" />
     <Button
-        android:id="@+id/widgetRoundBtn2"
+        android:id="@+id/widget_round_btn2"
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:background="@drawable/round_button_background"
@@ -22,7 +22,7 @@
         android:textAllCaps="false"
         android:textColor="#fff" />
     <Button
-        android:id="@+id/widgetRoundBtn3"
+        android:id="@+id/widget_round_btn3"
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:background="@drawable/round_button_background"
@@ -30,7 +30,7 @@
         android:textAllCaps="false"
         android:textColor="#fff" />
     <Button
-        android:id="@+id/widgetRoundBtn4"
+        android:id="@+id/widget_round_btn4"
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:background="@drawable/round_button_background"
@@ -38,7 +38,7 @@
         android:textAllCaps="false"
         android:textColor="#fff" />
     <Button
-        android:id="@+id/widgetRoundBtn5"
+        android:id="@+id/widget_round_btn5"
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:background="@drawable/round_button_background"
