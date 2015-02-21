@@ -3,13 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5sp"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
 
     <Button
         android:id="@+id/widgetRoundBtn1"
         android:layout_width="50dip"
         android:layout_height="50dip"
-        android:background="@drawable/round_button_background"
+        android:background="@drawable/ic_alarm_add_grey600_48dp"
         android:text="0"
         android:textAllCaps="false"
         android:textColor="#fff" />
