@@ -23,7 +23,7 @@
             android:name=".AlarmBroadcastService"
             android:icon="@drawable/ic_alarm_add_grey600_48dp"
             android:exported="false" />
-        <receiver android:name="ExampleAppWidgetProvider" >
+        <receiver android:name="NapWatchWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
