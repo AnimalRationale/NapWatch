@@ -70,7 +70,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!ai.mIsOn) {editAlarm(ai);}
+                if (!ai.mIsOn) {
+                    editAlarmSettings(ai);}
             }
         });
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
@@ -127,7 +128,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         }
     }
 
-    public void editAlarm(AlarmInfo item) {
+    public void editAlarmSettings(AlarmInfo item) {
 
         final int position = mAlarmList.indexOf(item);
         final AlarmInfo ai = mAlarmList.get(position);
