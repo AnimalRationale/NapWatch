@@ -133,11 +133,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         final AlarmInfo ai = mAlarmList.get(position);
 
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View promptView = layoutInflater.inflate(R.layout.name_edit_dialog, null);
+        View promptView = layoutInflater.inflate(R.layout.alarm_settings_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
         alertDialogBuilder.setView(promptView);
         TextView title = (TextView) promptView.findViewById(R.id.alarmEditTitle);
-        title.setText(R.string.edit_title);
+        title.setText(R.string.alarm_settingst_title);
         title.append("" + (position + 1));
         final EditText input = (EditText) promptView.findViewById(R.id.alarmNameText);
         input.setText(ai.mName);
@@ -148,7 +148,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         } else rbMinutes.toggle();
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.alarm_settings__ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         ai.mName = input.getText().toString();
                         if (rbSeconds.isChecked()) {
@@ -161,7 +161,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                         notifyItemChanged(position);
                     }
                 })
-                .setNegativeButton(R.string.edit_cancel,
+                .setNegativeButton(R.string.alarm_settings_cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,	int id) {
                                 dialog.cancel();

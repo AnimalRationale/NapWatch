@@ -5,10 +5,11 @@
     <string name="card_name">Alarm 0</string>
     <string name="time_unit_seconds">s</string>
     <string name="time_unit_minutes">m</string>
-    <string name="edit_title">Timer \u0020</string>
-    <string name="edit_ok">OK</string>
-    <string name="edit_cancel">Cancel</string>
-    <string name="edit_units">Countdown</string>
+    <string name="alarm_settingst_title">Timer \u0020</string>
+    <string name="alarm_settings__ok">OK</string>
+    <string name="alarm_settings_cancel">Cancel</string>
+    <string name="alarm_settings_units">Countdown</string>
+    <string name="alarm_settings_ringtone_change">Change ringtone</string>
     <string name="action_settings">Settings</string>
     <string name="notification_title">\u0020 left</string>
     <string name="notification_text01">Alarm \u0020</string>
