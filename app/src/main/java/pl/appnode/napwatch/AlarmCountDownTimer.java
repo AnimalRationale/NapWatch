@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -59,7 +60,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(notifyId, mNotify.build());
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), mAlert);
-
+        mRingtone.setStreamType(AudioManager.STREAM_ALARM);
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
     }
 
