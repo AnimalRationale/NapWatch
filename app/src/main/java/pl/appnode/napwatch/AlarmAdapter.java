@@ -165,7 +165,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         } else alert = Uri.parse(ai.mRingtoneUri);
         ringtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
         ringtoneName = ringtone.getTitle(mContext.getApplicationContext());
-        TextView ringtoneText = (TextView) promptView.findViewById(R.id.textRingtoneName);
+        Button ringtoneText = (Button) promptView.findViewById(R.id.changeRingtone);
         ringtoneText.setText(ringtoneName);
         alertDialogBuilder
                 .setCancelable(false)

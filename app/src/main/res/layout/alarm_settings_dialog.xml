@@ -53,14 +53,6 @@
         android:gravity="center"
         android:text="@string/alarm_settings_ringtone"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
-    <TextView
-        android:id="@+id/textRingtoneName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/alarm_settings_ringtone_default"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
     <Button
         android:id="@+id/changeRingtone"
         android:layout_width="fill_parent"
