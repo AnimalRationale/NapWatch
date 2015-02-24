@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
         try {
             unregisterReceiver(mCountDownBroadcast);
         } catch (Exception e) {
-            // Receiver should be stopped in onPause()
+            // Receiver should be stopped in onPause
         }
         super.onStop();
     }
