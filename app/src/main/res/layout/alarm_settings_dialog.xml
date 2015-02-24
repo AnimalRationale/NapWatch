@@ -59,4 +59,20 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/alarm_settings_ringtone_change" />
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ok"
+        android:layout_alignBottom="@+id/ok"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:text="Cancel" />
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_toLeftOf="@+id/cancel"
+        android:text="OK" />
 </LinearLayout>
