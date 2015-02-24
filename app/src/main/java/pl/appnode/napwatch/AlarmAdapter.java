@@ -148,8 +148,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         title.append("" + (position + 1));
         final EditText input = (EditText) promptView.findViewById(R.id.alarmNameText);
         input.setText(ai.mName);
-        final RadioButton rbSeconds = (RadioButton) promptView.findViewById(R.id.radio_seconds);
-        RadioButton rbMinutes = (RadioButton) promptView.findViewById(R.id.radio_minutes);
+        final RadioButton rbSeconds = (RadioButton) promptView.findViewById(R.id.radioSeconds);
+        RadioButton rbMinutes = (RadioButton) promptView.findViewById(R.id.radioMinutes);
         if (ai.mTimeUnit == SECOND) {
             rbSeconds.toggle();
         } else rbMinutes.toggle();

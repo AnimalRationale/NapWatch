@@ -35,19 +35,19 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal" >
-        <RadioButton android:id="@+id/radio_seconds"
+        <RadioButton android:id="@+id/radioSeconds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Seconds"
             />
-        <RadioButton android:id="@+id/radio_minutes"
+        <RadioButton android:id="@+id/radioMinutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Minutes"
             />
     </RadioGroup>
     <TextView
-        android:id="@+id/text_ringtone_name"
+        android:id="@+id/textRingtoneName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
