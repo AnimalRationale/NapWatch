@@ -6,7 +6,7 @@
     <string name="time_unit_seconds">s</string>
     <string name="time_unit_minutes">m</string>
     <string name="alarm_settingst_title">Timer \u0020</string>
-    <string name="alarm_settings__ok">OK</string>
+    <string name="alarm_settings_ok">OK</string>
     <string name="alarm_settings_cancel">Cancel</string>
     <string name="alarm_settings_units">Countdown</string>
     <string name="alarm_settings_ringtone_change">Change ringtone</string>

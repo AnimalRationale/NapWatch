@@ -74,7 +74,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onClick(View v) {
                 if (!ai.mIsOn) {
-                    editAlarmSettings(ai);}
+                    editAlarmSettings(ai, mContext);}
             }
         });
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
@@ -131,11 +131,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         }
     }
 
-    public void editAlarmSettings(AlarmInfo item) {
+    public void editAlarmSettings(AlarmInfo item, final Context context) {
 
         final int position = mAlarmList.indexOf(item);
         final AlarmInfo ai = mAlarmList.get(position);
-        Uri alert;
+        Uri currentRingtoneUri;
         Ringtone ringtone;
         String ringtoneName;
 
@@ -155,21 +155,22 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         } else rbMinutes.toggle();
 
         if (ai.mRingtoneUri == null) {
-            alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            if (alert == null) {
-                alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                if (alert == null) {
-                    alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            currentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (currentRingtoneUri == null) {
+                currentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (currentRingtoneUri == null) {
+                    currentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
                 }
             }
-        } else alert = Uri.parse(ai.mRingtoneUri);
-        ringtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
+        } else currentRingtoneUri = Uri.parse(ai.mRingtoneUri);
+
+        ringtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), currentRingtoneUri);
         ringtoneName = ringtone.getTitle(mContext.getApplicationContext());
-        Button ringtoneText = (Button) promptView.findViewById(R.id.changeRingtone);
-        ringtoneText.setText(ringtoneName);
+        Button ringtoneTextBtn = (Button) promptView.findViewById(R.id.changeRingtone);
+        ringtoneTextBtn.setText(ringtoneName);
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton(R.string.alarm_settings__ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.alarm_settings_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         ai.mName = input.getText().toString();
                         if (rbSeconds.isChecked()) {
