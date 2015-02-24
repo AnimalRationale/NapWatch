@@ -94,6 +94,7 @@ public class MainActivity extends Activity {
             editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
             editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
+            editor.putString(alarmPrefix + "_Ringtone", alarm.mRingtoneUri);
             Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnitSymbol + " :: isOn: " + alarm.mIsOn);
         }
         editor.commit();
@@ -147,6 +148,7 @@ public class MainActivity extends Activity {
                     break;
             }
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
+            ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", null);
             Log.d(TAG, "before Result add #" + i);
             result.add(ai);
             Log.d(TAG, "Result add #" + i);

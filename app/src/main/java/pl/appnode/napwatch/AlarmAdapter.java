@@ -147,6 +147,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         if (ai.mTimeUnit == SECOND) {
             rbSeconds.toggle();
         } else rbMinutes.toggle();
+        
         alertDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton(R.string.alarm_settings__ok, new DialogInterface.OnClickListener() {
