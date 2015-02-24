@@ -3,6 +3,7 @@ package pl.appnode.napwatch;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
@@ -13,6 +14,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_settings_dialog);
+        Log.d(TAG, "AlarmSettingsActivity started.");
     }
 
     @Override
