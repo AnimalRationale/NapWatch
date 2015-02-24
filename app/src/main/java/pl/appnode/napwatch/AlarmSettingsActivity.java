@@ -1,6 +1,7 @@
 package pl.appnode.napwatch;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,5 +17,16 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Intent intent = getIntent();
+        switch (v.getId()) {
+            case R.id.okAlarmSettings:
+                intent.putExtra("ok", "ok");
+                setResult(RESULT_OK, intent);
+                break;
+            case R.id.cancelAlarmSettings:
+                setResult(RESULT_CANCELED, intent);
+                break;
+        }
+        finish();
     }
 }
