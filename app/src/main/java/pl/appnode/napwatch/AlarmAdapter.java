@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -132,6 +135,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         final int position = mAlarmList.indexOf(item);
         final AlarmInfo ai = mAlarmList.get(position);
+        Uri alert;
+        Ringtone ringtone;
+        String ringtoneName;
 
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         View promptView = layoutInflater.inflate(R.layout.alarm_settings_dialog, null);
@@ -147,7 +153,20 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         if (ai.mTimeUnit == SECOND) {
             rbSeconds.toggle();
         } else rbMinutes.toggle();
-        
+
+        if (ai.mRingtoneUri == null) {
+            alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (alert == null) {
+                alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (alert == null) {
+                    alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                }
+            }
+        } else alert = Uri.parse(ai.mRingtoneUri);
+        ringtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
+        ringtoneName = ringtone.getTitle(mContext.getApplicationContext());
+        TextView ringtoneText = (TextView) promptView.findViewById(R.id.textRingtoneName);
+        ringtoneText.setText(ringtoneName);
         alertDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton(R.string.alarm_settings__ok, new DialogInterface.OnClickListener() {
