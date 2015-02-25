@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.RadioButton;
+
+import static pl.appnode.napwatch.StateConstants.SECOND;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
 
@@ -39,7 +42,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     public void onResume() {
         super.onResume();
         EditText input = (EditText) findViewById(R.id.alarmNameText);
-        input.setText("Text!");
+        input.setText(mAlarmName);
+        RadioButton rbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
+        RadioButton rbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
+        if (mAlarmTimeUnit == SECOND) {
+            rbSeconds.toggle();
+        } else rbMinutes.toggle();
     }
 
     @Override
