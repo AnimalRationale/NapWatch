@@ -79,7 +79,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     settingsIntent.putExtra("AlarmId", position);
                     settingsIntent.putExtra("AlarmName", ai.mName);
                     settingsIntent.putExtra("AlarmUnit", ai.mTimeUnit);
-                    settingsIntent.putExtra("AlarmUnit", ai.mRingtoneUri);
+                    settingsIntent.putExtra("AlarmRingtoneUri", ai.mRingtoneUri);
                     ((MainActivity)mContext).startActivityForResult(settingsIntent, 501);
 //                  editAlarmSettings(ai, mContext);
                 }
