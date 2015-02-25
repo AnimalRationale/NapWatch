@@ -59,7 +59,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/alarm_settings_ringtone_change" />
+        android:text="@string/alarm_settings_ringtone_change"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/primary" />
     <FrameLayout
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
@@ -71,7 +73,8 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:layout_gravity="center_horizontal|bottom"
-            style="?android:attr/borderlessButtonStyle"/>
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/primary" />
         <Button
             android:id="@+id/okAlarmSettings"
             android:layout_width="wrap_content"
@@ -80,6 +83,7 @@
             android:layout_toRightOf="@+id/cancelAlarmSettings"
             android:text="OK"
             android:layout_gravity="right|top"
-            style="?android:attr/borderlessButtonStyle" />
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/primary" />
     </FrameLayout>
 </LinearLayout>

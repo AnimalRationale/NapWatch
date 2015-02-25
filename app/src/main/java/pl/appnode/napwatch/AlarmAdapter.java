@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
 
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.SWITCHING;
 import static pl.appnode.napwatch.StateConstants.ON;
@@ -74,7 +75,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onClick(View v) {
                 if (!ai.mIsOn) {
-                    editAlarmSettings(ai, mContext);}
+                    editAlarmSettings(ai, mContext);
+                }
             }
         });
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
