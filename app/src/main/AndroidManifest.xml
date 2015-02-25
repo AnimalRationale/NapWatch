@@ -22,6 +22,7 @@
         </activity>
         <activity
             android:name=".AlarmSettingsActivity"
+            android:excludeFromRecents="true"
             android:theme="@android:style/android:Theme.Material.Light.Dialog" />
         <service
             android:name=".AlarmBroadcastService"
