@@ -25,14 +25,14 @@
         android:id="@+id/textViewRadioButtons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/alarm_settings_units"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
-
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         android:gravity="center"
         android:orientation="horizontal" >
         <RadioButton android:id="@+id/radioSeconds"
@@ -50,7 +50,7 @@
         android:id="@+id/textRingtoneName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/alarm_settings_ringtone"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
@@ -63,18 +63,11 @@
         style="?android:attr/borderlessButtonStyle"
         android:textColor="@color/primary" />
     <FrameLayout
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
-        <Button
-            android:id="@+id/cancelAlarmSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:layout_gravity="center_horizontal|bottom"
-            style="?android:attr/borderlessButtonStyle"
-            android:textColor="@color/primary" />
+
         <Button
             android:id="@+id/okAlarmSettings"
             android:layout_width="wrap_content"
@@ -83,6 +76,15 @@
             android:layout_toRightOf="@+id/cancelAlarmSettings"
             android:text="OK"
             android:layout_gravity="right|top"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/primary" />
+
+        <Button
+            android:id="@+id/cancelAlarmSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_gravity="left|top"
             style="?android:attr/borderlessButtonStyle"
             android:textColor="@color/primary" />
     </FrameLayout>

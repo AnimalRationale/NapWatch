@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
             ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
             ai.mDurationCounter = ai.mDuration;
-            ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", MINUTE);
+            ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
             switch (ai.mTimeUnit) {
                 case SECOND:  ai.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);
                     break;

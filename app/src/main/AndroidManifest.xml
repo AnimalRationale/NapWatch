@@ -23,7 +23,7 @@
         <activity
             android:name=".AlarmSettingsActivity"
             android:excludeFromRecents="true"
-            android:theme="@android:style/android:Theme.Material.Light.Dialog" />
+            android:theme="@android:style/android:Theme.Holo.Light.Dialog" />
         <service
             android:name=".AlarmBroadcastService"
             android:icon="@drawable/ic_alarm_add_grey600_48dp"
