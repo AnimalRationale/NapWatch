@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
 
@@ -14,8 +15,10 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alarm_settings_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        this.setFinishOnTouchOutside(false);
         Log.d(TAG, "AlarmSettingsActivity started.");
     }
 
