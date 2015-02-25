@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
 
@@ -20,6 +21,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFinishOnTouchOutside(false);
         Log.d(TAG, "AlarmSettingsActivity started.");
+    }
+
+    public void onResume() {
+        super.onResume();
+        EditText input = (EditText) findViewById(R.id.alarmNameText);
+        input.setText("Text!");
     }
 
     @Override

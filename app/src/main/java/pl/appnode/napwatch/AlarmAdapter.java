@@ -75,9 +75,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onClick(View v) {
                 if (!ai.mIsOn) {
-                    Intent intent = new Intent(mContext, AlarmSettingsActivity.class);
-                    ((MainActivity)mContext).startActivityForResult(intent, 501);
-//                    editAlarmSettings(ai, mContext);
+                    Intent settingsIntent = new Intent(mContext, AlarmSettingsActivity.class);
+                    settingsIntent.putExtra("AlarmId", position);
+                    settingsIntent.putExtra("AlarmName", ai.mName);
+                    settingsIntent.putExtra("AlarmUnit", ai.mTimeUnit);
+                    settingsIntent.putExtra("AlarmUnit", ai.mRingtoneUri);
+                    ((MainActivity)mContext).startActivityForResult(settingsIntent, 501);
+//                  editAlarmSettings(ai, mContext);
                 }
             }
         });
