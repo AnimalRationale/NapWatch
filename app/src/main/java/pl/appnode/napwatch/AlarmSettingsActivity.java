@@ -2,13 +2,18 @@ package pl.appnode.napwatch;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import static pl.appnode.napwatch.StateConstants.SECOND;
 
@@ -19,6 +24,9 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private String mAlarmName;
     private int mAlarmTimeUnit;
     private String mAlarmRingtoneUri;
+    private Uri mCurrentRingtoneUri;
+    private Ringtone mRingtone;
+    private String mRingtoneName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +49,33 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     public void onResume() {
         super.onResume();
+
+        TextView title = (TextView) findViewById(R.id.alarmEditTitle);
+        title.setText(R.string.alarm_settings_title);
+        title.append("" + (mAlarmId + 1));
+
         EditText input = (EditText) findViewById(R.id.alarmNameText);
         input.setText(mAlarmName);
+
         RadioButton rbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
         RadioButton rbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
         if (mAlarmTimeUnit == SECOND) {
             rbSeconds.toggle();
         } else rbMinutes.toggle();
+
+        if (mAlarmRingtoneUri == null) {
+            mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (mCurrentRingtoneUri == null) {
+                mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (mCurrentRingtoneUri == null) {
+                    mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                }
+            }
+        } else mCurrentRingtoneUri = Uri.parse(mAlarmRingtoneUri);
+        mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
+        mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
+        Button ringtoneTextBtn = (Button) findViewById(R.id.changeRingtone);
+        ringtoneTextBtn.setText(mRingtoneName);
     }
 
     @Override
