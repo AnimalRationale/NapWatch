@@ -160,7 +160,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
-        Log.d(TAG, "onActivityResult?");
         if (requestCode == SETTINGS_INTENT_REQUEST && resultCode == RESULT_OK && resultIntent.getExtras() != null) {
             Log.d(TAG, "Proper ResultIntent.");
             int position = resultIntent.getIntExtra("AlarmId", 0);

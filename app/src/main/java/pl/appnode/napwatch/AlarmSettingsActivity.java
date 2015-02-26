@@ -18,6 +18,7 @@ import android.widget.TextView;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
 
@@ -82,6 +83,19 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
         mRingtoneTextButtn.setText(mRingtoneName);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+        Log.d(TAG, "onActivityResult fo Ringtone Picker.");
+        if (requestCode == RINGTONE_INTENT_REQUEST && resultCode == RESULT_OK && resultIntent.getExtras() != null) {
+            Log.d(TAG, "Proper Ringtone ResultIntent.");
+            mCurrentRingtoneUri = resultIntent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
+            mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
+            mRingtoneTextButtn.setText(mRingtoneName);
+            Log.d(TAG, "Ringtone Result: " + mRingtoneName);
+        }
     }
 
     @Override
