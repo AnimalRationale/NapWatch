@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
@@ -27,11 +28,11 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private Uri mCurrentRingtoneUri;
     private Ringtone mRingtone;
     private String mRingtoneName;
-    TextView mTitle;
-    EditText mEditAlarmName;
-    RadioButton mRbSeconds;
-    RadioButton mRbMinutes;
-    Button mRingtoneTextBtn;
+    private TextView mTitle;
+    private EditText mEditAlarmName;
+    private RadioButton mRbSeconds;
+    private RadioButton mRbMinutes;
+    private Button mRingtoneTextButtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mEditAlarmName = (EditText) findViewById(R.id.alarmNameText);
         mRbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
         mRbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
-        mRingtoneTextBtn = (Button) findViewById(R.id.changeRingtone);
+        mRingtoneTextButtn = (Button) findViewById(R.id.changeRingtone);
+        mRingtoneTextButtn.setOnClickListener(this);
+        Button buttonOk = (Button) findViewById(R.id.okAlarmSettings);
+        buttonOk.setOnClickListener(this);
+        Button buttonCancel = (Button) findViewById(R.id.cancelAlarmSettings);
+        buttonCancel.setOnClickListener(this);
         Intent settingsIntent = getIntent();
         if (settingsIntent.getExtras().get("AlarmId") != null)
             {mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");}
@@ -76,21 +82,36 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         } else mCurrentRingtoneUri = Uri.parse(mAlarmRingtoneUri);
         mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
-        mRingtoneTextBtn.setText(mRingtoneName);
+        mRingtoneTextButtn.setText(mRingtoneName);
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = getIntent();
+        Log.d(TAG, "Clicked!!");
+        Intent resultIntent = getIntent();
         switch (v.getId()) {
             case R.id.okAlarmSettings:
-                intent.putExtra("ok", "ok");
-                setResult(RESULT_OK, intent);
+                Log.d(TAG, "Clicked OK!");
+                resultIntent.putExtra("AlarmId", mAlarmId);
+                resultIntent.putExtra("AlarmName", mEditAlarmName.getText());
+                if (mRbSeconds.isChecked()) {
+                    mAlarmTimeUnit = SECOND;
+                } else {
+                    mAlarmTimeUnit = MINUTE;
+                }
+                resultIntent.putExtra("AlarmUnit", mAlarmTimeUnit);
+                resultIntent.putExtra("AlarmRingtoneUri", mCurrentRingtoneUri);
+                setResult(RESULT_OK, resultIntent);
+                finish();
                 break;
             case R.id.cancelAlarmSettings:
-                setResult(RESULT_CANCELED, intent);
+                Log.d(TAG, "Clicked CANCEL!");
+                setResult(RESULT_CANCELED, resultIntent);
+                finish();
+                break;
+            case R.id.changeRingtone:
+                Log.d(TAG, "Clicked RINGTONE!");
                 break;
         }
-        finish();
     }
 }
