@@ -27,11 +27,11 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private Uri mCurrentRingtoneUri;
     private Ringtone mRingtone;
     private String mRingtoneName;
-    TextView mTitle = (TextView) findViewById(R.id.alarmEditTitle);;
-    EditText mEditAlarmName = (EditText) findViewById(R.id.alarmNameText);
-    RadioButton mRbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
-    RadioButton mRbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
-    Button mRingtoneTextBtn = (Button) findViewById(R.id.changeRingtone);
+    TextView mTitle;
+    EditText mEditAlarmName;
+    RadioButton mRbSeconds;
+    RadioButton mRbMinutes;
+    Button mRingtoneTextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,11 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         setContentView(R.layout.alarm_settings_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFinishOnTouchOutside(false);
-        Log.d(TAG, "AlarmSettingsActivity started.");
+        mTitle = (TextView) findViewById(R.id.alarmEditTitle);
+        mEditAlarmName = (EditText) findViewById(R.id.alarmNameText);
+        mRbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
+        mRbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
+        mRingtoneTextBtn = (Button) findViewById(R.id.changeRingtone);
         Intent settingsIntent = getIntent();
         if (settingsIntent.getExtras().get("AlarmId") != null)
             {mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");}
@@ -50,6 +54,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             {mAlarmTimeUnit = (int) settingsIntent.getExtras().get("AlarmUnit");}
         if (settingsIntent.getExtras().get("AlarmRingtoneUri") != null)
             {mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");}
+        Log.d(TAG, "AlarmSettingsActivity started.");
     }
 
     public void onResume() {
