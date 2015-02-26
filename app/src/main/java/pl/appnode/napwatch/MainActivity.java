@@ -119,7 +119,7 @@ public class MainActivity extends Activity {
     private List<AlarmInfo> createList() {
         Log.d(TAG, "Create list.");
 
-        SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, 0);
+        SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
         String alarmPrefix;
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
@@ -146,7 +146,7 @@ public class MainActivity extends Activity {
     }
 
     protected void saveSharedPrefs() {
-        SharedPreferences alarmsPrefs = getSharedPreferences(MainActivity.ALARMS_PREFS_FILE, 0);
+        SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = alarmsPrefs.edit();
         for (int i = 0; i <= 3; i++) {
             String alarmPrefix = "Alarm_" + (i + 1);
