@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.RINGTONE_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
@@ -110,6 +111,14 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.changeRingtone:
                 Log.d(TAG, "Clicked RINGTONE!");
+                Intent ringtoneIntent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                ringtoneIntent.putExtra
+                        (RingtoneManager.EXTRA_RINGTONE_TITLE,
+                                getResources().getString(R.string.alarm_settings_ringtone_picker + (mAlarmId + 1)));
+                ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
+                ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+                ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
+                startActivityForResult( ringtoneIntent, RINGTONE_INTENT_REQUEST);
                 break;
         }
     }
