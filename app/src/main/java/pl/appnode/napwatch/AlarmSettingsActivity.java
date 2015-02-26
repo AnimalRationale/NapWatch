@@ -27,6 +27,11 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private Uri mCurrentRingtoneUri;
     private Ringtone mRingtone;
     private String mRingtoneName;
+    TextView mTitle = (TextView) findViewById(R.id.alarmEditTitle);;
+    EditText mEditAlarmName = (EditText) findViewById(R.id.alarmNameText);
+    RadioButton mRbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
+    RadioButton mRbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
+    Button mRingtoneTextBtn = (Button) findViewById(R.id.changeRingtone);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +54,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     public void onResume() {
         super.onResume();
-
-        TextView title = (TextView) findViewById(R.id.alarmEditTitle);
-        title.setText(R.string.alarm_settings_title);
-        title.append("" + (mAlarmId + 1));
-
-        EditText input = (EditText) findViewById(R.id.alarmNameText);
-        input.setText(mAlarmName);
-
-        RadioButton rbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
-        RadioButton rbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
+        mTitle.setText(R.string.alarm_settings_title);
+        mTitle.append("" + (mAlarmId + 1));
+        mEditAlarmName.setText(mAlarmName);
         if (mAlarmTimeUnit == SECOND) {
-            rbSeconds.toggle();
-        } else rbMinutes.toggle();
-
+            mRbSeconds.toggle();
+        } else mRbMinutes.toggle();
         if (mAlarmRingtoneUri == null) {
             mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
             if (mCurrentRingtoneUri == null) {
@@ -74,8 +71,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         } else mCurrentRingtoneUri = Uri.parse(mAlarmRingtoneUri);
         mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
-        Button ringtoneTextBtn = (Button) findViewById(R.id.changeRingtone);
-        ringtoneTextBtn.setText(mRingtoneName);
+        mRingtoneTextBtn.setText(mRingtoneName);
     }
 
     @Override
