@@ -25,13 +25,13 @@ public class AlarmCountDownTimer extends CountDownTimer {
     int mAlarmDuration;
     int mTimeUnitFactor;
     String mAlarmUnit;
-    Uri mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+    Uri mAlert;
     Ringtone mRingtone;
     Context mContext;
     boolean isFinished = false;
     long mTimeUntilFinished;
 
-    public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, String title, String alarmUnit, int alarmDuration, Context context) {
+    public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, String title, String alarmUnit, int alarmDuration, String alarmRingtone, Context context) {
         super(millisInFuture, countDownInterval);
         mAlarmId = alarmId;
         mAlarmName = title;
@@ -40,10 +40,14 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mAlarmDuration = alarmDuration;
         mTimeUnitFactor = (int) countDownInterval;
         Log.d(TAG, "TimeFactor in timer: " + mTimeUnitFactor);
+        mAlert = Uri.parse(alarmRingtone);
         if (mAlert == null) {
-            mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
             if (mAlert == null) {
-                mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (mAlert == null) {
+                    mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                }
             }
         }
         Intent resultIntent = new Intent(mContext, MainActivity.class);

@@ -24,6 +24,7 @@ public class AlarmBroadcastService extends Service {
     String mAlarmName;
     int mAlarmDuration;
     String mAlarmUnit;
+    String mAlarmRingtone;
     int mAlarmCommand;
     int mStartMode;       // indicates how to behave if the service is killed
     
@@ -55,7 +56,9 @@ public class AlarmBroadcastService extends Service {
             timeFactor = (Integer) intent.getExtras().get("AlarmFactor");
             Log.d(TAG, "TimeFactor: " + timeFactor);
             notifyId = mAlarmId;
-            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor, timeFactor - (timeFactor / 200), mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, this);
+            mAlarmRingtone = intent.getExtras().get("AlarmRingtone").toString();
+            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor, timeFactor - (timeFactor / 200),
+                    mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, mAlarmRingtone, this);
             mAlarms[mAlarmId].start();
             MainActivity.AlarmState[mAlarmId] = ON;
             return mStartMode;
