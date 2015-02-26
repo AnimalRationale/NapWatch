@@ -68,7 +68,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     public void onTick(long millisUntilFinished) {
         Log.d(TAG, "Countdown time remaining: " + millisUntilFinished / mTimeUnitFactor);
         mTimeUntilFinished = millisUntilFinished;
-        mBI.putExtra("AlarmID", mAlarmId);
+        mBI.putExtra("AlarmId", mAlarmId);
         mBI.putExtra("countdown", (millisUntilFinished ) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));

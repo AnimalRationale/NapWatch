@@ -91,14 +91,15 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             case R.id.okAlarmSettings:
                 Log.d(TAG, "Clicked OK!");
                 resultIntent.putExtra("AlarmId", mAlarmId);
-                resultIntent.putExtra("AlarmName", mEditAlarmName.getText());
+                resultIntent.putExtra("AlarmName", mEditAlarmName.getText().toString());
                 if (mRbSeconds.isChecked()) {
                     mAlarmTimeUnit = SECOND;
                 } else {
                     mAlarmTimeUnit = MINUTE;
                 }
                 resultIntent.putExtra("AlarmUnit", mAlarmTimeUnit);
-                resultIntent.putExtra("AlarmRingtoneUri", mCurrentRingtoneUri);
+                resultIntent.putExtra("AlarmRingtoneUri", mCurrentRingtoneUri.toString());
+                Log.d(TAG, "INTENT: ID=" + mAlarmId + " Name:" + mEditAlarmName.getText().toString() + " Unit:" + mAlarmTimeUnit + " Ringtone:" + mCurrentRingtoneUri.toString());
                 setResult(RESULT_OK, resultIntent);
                 finish();
                 break;

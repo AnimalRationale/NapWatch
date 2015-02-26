@@ -21,8 +21,8 @@ import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
 import static pl.appnode.napwatch.StateConstants.OFF;
+import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT;
 import static pl.appnode.napwatch.StateConstants.SWITCHING;
 import static pl.appnode.napwatch.StateConstants.ON;
 import static pl.appnode.napwatch.StateConstants.SECOND;
@@ -80,7 +80,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     settingsIntent.putExtra("AlarmName", ai.mName);
                     settingsIntent.putExtra("AlarmUnit", ai.mTimeUnit);
                     settingsIntent.putExtra("AlarmRingtoneUri", ai.mRingtoneUri);
-                    ((MainActivity)mContext).startActivityForResult(settingsIntent, 501);
+                    ((MainActivity)mContext).startActivityForResult(settingsIntent, SETTINGS_INTENT);
 //                  editAlarmSettings(ai, mContext);
                 }
             }

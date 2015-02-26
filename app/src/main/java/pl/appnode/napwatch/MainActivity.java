@@ -17,6 +17,7 @@ import java.util.List;
 
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
 
 public class MainActivity extends Activity {
@@ -158,15 +159,25 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+        if (requestCode == SETTINGS_INTENT && resultCode == RESULT_OK && resultIntent.getExtras() != null) {
+            Log.d(TAG, "Proper ResultIntent.");
+            int position = resultIntent.getIntExtra("AlarmId", 0);
+            AlarmInfo alarm = mAA.mAlarmList.get(position);
+            alarm.mName = (String) resultIntent.getExtras().get("AlarmName");
+            alarm.mTimeUnit = (int) resultIntent.getExtras().get("AlarmUnit");
+            if (alarm.mTimeUnit == SECOND) {
+                alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);
+            } else alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_minutes);
+            alarm.mRingtoneUri = (String) resultIntent.getExtras().get("AlarmRingtoneUri");
+            mAA.notifyItemChanged(position);
         }
     }
 
     private void updateTime(Intent intent) {
         if (intent.getExtras() != null) {
             long timeToFinish = intent.getLongExtra("countdown", 0);
-            int position = intent.getIntExtra("AlarmID", 0);
+            int position = intent.getIntExtra("AlarmId", 0);
             Log.d(TAG, "Countdown time remaining: " +  timeToFinish);
             AlarmInfo alarm = mAA.mAlarmList.get(position);
             alarm.mDurationCounter = (int) timeToFinish;
