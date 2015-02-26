@@ -114,9 +114,10 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
                 Intent ringtoneIntent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
                 ringtoneIntent.putExtra
                         (RingtoneManager.EXTRA_RINGTONE_TITLE,
-                                getResources().getString(R.string.alarm_settings_ringtone_picker + (mAlarmId + 1)));
+                                getResources().getString(R.string.alarm_settings_ringtone_picker) + mTitle.getText());
                 ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
                 ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+                ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, mCurrentRingtoneUri);
                 ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
                 startActivityForResult( ringtoneIntent, RINGTONE_INTENT_REQUEST);
                 break;
