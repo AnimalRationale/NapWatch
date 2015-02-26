@@ -86,20 +86,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPreferences alarmsPrefs = getSharedPreferences(MainActivity.ALARMS_PREFS_FILE, 0);
-        SharedPreferences.Editor editor = alarmsPrefs.edit();
-        for (int i = 0; i <= 3; i++) {
-            String alarmPrefix = "Alarm_" + (i + 1);
-            AlarmInfo alarm = mAA.mAlarmList.get(i);
-            editor.putString(alarmPrefix, alarm.mName);
-            editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
-            editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
-            editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
-            editor.putString(alarmPrefix + "_Ringtone", alarm.mRingtoneUri);
-            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnitSymbol + " :: isOn: " + alarm.mIsOn);
-        }
-        editor.commit();
-        Log.d(TAG, "COMMITED SharedPrefs.");
+        saveSharedPrefs();
         unregisterReceiver(mCountDownBroadcast);
         Log.d(TAG, "OnPause unregistered broadcast receiver.");
     }
@@ -158,6 +145,23 @@ public class MainActivity extends Activity {
         return result;
     }
 
+    protected void saveSharedPrefs() {
+        SharedPreferences alarmsPrefs = getSharedPreferences(MainActivity.ALARMS_PREFS_FILE, 0);
+        SharedPreferences.Editor editor = alarmsPrefs.edit();
+        for (int i = 0; i <= 3; i++) {
+            String alarmPrefix = "Alarm_" + (i + 1);
+            AlarmInfo alarm = mAA.mAlarmList.get(i);
+            editor.putString(alarmPrefix, alarm.mName);
+            editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
+            editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
+            editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
+            editor.putString(alarmPrefix + "_Ringtone", alarm.mRingtoneUri);
+            Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnitSymbol + " :: isOn: " + alarm.mIsOn);
+        }
+        editor.commit();
+        Log.d(TAG, "COMMITED SharedPrefs.");
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         if (requestCode == SETTINGS_INTENT_REQUEST && resultCode == RESULT_OK && resultIntent.getExtras() != null) {
@@ -171,6 +175,7 @@ public class MainActivity extends Activity {
             } else alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_minutes);
             alarm.mRingtoneUri = (String) resultIntent.getExtras().get("AlarmRingtoneUri");
             mAA.notifyItemChanged(position);
+            saveSharedPrefs();
         }
     }
 

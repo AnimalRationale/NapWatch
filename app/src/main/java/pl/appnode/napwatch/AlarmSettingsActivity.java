@@ -82,6 +82,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     public void onResume() {
         super.onResume();
+        // TODO: check if timer wasn't started from widget.
     }
 
     @Override
@@ -113,7 +114,9 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
                 }
                 resultIntent.putExtra("AlarmUnit", mAlarmTimeUnit);
                 resultIntent.putExtra("AlarmRingtoneUri", mCurrentRingtoneUri.toString());
-                Log.d(TAG, "INTENT: ID=" + mAlarmId + " Name:" + mEditAlarmName.getText().toString() + " Unit:" + mAlarmTimeUnit + " Ringtone:" + mCurrentRingtoneUri.toString());
+                Log.d(TAG, "INTENT: ID=" + mAlarmId + " Name:"
+                        + mEditAlarmName.getText().toString() + " Unit:" + mAlarmTimeUnit
+                        + " Ringtone:" + mCurrentRingtoneUri.toString());
                 setResult(RESULT_OK, resultIntent);
                 finish();
                 break;
