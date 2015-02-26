@@ -1,12 +1,7 @@
 package pl.appnode.napwatch;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.List;
@@ -26,7 +19,6 @@ import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT;
 import static pl.appnode.napwatch.StateConstants.SWITCHING;
 import static pl.appnode.napwatch.StateConstants.ON;
 import static pl.appnode.napwatch.StateConstants.SECOND;
-import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.STOP;
 
@@ -81,7 +73,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     settingsIntent.putExtra("AlarmUnit", ai.mTimeUnit);
                     settingsIntent.putExtra("AlarmRingtoneUri", ai.mRingtoneUri);
                     ((MainActivity)mContext).startActivityForResult(settingsIntent, SETTINGS_INTENT);
-//                  editAlarmSettings(ai, mContext);
                 }
             }
         });
@@ -137,68 +128,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             vDuration = (Button) v.findViewById(R.id.round_btn1);
             vMinutesBar = (SeekBar) v.findViewById(R.id.minutes_seek);
         }
-    }
-
-    public void editAlarmSettings(AlarmInfo item, final Context context) {
-
-        final int position = mAlarmList.indexOf(item);
-        final AlarmInfo ai = mAlarmList.get(position);
-        Uri currentRingtoneUri;
-        Ringtone ringtone;
-        String ringtoneName;
-
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View promptView = layoutInflater.inflate(R.layout.alarm_settings_dialog, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
-        alertDialogBuilder.setView(promptView);
-        TextView title = (TextView) promptView.findViewById(R.id.alarmEditTitle);
-        title.setText(R.string.alarm_settings_title);
-        title.append("" + (position + 1));
-        final EditText input = (EditText) promptView.findViewById(R.id.alarmNameText);
-        input.setText(ai.mName);
-        final RadioButton rbSeconds = (RadioButton) promptView.findViewById(R.id.radioSeconds);
-        RadioButton rbMinutes = (RadioButton) promptView.findViewById(R.id.radioMinutes);
-        if (ai.mTimeUnit == SECOND) {
-            rbSeconds.toggle();
-        } else rbMinutes.toggle();
-
-        if (ai.mRingtoneUri == null) {
-            currentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            if (currentRingtoneUri == null) {
-                currentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                if (currentRingtoneUri == null) {
-                    currentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-                }
-            }
-        } else currentRingtoneUri = Uri.parse(ai.mRingtoneUri);
-
-        ringtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), currentRingtoneUri);
-        ringtoneName = ringtone.getTitle(mContext.getApplicationContext());
-        Button ringtoneTextBtn = (Button) promptView.findViewById(R.id.changeRingtone);
-        ringtoneTextBtn.setText(ringtoneName);
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(R.string.alarm_settings_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        ai.mName = input.getText().toString();
-                        if (rbSeconds.isChecked()) {
-                            ai.mTimeUnit = SECOND;
-                            ai.mTimeUnitSymbol = mContext.getResources().getString(R.string.time_unit_seconds);
-                        } else {
-                            ai.mTimeUnit = MINUTE;
-                            ai.mTimeUnitSymbol = mContext.getResources().getString(R.string.time_unit_minutes);
-                        }
-                        notifyItemChanged(position);
-                    }
-                })
-                .setNegativeButton(R.string.alarm_settings_cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,	int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertD = alertDialogBuilder.create();
-        alertD.show();
     }
 
     public void startAlarm(AlarmInfo item) {
