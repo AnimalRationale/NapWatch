@@ -52,14 +52,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         Button buttonCancel = (Button) findViewById(R.id.cancelAlarmSettings);
         buttonCancel.setOnClickListener(this);
         Intent settingsIntent = getIntent();
-        if (settingsIntent.getExtras().get("AlarmId") != null)
-            {mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");}
-        if (settingsIntent.getExtras().get("AlarmName") != null)
-            {mAlarmName = (String) settingsIntent.getExtras().get("AlarmName");}
-        if (settingsIntent.getExtras().get("AlarmUnit") != null)
-            {mAlarmTimeUnit = (int) settingsIntent.getExtras().get("AlarmUnit");}
-        if (settingsIntent.getExtras().get("AlarmRingtoneUri") != null)
-            {mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");}
+        if (settingsIntent.getExtras() != null) {
+            mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");
+            mAlarmName = (String) settingsIntent.getExtras().get("AlarmName");
+            mAlarmTimeUnit = (int) settingsIntent.getExtras().get("AlarmUnit");
+            mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");
+        }
         Log.d(TAG, "AlarmSettingsActivity started.");
     }
 

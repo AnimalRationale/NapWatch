@@ -128,12 +128,6 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK) {
-        }
-    }
-
     private List<AlarmInfo> createList() {
         Log.d(TAG, "Create list.");
 
@@ -161,6 +155,12 @@ public class MainActivity extends Activity {
         }
         Log.d(TAG, "RETURN!");
         return result;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+        }
     }
 
     private void updateTime(Intent intent) {

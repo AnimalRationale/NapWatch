@@ -234,13 +234,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         Log.d(TAG, "Alarm OFF.");
     }
 
-    public void updateTime (int position) {
-        AlarmInfo alarm = mAlarmList.get(position);
-        if (alarm.mIsOn) {
-        }
-
-    }
-
     public void setDuration(AlarmInfo item, int duration) {
         int position = mAlarmList.indexOf(item);
         AlarmInfo alarm = mAlarmList.get(position);
