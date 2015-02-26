@@ -17,7 +17,7 @@ import java.util.List;
 
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
-import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT;
+import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
 
 public class MainActivity extends Activity {
@@ -160,7 +160,8 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
-        if (requestCode == SETTINGS_INTENT && resultCode == RESULT_OK && resultIntent.getExtras() != null) {
+        Log.d(TAG, "onActivityResult?");
+        if (requestCode == SETTINGS_INTENT_REQUEST && resultCode == RESULT_OK && resultIntent.getExtras() != null) {
             Log.d(TAG, "Proper ResultIntent.");
             int position = resultIntent.getIntExtra("AlarmId", 0);
             AlarmInfo alarm = mAA.mAlarmList.get(position);
