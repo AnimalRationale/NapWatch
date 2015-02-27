@@ -98,44 +98,57 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         }
     }
 
+    private void resultOk() {
+        Intent resultIntent = getIntent();
+        resultIntent.putExtra("AlarmId", mAlarmId);
+        resultIntent.putExtra("AlarmName", mEditAlarmName.getText().toString());
+        if (mRbSeconds.isChecked()) {
+            mAlarmTimeUnit = SECOND;
+        } else {
+            mAlarmTimeUnit = MINUTE;
+        }
+        resultIntent.putExtra("AlarmUnit", mAlarmTimeUnit);
+        resultIntent.putExtra("AlarmRingtoneUri", mCurrentRingtoneUri.toString());
+        Log.d(TAG, "INTENT: ID=" + mAlarmId + " Name:"
+                + mEditAlarmName.getText().toString() + " Unit:" + mAlarmTimeUnit
+                + " Ringtone:" + mCurrentRingtoneUri.toString());
+        setResult(RESULT_OK, resultIntent);
+        finish();
+    }
+
+    private void resultCancel() {
+        Intent resultIntent = getIntent();
+        setResult(RESULT_CANCELED, resultIntent);
+        finish();
+    }
+
+    private void ringtonePicker() {
+        Intent ringtoneIntent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        ringtoneIntent.putExtra
+                (RingtoneManager.EXTRA_RINGTONE_TITLE,
+                        getResources().getString(R.string.alarm_settings_ringtone_picker) + mTitle.getText());
+        ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
+        ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+        ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, mCurrentRingtoneUri);
+        ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
+        startActivityForResult( ringtoneIntent, RINGTONE_INTENT_REQUEST);
+    }
+
     @Override
     public void onClick(View v) {
         Log.d(TAG, "Clicked!!");
-        Intent resultIntent = getIntent();
         switch (v.getId()) {
             case R.id.okAlarmSettings:
                 Log.d(TAG, "Clicked OK!");
-                resultIntent.putExtra("AlarmId", mAlarmId);
-                resultIntent.putExtra("AlarmName", mEditAlarmName.getText().toString());
-                if (mRbSeconds.isChecked()) {
-                    mAlarmTimeUnit = SECOND;
-                } else {
-                    mAlarmTimeUnit = MINUTE;
-                }
-                resultIntent.putExtra("AlarmUnit", mAlarmTimeUnit);
-                resultIntent.putExtra("AlarmRingtoneUri", mCurrentRingtoneUri.toString());
-                Log.d(TAG, "INTENT: ID=" + mAlarmId + " Name:"
-                        + mEditAlarmName.getText().toString() + " Unit:" + mAlarmTimeUnit
-                        + " Ringtone:" + mCurrentRingtoneUri.toString());
-                setResult(RESULT_OK, resultIntent);
-                finish();
+                resultOk();
                 break;
             case R.id.cancelAlarmSettings:
                 Log.d(TAG, "Clicked CANCEL!");
-                setResult(RESULT_CANCELED, resultIntent);
-                finish();
+                resultCancel();
                 break;
             case R.id.changeRingtone:
                 Log.d(TAG, "Clicked RINGTONE!");
-                Intent ringtoneIntent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-                ringtoneIntent.putExtra
-                        (RingtoneManager.EXTRA_RINGTONE_TITLE,
-                                getResources().getString(R.string.alarm_settings_ringtone_picker) + mTitle.getText());
-                ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
-                ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
-                ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, mCurrentRingtoneUri);
-                ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
-                startActivityForResult( ringtoneIntent, RINGTONE_INTENT_REQUEST);
+                ringtonePicker();
                 break;
         }
     }
