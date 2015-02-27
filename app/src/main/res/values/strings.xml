@@ -12,7 +12,7 @@
     <string name="alarm_settings_ringtone_change">Change ringtone</string>
     <string name="alarm_settings_ringtone">Ringtone</string>
     <string name="alarm_settings_ringtone_default">Default alarm ringtone</string>
-    <string name="alarm_settings_ringtone_picker">Select ringtone for\u0020</string>
+    <string name="alarm_settings_ringtone_picker">Ringtone for\u0020</string>
     <string name="action_settings">Settings</string>
     <string name="notification_title">\u0020 left</string>
     <string name="notification_text01">Alarm \u0020</string>
