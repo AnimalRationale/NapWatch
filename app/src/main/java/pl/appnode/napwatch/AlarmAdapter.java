@@ -14,7 +14,9 @@ import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
 
+import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.OFF;
+import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.SWITCHING;
 import static pl.appnode.napwatch.StateConstants.ON;
@@ -137,7 +139,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         notifyItemChanged(position);
         Log.d(TAG, "Alarm ON.");
         int timeUnitFactor = 0;
-        if (alarm.mTimeUnit == SECOND) { timeUnitFactor = 1000;} else {timeUnitFactor = (1000 * 60);}
+        if (alarm.mTimeUnit == SECOND) { timeUnitFactor = SECOND_IN_MILLIS;} else {timeUnitFactor = (MINUTE_IN_MILLIS);}
         Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
         serviceIntent.putExtra("AlarmId", position);
         serviceIntent.putExtra("AlarmName", alarm.mName);
