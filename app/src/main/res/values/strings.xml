@@ -20,4 +20,6 @@
     <string name="notification_text03">) started!</string>
     <string name="notification_text03_finished">) finished.</string>
     <string name="notification_text_finished">Have a good day :)!</string>
+    <string name="about_dialog_ver_name_err">Unknown</string>
+    <string name="about_dialog_ver_code_err">Unknown</string>
 </resources>
