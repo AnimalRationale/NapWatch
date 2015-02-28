@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +28,16 @@ public class AboutDialog {
             return context.getResources().getString(R.string.about_dialog_ver_name_err);
         }
     }
+
+    private static Drawable versionIcon(Context context) {
+        try {
+            return context.getPackageManager().getApplicationIcon("pl.appnode.napwatch");
+        }
+        catch (PackageManager.NameNotFoundException ex) {
+            return context.getResources().getDrawable(R.drawable.ic_launcher);
+        }
+    }
+    //TODO: refactor
 
     public static void showDialog(Activity callingActivity) {
         String aboutVersion = versionName(callingActivity) + "." + versionCode(callingActivity);
