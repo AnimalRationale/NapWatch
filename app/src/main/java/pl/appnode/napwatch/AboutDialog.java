@@ -29,9 +29,7 @@ public class AboutDialog {
     }
 
     public static void showDialog(Activity callingActivity) {
-        String aboutVersion = callingActivity.getResources().getString(R.string.about_dialog_version)
-                + versionName(callingActivity) + "."
-                + versionCode(callingActivity);
+        String aboutVersion = versionName(callingActivity) + "." + versionCode(callingActivity);
         LayoutInflater layoutInflater = LayoutInflater.from(callingActivity);
         View aboutDialog = layoutInflater.inflate(R.layout.about_dialog, null);
         TextView textAbout = (TextView) aboutDialog.findViewById(R.id.aboutDialogInfo);
@@ -39,6 +37,7 @@ public class AboutDialog {
         new AlertDialog.Builder(callingActivity)
                 .setTitle(callingActivity.getResources().getString(R.string.about_dialog_title)
                         + callingActivity.getString(R.string.app_name))
+                .setIcon(R.drawable.ic_alarm_add_grey600_48dp)
                 .setCancelable(true)
                 .setPositiveButton(callingActivity.getResources().getString(R.string.about_dialog_ok), null)
                 .setView(aboutDialog)
