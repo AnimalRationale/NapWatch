@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class AboutDialog {
+
     private String versionName(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName;
