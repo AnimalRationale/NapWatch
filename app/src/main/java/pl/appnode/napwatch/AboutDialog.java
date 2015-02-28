@@ -33,8 +33,8 @@ public class AboutDialog {
         String aboutVersion = callingActivity.getResources().getString(R.string.about_dialog_version)
                 + versionName(callingActivity) + "."
                 + versionCode(callingActivity);
-        LayoutInflater inflater = callingActivity.getLayoutInflater();
-        View aboutDialog = inflater.inflate(R.layout.about_dialog, (ViewGroup) callingActivity.findViewById(R.id.aboutDialog));
+        LayoutInflater layoutInflater = LayoutInflater.from(callingActivity);
+        View aboutDialog = layoutInflater.inflate(R.layout.about_dialog, null);
         TextView textAbout = (TextView) aboutDialog.findViewById(R.id.aboutDialogInfo);
         textAbout.setText(aboutVersion);
         new AlertDialog.Builder(callingActivity)
