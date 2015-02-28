@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class AboutDialog {
 
-    private String versionName(Context context) {
+    private static String versionName(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName;
         }
@@ -20,7 +20,7 @@ public class AboutDialog {
         }
     }
 
-    private String versionCode(Context context) {
+    private static String versionCode(Context context) {
         try {
             return String.valueOf(context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionCode);
         }
@@ -29,7 +29,7 @@ public class AboutDialog {
         }
     }
 
-    public void showDialog(Activity callingActivity) {
+    public static void showDialog(Activity callingActivity) {
         String aboutVersion = callingActivity.getResources().getString(R.string.about_dialog_version)
                 + versionName(callingActivity) + "."
                 + versionCode(callingActivity);

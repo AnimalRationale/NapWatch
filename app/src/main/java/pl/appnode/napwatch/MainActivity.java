@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
-            return true;
+            AboutDialog.showDialog(MainActivity.this);
         }
         return super.onOptionsItemSelected(item);
     }
