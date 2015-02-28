@@ -6,14 +6,13 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class AboutDialog {
 
     private static String versionName(Context context) {
         try {
-            return context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName;
+            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
         }
         catch (PackageManager.NameNotFoundException ex) {
             return context.getResources().getString(R.string.about_dialog_ver_name_err);
