@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 
@@ -82,7 +83,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     public void onResume() {
         super.onResume();
-        // TODO: check if timer wasn't started from widget.
+        if (MainActivity.alarmState[mAlarmId] != OFF) {finish();}        
     }
 
     @Override
