@@ -9,7 +9,7 @@
         android:id="@+id/widget_round_btn1"
         android:layout_width="50dip"
         android:layout_height="50dip"
-        android:background="@drawable/ic_alarm_add_grey600_48dp"
+        android:background="@drawable/ic_launcher"
         android:text=""
         android:textAllCaps="false"
         android:textColor="#fff" />

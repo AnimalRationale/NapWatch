@@ -41,7 +41,7 @@ public class AboutDialog {
         new AlertDialog.Builder(callingActivity)
                 .setTitle(callingActivity.getResources().getString(R.string.about_dialog_title)
                         + callingActivity.getString(R.string.app_name))
-                .setIcon(R.drawable.ic_alarm_add_grey600_48dp)
+                .setIcon(R.drawable.ic_launcher)
                 .setCancelable(true)
                 .setPositiveButton(callingActivity.getResources().getString(R.string.about_dialog_ok), null)
                 .setView(aboutDialog)
