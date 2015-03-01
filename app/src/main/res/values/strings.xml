@@ -24,6 +24,6 @@
     <string name="about_dialog_title"></string>
     <string name="about_dialog_version">Version: \u0020</string>
     <string name="about_dialog_ok">OK</string>
-    <string name="about_dialog_ver_name_err">Unknown</string>
-    <string name="about_dialog_ver_code_err">Unknown</string>
+    <string name="about_dialog_ver_name_err">.</string>
+    <string name="about_dialog_ver_code_err">.</string>
 </resources>

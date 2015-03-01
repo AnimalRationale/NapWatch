@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:label="Alarm Settings Dialog"
-            android:name=".AlarmSettingsActivity"
-            android:excludeFromRecents="true"
-            android:theme="@android:style/android:Theme.Holo.Light.Dialog" />
+        android:label="Alarm Settings Dialog"
+        android:name=".AlarmSettingsActivity"
+        android:excludeFromRecents="true"
+        android:theme="@android:style/android:Theme.Holo.Light.Dialog" />
         <service
             android:name=".AlarmBroadcastService"
             android:icon="@drawable/ic_alarm_add_grey600_48dp"
@@ -37,5 +37,4 @@
                 android:resource="@xml/widget_provider_info" />
         </receiver>
     </application>
-
 </manifest>
