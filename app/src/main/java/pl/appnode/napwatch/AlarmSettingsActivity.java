@@ -83,7 +83,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     public void onResume() {
         super.onResume();
-        if (MainActivity.alarmState[mAlarmId] != OFF) {finish();}        
+        if (MainActivity.alarmState[mAlarmId] != OFF) {finish();}
     }
 
     @Override

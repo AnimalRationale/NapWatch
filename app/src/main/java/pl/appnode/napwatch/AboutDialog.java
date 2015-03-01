@@ -3,6 +3,7 @@ package pl.appnode.napwatch;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -11,36 +12,28 @@ import android.widget.TextView;
 
 public class AboutDialog {
 
-    private static String versionName(Context context) {
-        try {
-            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        }
-        catch (PackageManager.NameNotFoundException ex) {
-            return context.getResources().getString(R.string.about_dialog_ver_name_err);
-        }
-    }
+    private static String versionName;
+    private static String versionCode;
+    private static Drawable aboutIcon;
 
-    private static String versionCode(Context context) {
+    private static void versionInfo(Context context) {
         try {
-            return String.valueOf(context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionCode);
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            versionName = info.versionName;
+            versionCode = String.valueOf(info.versionCode);
+            aboutIcon = manager.getApplicationIcon("pl.appnode.napwatch");
         }
         catch (PackageManager.NameNotFoundException ex) {
-            return context.getResources().getString(R.string.about_dialog_ver_name_err);
+            versionName = context.getResources().getString(R.string.about_dialog_ver_name_err);
+            versionCode = context.getResources().getString(R.string.about_dialog_ver_code_err);
+            aboutIcon = null;
         }
     }
-
-    private static Drawable versionIcon(Context context) {
-        try {
-            return context.getPackageManager().getApplicationIcon("pl.appnode.napwatch");
-        }
-        catch (PackageManager.NameNotFoundException ex) {
-            return context.getResources().getDrawable(R.drawable.ic_launcher);
-        }
-    }
-    //TODO: refactor
 
     public static void showDialog(Activity callingActivity) {
-        String aboutVersion = versionName(callingActivity) + "." + versionCode(callingActivity);
+        versionInfo(callingActivity);
+        String aboutVersion = versionName + "." + versionCode;
         LayoutInflater layoutInflater = LayoutInflater.from(callingActivity);
         View aboutDialog = layoutInflater.inflate(R.layout.about_dialog, null);
         TextView textAbout = (TextView) aboutDialog.findViewById(R.id.aboutDialogInfo);
