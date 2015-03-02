@@ -27,11 +27,8 @@ import static pl.appnode.napwatch.StateConstants.STOP;
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
     private static final String TAG = "AlarmAdapter";
-
     protected List<AlarmInfo> mAlarmList;
-
     private Context mContext;
-
     private long mLastClickTime = 0;
 
     public AlarmAdapter(List<AlarmInfo> alarmList, Context context) {

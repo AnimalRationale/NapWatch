@@ -11,6 +11,7 @@
     <string name="alarm_settings_units">Countdown</string>
     <string name="alarm_settings_ringtone_change">Change ringtone</string>
     <string name="alarm_settings_ringtone">Ringtone</string>
+    <string name="alarm_settings_ringtone_volume">Volume</string>
     <string name="alarm_settings_ringtone_default">Default alarm ringtone</string>
     <string name="alarm_settings_ringtone_picker">Ringtone for\u0020</string>
     <string name="action_settings">Settings</string>

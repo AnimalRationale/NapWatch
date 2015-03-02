@@ -63,6 +63,20 @@
         style="?android:attr/borderlessButtonStyle"
         android:textColor="@color/primary"
         android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textRingtoneVolume"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/alarm_settings_ringtone_volume"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <SeekBar
+        android:id="@+id/volumeSeekBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dip"
+        android:gravity="center" />
     <FrameLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
