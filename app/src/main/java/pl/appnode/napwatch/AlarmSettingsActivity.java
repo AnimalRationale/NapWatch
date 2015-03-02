@@ -121,9 +121,10 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         }
         resultIntent.putExtra("AlarmUnit", mAlarmTimeUnit);
         resultIntent.putExtra("AlarmRingtoneUri", mCurrentRingtoneUri.toString());
+        resultIntent.putExtra("AlarmRingtoneVol", mAlarmRingtoneVolume);
         Log.d(TAG, "INTENT: ID=" + mAlarmId + " Name:"
                 + mEditAlarmName.getText().toString() + " Unit:" + mAlarmTimeUnit
-                + " Ringtone:" + mCurrentRingtoneUri.toString());
+                + " Ringtone:" + mCurrentRingtoneUri.toString() + " Volume: " + mAlarmRingtoneVolume);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
