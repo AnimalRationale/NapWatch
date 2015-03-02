@@ -67,10 +67,26 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");
             if (settingsIntent.getExtras().get("AlarmRingtoneVol") != null) {
                 mAlarmRingtoneVolume = (int) settingsIntent.getExtras().get("AlarmRingtoneVol");
-            } else mAlarmRingtoneVolume = audioManager.getStreamVolume(audioManager.STREAM_ALARM);
+                Log.d(TAG, "Volume OK.");
+            } else {
+                mAlarmRingtoneVolume = audioManager.getStreamVolume(audioManager.STREAM_ALARM);
+                Log.d(TAG, "Volume NULL");
+            }
         }
         mVolumeSeekbar.setMax(audioManager.getStreamMaxVolume(audioManager.STREAM_ALARM));
         mVolumeSeekbar.setProgress(mAlarmRingtoneVolume);
+        mVolumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mAlarmRingtoneVolume = progress;
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
         mTitle.setText(R.string.alarm_settings_title );
         mTitle.append("" + (mAlarmId + 1) + " :: " + mAlarmRingtoneVolume);
         mEditAlarmName.setText(mAlarmName);
