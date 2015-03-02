@@ -8,5 +8,6 @@ public class AlarmInfo {
     protected String mTimeUnitSymbol;
     protected boolean mIsOn;
     protected String mRingtoneUri;
+    protected int mRingtoneVolume;
 }
 

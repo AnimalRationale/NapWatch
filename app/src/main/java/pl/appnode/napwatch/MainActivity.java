@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.appnode.napwatch.StateConstants.RINGTONE_MUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
@@ -137,6 +138,7 @@ public class MainActivity extends Activity {
             }
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", null);
+            ai.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", RINGTONE_MUTE);
             Log.d(TAG, "before Result add #" + i);
             result.add(ai);
             Log.d(TAG, "Result add #" + i);
@@ -156,6 +158,7 @@ public class MainActivity extends Activity {
             editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
             editor.putString(alarmPrefix + "_Ringtone", alarm.mRingtoneUri);
+            editor.putInt(alarmPrefix + "_RingtoneVol", alarm.mRingtoneVolume);
             Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration + ": TimeUnit: " + alarm.mTimeUnitSymbol + " :: isOn: " + alarm.mIsOn);
         }
         editor.commit();
