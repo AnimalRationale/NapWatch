@@ -27,11 +27,14 @@ public class AlarmCountDownTimer extends CountDownTimer {
     String mAlarmUnit;
     Uri mAlert;
     Ringtone mRingtone;
+    int mRingtoneVolume;
     Context mContext;
     boolean isFinished = false;
     long mTimeUntilFinished;
 
-    public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId, String title, String alarmUnit, int alarmDuration, String alarmRingtone, Context context) {
+    public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId,
+                                String title, String alarmUnit, int alarmDuration,
+                                String alarmRingtone, int alarmRingtoneVolume, Context context) {
         super(millisInFuture, countDownInterval);
         mAlarmId = alarmId;
         mAlarmName = title;
@@ -50,6 +53,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 }
             }
         }
+        mRingtoneVolume = alarmRingtoneVolume;
         Intent resultIntent = new Intent(mContext, MainActivity.class);
         resultIntent.setAction(Intent.ACTION_MAIN);
         resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
