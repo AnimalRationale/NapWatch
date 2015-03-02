@@ -27,6 +27,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private String mAlarmName;
     private int mAlarmTimeUnit;
     private String mAlarmRingtoneUri;
+    private int mAlarmRingtoneVolume;
     private Uri mCurrentRingtoneUri;
     private Ringtone mRingtone;
     private String mRingtoneName;
@@ -59,9 +60,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             mAlarmName = (String) settingsIntent.getExtras().get("AlarmName");
             mAlarmTimeUnit = (int) settingsIntent.getExtras().get("AlarmUnit");
             mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");
+            if (settingsIntent.getExtras().get("AlarmRingtoneVol") != null) {
+                mAlarmRingtoneVolume = (int) settingsIntent.getExtras().get("AlarmRingtoneVol");
+            } else mAlarmRingtoneVolume = 0;
         }
-        mTitle.setText(R.string.alarm_settings_title);
-        mTitle.append("" + (mAlarmId + 1));
+        mTitle.setText(R.string.alarm_settings_title );
+        mTitle.append("" + (mAlarmId + 1) + "::" + mAlarmRingtoneVolume);
         mEditAlarmName.setText(mAlarmName);
         if (mAlarmTimeUnit == SECOND) {
             mRbSeconds.toggle();
