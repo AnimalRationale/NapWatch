@@ -2,6 +2,7 @@ package pl.appnode.napwatch;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import static pl.appnode.napwatch.StateConstants.MINUTE;
@@ -36,6 +38,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private RadioButton mRbSeconds;
     private RadioButton mRbMinutes;
     private Button mRingtoneTextButton;
+    private SeekBar mVolumeSeekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
         mRingtoneTextButton = (Button) findViewById(R.id.changeRingtone);
         mRingtoneTextButton.setOnClickListener(this);
+        mVolumeSeekbar = (SeekBar) findViewById(R.id.volumeSeekBar);
         Button buttonOk = (Button) findViewById(R.id.okAlarmSettings);
         buttonOk.setOnClickListener(this);
         Button buttonCancel = (Button) findViewById(R.id.cancelAlarmSettings);
         buttonCancel.setOnClickListener(this);
+        AudioManager audioManager = (AudioManager) getSystemService(this.AUDIO_SERVICE);
         Intent settingsIntent = getIntent();
         if (settingsIntent.getExtras() != null) {
             mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");
@@ -62,10 +67,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");
             if (settingsIntent.getExtras().get("AlarmRingtoneVol") != null) {
                 mAlarmRingtoneVolume = (int) settingsIntent.getExtras().get("AlarmRingtoneVol");
-            } else mAlarmRingtoneVolume = 0;
+            } else mAlarmRingtoneVolume = audioManager.getStreamVolume(audioManager.STREAM_ALARM);
         }
+        mVolumeSeekbar.setMax(audioManager.getStreamMaxVolume(audioManager.STREAM_ALARM));
+        mVolumeSeekbar.setProgress(mAlarmRingtoneVolume);
         mTitle.setText(R.string.alarm_settings_title );
-        mTitle.append("" + (mAlarmId + 1) + "::" + mAlarmRingtoneVolume);
+        mTitle.append("" + (mAlarmId + 1) + " :: " + mAlarmRingtoneVolume);
         mEditAlarmName.setText(mAlarmName);
         if (mAlarmTimeUnit == SECOND) {
             mRbSeconds.toggle();
