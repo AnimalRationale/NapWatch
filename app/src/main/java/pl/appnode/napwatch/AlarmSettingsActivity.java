@@ -69,11 +69,11 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
                 mAlarmRingtoneVolume = (int) settingsIntent.getExtras().get("AlarmRingtoneVol");
                 Log.d(TAG, "Volume OK.");
             } else {
-                mAlarmRingtoneVolume = audioManager.getStreamVolume(audioManager.STREAM_ALARM);
+                mAlarmRingtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                 Log.d(TAG, "Volume NULL");
             }
         }
-        mVolumeSeekbar.setMax(audioManager.getStreamMaxVolume(audioManager.STREAM_ALARM));
+        mVolumeSeekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
         mVolumeSeekbar.setProgress(mAlarmRingtoneVolume);
         mVolumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

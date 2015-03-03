@@ -28,6 +28,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
     Uri mAlert;
     Ringtone mRingtone;
     int mRingtoneVolume;
+    int mOriginalVolume;
+    AudioManager mAudioManager;
     Context mContext;
     boolean isFinished = false;
     long mTimeUntilFinished;
@@ -67,6 +69,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(notifyId, mNotify.build());
+        mAudioManager = (AudioManager) mContext.getSystemService(mContext.AUDIO_SERVICE);
+        setVolume();
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), mAlert);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
@@ -105,7 +109,24 @@ public class AlarmCountDownTimer extends CountDownTimer {
         Log.d(TAG, "Countdown time broadcasted on command.");
     }
 
+    public void setVolume() {
+        mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        if (mRingtoneVolume <= 0) {
+            mAudioManager.setStreamVolume(mAudioManager.STREAM_ALARM, 0, 0);
+        } else if (mRingtoneVolume >= mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)) {
+            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+        } else {
+            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mRingtoneVolume, 0);}
+        Log.d(TAG, "Original vol: " + mOriginalVolume + " Set: " + mRingtoneVolume);
+    }
+
+    public void restoreVolume() {
+        mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mOriginalVolume, 0);
+        Log.d(TAG, "Used vol: " + mRingtoneVolume + " Restored: " + mOriginalVolume);
+    }
+
     public void stopRingtone () {
         mRingtone.stop();
+        restoreVolume();
     }
 }
