@@ -9,6 +9,8 @@ public final class StateConstants {
 
     private StateConstants() {} /** Private constructor of final class to prevent instantiating. */
 
+    public static final int DEFAULT_TIMER_DURATION = 12;
+    public static final int DEFAULT_TIMER_DURATION_MODIFIER = 4;
     public static final int OFF = 0;
     public static final int SWITCHING = 1;
     public static final int ON = 2;

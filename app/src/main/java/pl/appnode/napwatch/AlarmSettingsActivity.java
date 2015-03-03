@@ -88,7 +88,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             }
         });
         mTitle.setText(R.string.alarm_settings_title );
-        mTitle.append("" + (mAlarmId + 1) + " :: " + mAlarmRingtoneVolume);
+        mTitle.append("" + (mAlarmId + 1));
         mEditAlarmName.setText(mAlarmName);
         if (mAlarmTimeUnit == SECOND) {
             mRbSeconds.toggle();

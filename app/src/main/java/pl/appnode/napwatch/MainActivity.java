@@ -15,6 +15,8 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
+import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_MUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
@@ -127,7 +129,8 @@ public class MainActivity extends Activity {
             AlarmInfo ai = new AlarmInfo();
             alarmPrefix = "Alarm_" + i;
             ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
-            ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", 12 + (i*4));
+            ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", DEFAULT_TIMER_DURATION
+                    + (i * DEFAULT_TIMER_DURATION_MODIFIER));
             ai.mDurationCounter = ai.mDuration;
             ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
             switch (ai.mTimeUnit) {
