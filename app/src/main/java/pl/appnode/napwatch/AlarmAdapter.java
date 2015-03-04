@@ -49,11 +49,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
-        } else if (ai.mIsOn & MainActivity.isService) {
+        } else if (ai.mIsOn & MainActivity.sIsService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
             alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
-        } else if (ai.mIsOn & !MainActivity.isService) {
+        } else if (ai.mIsOn & !MainActivity.sIsService) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
@@ -83,12 +83,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
-                Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // isService = " + MainActivity.isService);
-                if (ai.mIsOn && MainActivity.isService && MainActivity.alarmState[position] == ON) {
-                    MainActivity.alarmState[position] = SWITCHING;
+                Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // sIsService = " + MainActivity.sIsService);
+                if (ai.mIsOn && MainActivity.sIsService && MainActivity.sAlarmState[position] == ON) {
+                    MainActivity.sAlarmState[position] = SWITCHING;
                     stopAlarm(ai);
-                } else if (!ai.mIsOn && MainActivity.alarmState[position] == OFF) {
-                    MainActivity.alarmState[position] = SWITCHING;
+                } else if (!ai.mIsOn && MainActivity.sAlarmState[position] == OFF) {
+                    MainActivity.sAlarmState[position] = SWITCHING;
                     startAlarm(ai);
                 }
             }
@@ -161,7 +161,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarm.mDurationCounter = alarm.mDuration;
         alarm.mIsOn = false;
         notifyItemChanged(position);
-        MainActivity.alarmState[position] = OFF;
+        MainActivity.sAlarmState[position] = OFF;
         Log.d(TAG, "Alarm OFF.");
     }
 

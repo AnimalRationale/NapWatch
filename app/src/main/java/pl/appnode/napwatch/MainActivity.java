@@ -28,8 +28,8 @@ public class MainActivity extends Activity {
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     private static final String TAG = "MainActivity";
     protected AlarmAdapter mAA;
-    public static boolean isService;
-    public static int[] alarmState = new int[4];
+    public static boolean sIsService;
+    public static int[] sAlarmState = new int[4];
 
     private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
         @Override
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
         super.onResume();
         registerReceiver(mCountDownBroadcast, new IntentFilter(AlarmBroadcastService.COUNTDOWN_BROADCAST));
         Log.d(TAG, "OnResume registered broadcast receiver.");
-        if (isService) {
+        if (sIsService) {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
             serviceIntent.putExtra("AlarmCommand", UPDATE);
             startService(serviceIntent);
@@ -111,7 +111,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onDestroy() {
-        if (isService) {
+        if (sIsService) {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
             stopService(serviceIntent);
             Log.d(TAG, "OnDestroy stopping service.");

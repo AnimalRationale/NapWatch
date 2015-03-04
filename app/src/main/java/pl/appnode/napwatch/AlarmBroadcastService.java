@@ -40,8 +40,8 @@ public class AlarmBroadcastService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG,"Using service.");
         mAlarmId = EMPTY;
-        MainActivity.isService = true;
-        Log.d(TAG, "Setting isService TRUE.");
+        MainActivity.sIsService = true;
+        Log.d(TAG, "Setting sIsService TRUE.");
         int timeFactor = 0;
         if (intent.getExtras().get("AlarmId") != null) {mAlarmId = (Integer) intent.getExtras().get("AlarmId");}
         if (intent.getExtras().get("AlarmCommand") != null) {mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");}
@@ -62,7 +62,7 @@ public class AlarmBroadcastService extends Service {
             mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor, timeFactor - (timeFactor / 200),
                     mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, mAlarmRingtone, mAlarmRingtoneVolume, this);
             mAlarms[mAlarmId].start();
-            MainActivity.alarmState[mAlarmId] = ON;
+            MainActivity.sAlarmState[mAlarmId] = ON;
             return mStartMode;
         } else
         if (mAlarmId == EMPTY && mAlarmCommand == UPDATE) {
@@ -86,12 +86,12 @@ public class AlarmBroadcastService extends Service {
                 mAlarms[i].cancel();
                 mAlarms[i] = null;
                 notificationManager.cancel(i);
-                MainActivity.alarmState[i] = OFF;
+                MainActivity.sAlarmState[i] = OFF;
             }
         }
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
-        Log.d(TAG, "Setting isService FALSE.");
-        MainActivity.isService = false;
+        Log.d(TAG, "Setting sIsService FALSE.");
+        MainActivity.sIsService = false;
         super.onDestroy();
     }
 
@@ -106,6 +106,6 @@ public class AlarmBroadcastService extends Service {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(alarmId);
         mAlarms[alarmId] = null;
-        MainActivity.alarmState[alarmId] = OFF;
+        MainActivity.sAlarmState[alarmId] = OFF;
     }
 }
