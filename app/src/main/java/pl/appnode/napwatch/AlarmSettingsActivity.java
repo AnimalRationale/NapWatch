@@ -95,10 +95,11 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlarmRingtoneVolume = progress;
-
+                playRingtone();
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                stopRingtone();
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -140,7 +141,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         } else {
             mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mAlarmRingtoneVolume, 0);}
         Log.d(TAG, "Set ringtone volume: " + mAlarmRingtoneVolume);
-
+        mRingtone.play();
     }
 
     private void stopRingtone() {
@@ -192,14 +193,17 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.okAlarmSettings:
                 Log.d(TAG, "Clicked OK!");
+                stopRingtone();
                 resultOk();
                 break;
             case R.id.cancelAlarmSettings:
                 Log.d(TAG, "Clicked CANCEL!");
+                stopRingtone();
                 resultCancel();
                 break;
             case R.id.changeRingtone:
                 Log.d(TAG, "Clicked RINGTONE!");
+                stopRingtone();
                 ringtonePicker();
                 break;
         }
