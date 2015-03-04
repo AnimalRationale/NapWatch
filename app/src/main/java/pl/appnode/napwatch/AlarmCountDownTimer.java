@@ -45,16 +45,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mAlarmDuration = alarmDuration;
         mTimeUnitFactor = (int) countDownInterval;
         Log.d(TAG, "TimeFactor in timer: " + mTimeUnitFactor);
-        mAlert = Uri.parse(alarmRingtone);
-        if (mAlert == null) {
-            mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            if (mAlert == null) {
-                mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                if (mAlert == null) {
-                    mAlert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-                }
-            }
-        }
+        mAlert = setNotNullRingtone(Uri.parse(alarmRingtone));
         mRingtoneVolume = alarmRingtoneVolume;
         Intent resultIntent = new Intent(mContext, MainActivity.class);
         resultIntent.setAction(Intent.ACTION_MAIN);
@@ -128,5 +119,19 @@ public class AlarmCountDownTimer extends CountDownTimer {
     public void stopRingtone () {
         mRingtone.stop();
         restoreVolume();
+    }
+
+    private Uri setNotNullRingtone(Uri ringtone) {
+        if (ringtone == null) {
+            ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (ringtone == null) {
+                ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (ringtone == null) {
+                    ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                }
+            }
+            return ringtone;
+        }
+        return ringtone;
     }
 }

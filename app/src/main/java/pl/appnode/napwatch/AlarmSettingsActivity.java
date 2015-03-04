@@ -116,6 +116,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     public void onResume() {
         super.onResume();
+        mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         if (MainActivity.sAlarmState[mAlarmId] != OFF) {finish();}
     }
 
@@ -133,7 +134,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     }
 
     private void playRingtone() {
-        mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+
         if (mAlarmRingtoneVolume <= 0) {
             mAudioManager.setStreamVolume(mAudioManager.STREAM_ALARM, 0, 0);
         } else if (mAlarmRingtoneVolume >= mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)) {
