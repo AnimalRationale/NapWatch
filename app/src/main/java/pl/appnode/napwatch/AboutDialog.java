@@ -12,28 +12,28 @@ import android.widget.TextView;
 
 public class AboutDialog {
 
-    private static String versionName;
-    private static String versionCode;
-    private static Drawable versionIcon;
+    private static String sVersionName;
+    private static String sVersionCode;
+    private static Drawable sVersionIcon;
 
     private static void versionInfo(Context context) {
         try {
             PackageManager manager = context.getPackageManager();
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            versionName = info.versionName;
-            versionCode = String.valueOf(info.versionCode);
-            versionIcon = manager.getApplicationIcon("pl.appnode.napwatch");
+            sVersionName = info.versionName;
+            sVersionCode = String.valueOf(info.versionCode);
+            sVersionIcon = manager.getApplicationIcon("pl.appnode.napwatch");
         }
         catch (PackageManager.NameNotFoundException ex) {
-            versionName = context.getResources().getString(R.string.about_dialog_ver_name_err);
-            versionCode = context.getResources().getString(R.string.about_dialog_ver_code_err);
-            versionIcon = null;
+            sVersionName = context.getResources().getString(R.string.about_dialog_ver_name_err);
+            sVersionCode = context.getResources().getString(R.string.about_dialog_ver_code_err);
+            sVersionIcon = null;
         }
     }
 
     public static void showDialog(Activity callingActivity) {
         versionInfo(callingActivity);
-        String aboutVersion = versionName + "." + versionCode;
+        String aboutVersion = sVersionName + "." + sVersionCode;
         LayoutInflater layoutInflater = LayoutInflater.from(callingActivity);
         View aboutDialog = layoutInflater.inflate(R.layout.about_dialog, null);
         TextView textAbout = (TextView) aboutDialog.findViewById(R.id.aboutDialogInfo);
