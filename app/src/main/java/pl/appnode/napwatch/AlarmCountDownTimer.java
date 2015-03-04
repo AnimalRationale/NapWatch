@@ -16,21 +16,21 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private final static String TAG = "::AlarmCountdownTimer";
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
 
-    Intent mBI = new Intent(COUNTDOWN_BROADCAST);
-    int notifyId = 0;
-    NotificationManager mNM;
-    NotificationCompat.Builder mNotify;
-    int mAlarmId;
-    String mAlarmName;
-    int mAlarmDuration;
-    int mTimeUnitFactor;
-    String mAlarmUnit;
-    Uri mAlert;
-    Ringtone mRingtone;
-    int mRingtoneVolume;
-    int mOriginalVolume;
-    AudioManager mAudioManager;
-    Context mContext;
+    private Intent mBI = new Intent(COUNTDOWN_BROADCAST);
+    private int notifyId = 0;
+    private NotificationManager mNM;
+    private NotificationCompat.Builder mNotify;
+    private int mAlarmId;
+    private String mAlarmName;
+    private int mAlarmDuration;
+    private int mTimeUnitFactor;
+    private String mAlarmUnit;
+    private Uri mAlert;
+    private Ringtone mRingtone;
+    private int mRingtoneVolume;
+    private int mOriginalVolume;
+    private AudioManager mAudioManager;
+    private Context mContext;
     boolean isFinished = false;
     long mTimeUntilFinished;
 
