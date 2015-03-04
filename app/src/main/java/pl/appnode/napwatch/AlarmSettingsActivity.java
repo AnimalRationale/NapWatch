@@ -50,6 +50,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFinishOnTouchOutside(false);
         mAudioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
+        mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         mTitle = (TextView) findViewById(R.id.alarmEditTitle);
         mEditAlarmName = (EditText) findViewById(R.id.alarmNameText);
         mRbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
@@ -134,7 +135,6 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     }
 
     private void playRingtone() {
-
         if (mAlarmRingtoneVolume <= 0) {
             mAudioManager.setStreamVolume(mAudioManager.STREAM_ALARM, 0, 0);
         } else if (mAlarmRingtoneVolume >= mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)) {
