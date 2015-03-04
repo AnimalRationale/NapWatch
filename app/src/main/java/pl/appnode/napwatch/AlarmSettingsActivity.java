@@ -73,12 +73,26 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
                 Log.d(TAG, "Volume NULL");
             }
         }
+        if (mAlarmRingtoneUri == null) {
+            mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (mCurrentRingtoneUri == null) {
+                mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (mCurrentRingtoneUri == null) {
+                    mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                }
+            }
+        } else mCurrentRingtoneUri = Uri.parse(mAlarmRingtoneUri);
+        mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
+        mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
+        mRingtoneTextButton.setText(mRingtoneName);
+        mRingtone.setStreamType(AudioManager.STREAM_ALARM);
         mVolumeSeekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
         mVolumeSeekbar.setProgress(mAlarmRingtoneVolume);
         mVolumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlarmRingtoneVolume = progress;
+
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -93,18 +107,6 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         if (mAlarmTimeUnit == SECOND) {
             mRbSeconds.toggle();
         } else mRbMinutes.toggle();
-        if (mAlarmRingtoneUri == null) {
-            mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            if (mCurrentRingtoneUri == null) {
-                mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                if (mCurrentRingtoneUri == null) {
-                    mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-                }
-            }
-        } else mCurrentRingtoneUri = Uri.parse(mAlarmRingtoneUri);
-        mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
-        mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
-        mRingtoneTextButton.setText(mRingtoneName);
         Log.d(TAG, "AlarmSettingsActivity started.");
     }
 
@@ -124,6 +126,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             mRingtoneTextButton.setText(mRingtoneName);
             Log.d(TAG, "Ringtone Result: " + mRingtoneName);
         }
+    }
+
+    private void playRingtone() {
+        int originalVolume;
+        AudioManager audioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);;
+        originalVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
     }
 
     private void resultOk() {
