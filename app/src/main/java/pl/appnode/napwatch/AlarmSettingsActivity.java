@@ -30,6 +30,8 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private int mAlarmTimeUnit;
     private String mAlarmRingtoneUri;
     private int mAlarmRingtoneVolume;
+    private int mOriginalVolume;
+    private AudioManager mAudioManager;
     private Uri mCurrentRingtoneUri;
     private Ringtone mRingtone;
     private String mRingtoneName;
@@ -47,6 +49,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         setContentView(R.layout.alarm_settings_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFinishOnTouchOutside(false);
+        mAudioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
         mTitle = (TextView) findViewById(R.id.alarmEditTitle);
         mEditAlarmName = (EditText) findViewById(R.id.alarmNameText);
         mRbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
@@ -129,9 +132,21 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     }
 
     private void playRingtone() {
-        int originalVolume;
-        AudioManager audioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);;
-        originalVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        if (mAlarmRingtoneVolume <= 0) {
+            mAudioManager.setStreamVolume(mAudioManager.STREAM_ALARM, 0, 0);
+        } else if (mAlarmRingtoneVolume >= mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)) {
+            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+        } else {
+            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mAlarmRingtoneVolume, 0);}
+        Log.d(TAG, "Set ringtone volume: " + mAlarmRingtoneVolume);
+
+    }
+
+    private void stopRingtone() {
+        mRingtone.stop();
+        mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mOriginalVolume, 0);
+        Log.d(TAG, "Restored ringtone volume: " + mOriginalVolume);
     }
 
     private void resultOk() {
