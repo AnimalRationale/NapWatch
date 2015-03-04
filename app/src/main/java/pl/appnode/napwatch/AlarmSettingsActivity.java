@@ -63,20 +63,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         Button buttonCancel = (Button) findViewById(R.id.cancelAlarmSettings);
         buttonCancel.setOnClickListener(this);
         AudioManager audioManager = (AudioManager) getSystemService(this.AUDIO_SERVICE);
-        Intent settingsIntent = getIntent();
-        if (settingsIntent.getExtras() != null) {
-            mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");
-            mAlarmName = (String) settingsIntent.getExtras().get("AlarmName");
-            mAlarmTimeUnit = (int) settingsIntent.getExtras().get("AlarmUnit");
-            mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");
-            if (settingsIntent.getExtras().get("AlarmRingtoneVol") != null) {
-                mAlarmRingtoneVolume = (int) settingsIntent.getExtras().get("AlarmRingtoneVol");
-                Log.d(TAG, "Volume OK.");
-            } else {
-                mAlarmRingtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                Log.d(TAG, "Volume NULL");
-            }
-        }
+        getSettingsIntentData (getIntent());
         mCurrentRingtoneUri = setNotNullRingtone(Uri.parse(mAlarmRingtoneUri));
         mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
@@ -155,6 +142,22 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRingtone.stop();
         mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mOriginalVolume, 0);
         Log.d(TAG, "Restored ringtone volume: " + mOriginalVolume);
+    }
+
+    private void getSettingsIntentData (Intent settingsIntent) {
+        if (settingsIntent.getExtras() != null) {
+            mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");
+            mAlarmName = (String) settingsIntent.getExtras().get("AlarmName");
+            mAlarmTimeUnit = (int) settingsIntent.getExtras().get("AlarmUnit");
+            mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");
+            if (settingsIntent.getExtras().get("AlarmRingtoneVol") != null) {
+                mAlarmRingtoneVolume = (int) settingsIntent.getExtras().get("AlarmRingtoneVol");
+                Log.d(TAG, "Volume OK.");
+            } else {
+                mAlarmRingtoneVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                Log.d(TAG, "Volume NULL");
+            }
+        }
     }
 
     private void resultOk() {
