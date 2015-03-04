@@ -77,15 +77,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
                 Log.d(TAG, "Volume NULL");
             }
         }
-        if (mAlarmRingtoneUri == null) {
-            mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            if (mCurrentRingtoneUri == null) {
-                mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                if (mCurrentRingtoneUri == null) {
-                    mCurrentRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-                }
-            }
-        } else mCurrentRingtoneUri = Uri.parse(mAlarmRingtoneUri);
+        mCurrentRingtoneUri = setNotNullRingtone(Uri.parse(mAlarmRingtoneUri));
         mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
         mRingtoneTextButton.setText(mRingtoneName);
@@ -132,6 +124,20 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             mRingtoneTextButton.setText(mRingtoneName);
             Log.d(TAG, "Ringtone Result: " + mRingtoneName);
         }
+    }
+
+    private Uri setNotNullRingtone(Uri ringtone) {
+        if (ringtone == null) {
+            ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (ringtone == null) {
+                ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (ringtone == null) {
+                    ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                }
+            }
+            return ringtone;
+        }
+        return ringtone;
     }
 
     private void playRingtone() {
