@@ -79,11 +79,10 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlarmRingtoneVolume = progress;
-                playRingtone();
+                setVolume();
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                stopRingtone();
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -131,7 +130,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         return ringtone;
     }
 
-    private void playRingtone() {
+    private void setVolume() {
         if (mAlarmRingtoneVolume <= 0) {
             mAudioManager.setStreamVolume(mAudioManager.STREAM_ALARM, 0, 0);
         } else if (mAlarmRingtoneVolume >= mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)) {
@@ -139,6 +138,10 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         } else {
             mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mAlarmRingtoneVolume, 0);}
         Log.d(TAG, "Set ringtone volume: " + mAlarmRingtoneVolume);
+    }
+
+    private void playRingtone() {
+        setVolume();
         mPlayStopButton.setBackgroundResource(R.drawable.round_button_selected);
         mPlayStopButton.setImageResource(R.drawable.ic_stop_white_36dp);
         mRingtone.play();
