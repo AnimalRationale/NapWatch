@@ -41,7 +41,6 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private RadioButton mRbSeconds;
     private RadioButton mRbMinutes;
     private Button mRingtoneTextButton;
-    private SeekBar mVolumeSeekbar;
     private ImageButton mPlayStopButton;
     private boolean mIsPlaying = false;
 
@@ -60,7 +59,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
         mRingtoneTextButton = (Button) findViewById(R.id.changeRingtone);
         mRingtoneTextButton.setOnClickListener(this);
-        mVolumeSeekbar = (SeekBar) findViewById(R.id.volumeSeekBar);
+        SeekBar volumeSeekBar = (SeekBar) findViewById(R.id.volumeSeekBar);
         mPlayStopButton = (ImageButton) findViewById(R.id.playAlarmSettings);
         mPlayStopButton.setOnClickListener(this);
         Button buttonOk = (Button) findViewById(R.id.okAlarmSettings);
@@ -74,22 +73,24 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
         mRingtoneTextButton.setText(mRingtoneName);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
-        mVolumeSeekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
-        mVolumeSeekbar.setProgress(mAlarmRingtoneVolume);
-        mVolumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        volumeSeekBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
+        volumeSeekBar.setProgress(mAlarmRingtoneVolume);
+        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlarmRingtoneVolume = progress;
                 setVolume();
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        mTitle.setText(R.string.alarm_settings_title );
+        mTitle.setText(R.string.alarm_settings_title);
         mTitle.append("" + (mAlarmId + 1));
         mEditAlarmName.setText(mAlarmName);
         if (mAlarmTimeUnit == SECOND) {

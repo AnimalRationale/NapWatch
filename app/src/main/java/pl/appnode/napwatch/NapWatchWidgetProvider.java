@@ -9,11 +9,9 @@ import android.widget.RemoteViews;
 
 public class NapWatchWidgetProvider extends AppWidgetProvider {
 
-    public static String WIDGET_BUTTON = "pl.appnode.napwatch.WIDGET_BUTTON";
-
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         final int N = appWidgetIds.length;
-        for (int i=0; i<N; i++) {
+        for (int i = 0; i < N; i++) {
             int appWidgetId = appWidgetIds[i];
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
