@@ -42,6 +42,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private RadioButton mRbMinutes;
     private Button mRingtoneTextButton;
     private ImageButton mPlayStopButton;
+    private SeekBar mVolumeSeekBar;
     private boolean mIsPlaying = false;
 
     @Override
@@ -59,23 +60,22 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
         mRingtoneTextButton = (Button) findViewById(R.id.changeRingtone);
         mRingtoneTextButton.setOnClickListener(this);
-        SeekBar volumeSeekBar = (SeekBar) findViewById(R.id.volumeSeekBar);
+        mVolumeSeekBar = (SeekBar) findViewById(R.id.volumeSeekBar);
         mPlayStopButton = (ImageButton) findViewById(R.id.playAlarmSettings);
         mPlayStopButton.setOnClickListener(this);
         Button buttonOk = (Button) findViewById(R.id.okAlarmSettings);
         buttonOk.setOnClickListener(this);
         Button buttonCancel = (Button) findViewById(R.id.cancelAlarmSettings);
         buttonCancel.setOnClickListener(this);
-        AudioManager audioManager = (AudioManager) getSystemService(this.AUDIO_SERVICE);
         getSettingsIntentData (getIntent());
         mCurrentRingtoneUri = setNotNullRingtone(Uri.parse(mAlarmRingtoneUri));
         mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
         mRingtoneTextButton.setText(mRingtoneName);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
-        volumeSeekBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
-        volumeSeekBar.setProgress(mAlarmRingtoneVolume);
-        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mVolumeSeekBar.setMax(mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
+        mVolumeSeekBar.setProgress(mAlarmRingtoneVolume);
+        mVolumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlarmRingtoneVolume = progress;
