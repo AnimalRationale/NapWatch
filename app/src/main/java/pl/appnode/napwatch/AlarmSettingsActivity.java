@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private RadioButton mRbMinutes;
     private Button mRingtoneTextButton;
     private SeekBar mVolumeSeekbar;
+    private ImageButton mPlayStopButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRingtoneTextButton = (Button) findViewById(R.id.changeRingtone);
         mRingtoneTextButton.setOnClickListener(this);
         mVolumeSeekbar = (SeekBar) findViewById(R.id.volumeSeekBar);
+        mPlayStopButton = (ImageButton) findViewById(R.id.playAlarmSettings);
+        mPlayStopButton.setOnClickListener(this);
         Button buttonOk = (Button) findViewById(R.id.okAlarmSettings);
         buttonOk.setOnClickListener(this);
         Button buttonCancel = (Button) findViewById(R.id.cancelAlarmSettings);
@@ -135,12 +139,16 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         } else {
             mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mAlarmRingtoneVolume, 0);}
         Log.d(TAG, "Set ringtone volume: " + mAlarmRingtoneVolume);
+        mPlayStopButton.setBackgroundResource(R.drawable.round_button_selected);
+        mPlayStopButton.setImageResource(R.drawable.ic_stop_white_36dp);
         mRingtone.play();
     }
 
     private void stopRingtone() {
         mRingtone.stop();
         mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mOriginalVolume, 0);
+        mPlayStopButton.setBackgroundResource(R.drawable.round_button);
+        mPlayStopButton.setImageResource(R.drawable.ic_play_arrow_white_36dp);
         Log.d(TAG, "Restored ringtone volume: " + mOriginalVolume);
     }
 
@@ -215,6 +223,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
                 Log.d(TAG, "Clicked RINGTONE!");
                 stopRingtone();
                 ringtonePicker();
+                break;
+            case R.id.playAlarmSettings:
+                Log.d(TAG, "Clicked PLAY/STOP!");
+                if (mRingtone.isPlaying()) {
+                    stopRingtone();
+                } else playRingtone();
                 break;
         }
     }
