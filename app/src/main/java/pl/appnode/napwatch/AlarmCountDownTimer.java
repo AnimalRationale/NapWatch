@@ -25,7 +25,6 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private int mAlarmDuration;
     private int mTimeUnitFactor;
     private String mAlarmUnit;
-    private Uri mAlert;
     private Ringtone mRingtone;
     private int mRingtoneVolume;
     private int mOriginalVolume;
@@ -45,7 +44,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mAlarmDuration = alarmDuration;
         mTimeUnitFactor = (int) countDownInterval;
         Log.d(TAG, "TimeFactor in timer: " + mTimeUnitFactor);
-        mAlert = setNotNullRingtone(Uri.parse(alarmRingtone));
+        Uri alert = setNotNullRingtone(Uri.parse(alarmRingtone));
         mRingtoneVolume = alarmRingtoneVolume;
         Intent resultIntent = new Intent(mContext, MainActivity.class);
         resultIntent.setAction(Intent.ACTION_MAIN);
@@ -62,7 +61,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mNM.notify(notifyId, mNotify.build());
         mAudioManager = (AudioManager) mContext.getSystemService(mContext.AUDIO_SERVICE);
         setVolume();
-        mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), mAlert);
+        mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
     }
