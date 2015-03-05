@@ -6,4 +6,5 @@
     <color name="text_primary">#FFFFFF</color>
     <color name="bkg_card">#8C9EFF</color>
     <color name="accent_light">#EF5350</color>
+    <color name="holo_primary">#33B5E5</color>
 </resources>
