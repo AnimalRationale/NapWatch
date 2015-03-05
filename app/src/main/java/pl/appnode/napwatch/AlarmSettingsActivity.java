@@ -43,6 +43,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private Button mRingtoneTextButton;
     private SeekBar mVolumeSeekbar;
     private ImageButton mPlayStopButton;
+    private boolean mIsPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,11 +145,13 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         setVolume();
         mPlayStopButton.setBackgroundResource(R.drawable.round_button_selected);
         mPlayStopButton.setImageResource(R.drawable.ic_stop_white_36dp);
+        mIsPlaying = true;
         mRingtone.play();
     }
 
     private void stopRingtone() {
         mRingtone.stop();
+        mIsPlaying = false;
         mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mOriginalVolume, 0);
         mPlayStopButton.setBackgroundResource(R.drawable.round_button);
         mPlayStopButton.setImageResource(R.drawable.ic_play_arrow_white_36dp);
@@ -229,7 +232,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.playAlarmSettings:
                 Log.d(TAG, "Clicked PLAY/STOP!");
-                if (mRingtone.isPlaying()) {
+                if (mRingtone.isPlaying() || mIsPlaying) {
                     stopRingtone();
                 } else playRingtone();
                 break;
