@@ -77,11 +77,20 @@
         android:layout_height="wrap_content"
         android:layout_margin="0dip"
         android:gravity="center" />
+    <ImageButton
+        android:id="@+id/playAlarmSettings"
+        android:layout_width="38dip"
+        android:layout_height="38dip"
+        android:background="@drawable/round_button_background"
+        android:src="@drawable/ic_play_arrow_white_36dp"
+        android:layout_gravity="center"
+        style="?android:attr/borderlessButtonStyle"/>
     <FrameLayout
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.08">
         <Button
             android:id="@+id/cancelAlarmSettings"
             android:layout_width="wrap_content"
