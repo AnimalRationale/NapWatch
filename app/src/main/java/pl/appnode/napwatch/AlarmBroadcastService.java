@@ -27,7 +27,7 @@ public class AlarmBroadcastService extends Service {
     String mAlarmRingtone;
     int mAlarmRingtoneVolume;
     int mAlarmCommand;
-    int mStartMode;       // indicates how to behave if the service is killed
+    int mStartMode;
     
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 

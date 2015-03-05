@@ -133,7 +133,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     private void setVolume() {
         if (mAlarmRingtoneVolume <= 0) {
-            mAudioManager.setStreamVolume(mAudioManager.STREAM_ALARM, 0, 0);
+            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, 0);
         } else if (mAlarmRingtoneVolume >= mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)) {
             mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
         } else {
