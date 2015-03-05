@@ -1,6 +1,7 @@
 package pl.appnode.napwatch;
 
 /** Set of constants used to recognize states of alarms:
+ *  DEFAULT duration values for SharedPreferences;
  *  OFF/ON/SWITCHING;
  *  time units SECOND/MINUTE;
  *  commands in intents send to service for START/STOP/UPDATE alarm timer. */

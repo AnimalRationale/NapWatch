@@ -63,20 +63,34 @@
         style="?android:attr/borderlessButtonStyle"
         android:textColor="@color/primary"
         android:textSize="18sp" />
-    <TextView
-        android:id="@+id/textRingtoneVolume"
-        android:layout_width="fill_parent"
+
+    <FrameLayout
+        android:layout_marginTop="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="@string/alarm_settings_ringtone_volume"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
-    <SeekBar
-        android:id="@+id/volumeSeekBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dip"
-        android:gravity="center" />
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.08">
+        <SeekBar
+            android:id="@+id/volumeSeekBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center"
+            android:layout_margin="0dip"
+            android:gravity="center" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:background="@drawable/round_icon_background"
+            android:src="@drawable/ic_volume_mute_white_18dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:background="@drawable/round_icon_background"
+            android:src="@drawable/ic_volume_up_white_18dp"/>
+
+    </FrameLayout>
     <ImageButton
         android:id="@+id/playAlarmSettings"
         android:layout_width="38dip"
