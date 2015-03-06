@@ -84,11 +84,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // sIsService = " + MainActivity.sIsService);
-                if (ai.mIsOn && MainActivity.sIsService && MainActivity.sAlarmState[position] == ON) {
-                    MainActivity.sAlarmState[position] = SWITCHING;
+                if (ai.mIsOn && MainActivity.sIsService && MainActivity.getAlarmState(position) == ON) {
+                    MainActivity.setAlarmState(position, SWITCHING);
                     stopAlarm(ai);
-                } else if (!ai.mIsOn && MainActivity.sAlarmState[position] == OFF) {
-                    MainActivity.sAlarmState[position] = SWITCHING;
+                } else if (!ai.mIsOn && MainActivity.getAlarmState(position) == OFF) {
+                    MainActivity.setAlarmState(position,SWITCHING);
                     startAlarm(ai);
                 }
             }
@@ -161,7 +161,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarm.mDurationCounter = alarm.mDuration;
         alarm.mIsOn = false;
         notifyItemChanged(position);
-        MainActivity.sAlarmState[position] = OFF;
+        MainActivity.setAlarmState(position, OFF);
         Log.d(TAG, "Alarm OFF.");
     }
 

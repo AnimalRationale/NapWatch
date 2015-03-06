@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     protected AlarmAdapter mAA;
     public static boolean sIsService;
-    public static int[] sAlarmState = new int[4];
+    private static int[] sAlarmState = new int[4];
 
     private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
         @Override
@@ -198,5 +198,13 @@ public class MainActivity extends Activity {
             if (!alarm.mIsOn & timeToFinish > 1) {alarm.mIsOn = true;}
             mAA.notifyItemChanged(position);
         }
+    }
+
+    public static int getAlarmState(int alarmId) {
+        return sAlarmState[alarmId];
+    }
+
+    public static void setAlarmState(int alarmId, int state) {
+        sAlarmState[alarmId] = state;
     }
 }

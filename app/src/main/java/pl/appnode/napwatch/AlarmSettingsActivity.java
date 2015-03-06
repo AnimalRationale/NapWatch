@@ -102,7 +102,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     public void onResume() {
         super.onResume();
         mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-        if (MainActivity.sAlarmState[mAlarmId] != OFF) {finish();}
+        if (MainActivity.getAlarmState(mAlarmId) != OFF) {finish();}
     }
 
     @Override

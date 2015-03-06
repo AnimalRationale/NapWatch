@@ -62,7 +62,7 @@ public class AlarmBroadcastService extends Service {
             mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor, timeFactor - (timeFactor / 200),
                     mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, mAlarmRingtone, mAlarmRingtoneVolume, this);
             mAlarms[mAlarmId].start();
-            MainActivity.sAlarmState[mAlarmId] = ON;
+            MainActivity.setAlarmState(mAlarmId, ON);
             return mStartMode;
         } else
         if (mAlarmId == EMPTY && mAlarmCommand == UPDATE) {
@@ -86,7 +86,7 @@ public class AlarmBroadcastService extends Service {
                 mAlarms[i].cancel();
                 mAlarms[i] = null;
                 notificationManager.cancel(i);
-                MainActivity.sAlarmState[i] = OFF;
+                MainActivity.setAlarmState(i, OFF);
             }
         }
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
@@ -106,6 +106,6 @@ public class AlarmBroadcastService extends Service {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(alarmId);
         mAlarms[alarmId] = null;
-        MainActivity.sAlarmState[alarmId] = OFF;
+        MainActivity.setAlarmState(alarmId, OFF);
     }
 }
