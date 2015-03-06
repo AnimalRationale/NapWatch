@@ -15,7 +15,6 @@ import android.util.Log;
 public class AlarmCountDownTimer extends CountDownTimer {
     private final static String TAG = "::AlarmCountdownTimer";
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
-
     private Intent mBI = new Intent(COUNTDOWN_BROADCAST);
     private int mNotifyId;
     private NotificationManager mNM;
@@ -133,7 +132,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         }
         return ringtone;
     }
-    
+
     public boolean isFinished() {
         return mIsFinished;
     }
