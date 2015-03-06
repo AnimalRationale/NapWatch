@@ -30,7 +30,7 @@ public class AlarmBroadcastService extends Service {
     private int mAlarmCommand;
     private int mStartMode;
     
-    AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
+    private AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
     @Override
     public void onCreate() {

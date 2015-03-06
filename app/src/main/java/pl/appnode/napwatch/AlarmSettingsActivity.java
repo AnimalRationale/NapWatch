@@ -159,7 +159,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         Log.d(TAG, "Restored ringtone volume: " + mOriginalVolume);
     }
 
-    private void getSettingsIntentData (Intent settingsIntent) {
+    private void getSettingsIntentData(Intent settingsIntent) {
         if (settingsIntent.getExtras() != null) {
             mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");
             mAlarmName = (String) settingsIntent.getExtras().get("AlarmName");

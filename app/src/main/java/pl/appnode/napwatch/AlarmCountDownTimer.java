@@ -59,7 +59,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(notifyId, mNotify.build());
-        mAudioManager = (AudioManager) mContext.getSystemService(mContext.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         setVolume();
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
@@ -93,7 +93,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
 
     public void broadcastTimeUntilFinished() {
         mBI.putExtra("AlarmID", mAlarmId);
-        if (isFinished == true) { mBI.putExtra("countdown", Long.valueOf(0));}
+        if (isFinished) { mBI.putExtra("countdown", Long.valueOf(0));}
             else mBI.putExtra("countdown", (mTimeUntilFinished ) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown time broadcasted on command.");
@@ -102,7 +102,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     public void setVolume() {
         mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         if (mRingtoneVolume <= 0) {
-            mAudioManager.setStreamVolume(mAudioManager.STREAM_ALARM, 0, 0);
+            mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, 0);
         } else if (mRingtoneVolume >= mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)) {
             mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
         } else {
