@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     private static final String TAG = "MainActivity";
     protected AlarmAdapter mAA;
-    public static boolean sIsService;
+    private static boolean sIsService;
     private static int[] sAlarmState = new int[4];
 
     private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
@@ -206,5 +206,13 @@ public class MainActivity extends Activity {
 
     public static void setAlarmState(int alarmId, int state) {
         sAlarmState[alarmId] = state;
+    }
+
+    public static boolean isService() {
+        return sIsService;
+    }
+
+    public static void setIsService(boolean isService) {
+        sIsService = isService;
     }
 }

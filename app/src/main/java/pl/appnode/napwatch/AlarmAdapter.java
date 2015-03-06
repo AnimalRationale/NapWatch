@@ -49,11 +49,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
-        } else if (ai.mIsOn & MainActivity.sIsService) {
+        } else if (ai.mIsOn & MainActivity.isService()) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
             alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
-        } else if (ai.mIsOn & !MainActivity.sIsService) {
+        } else if (ai.mIsOn & !MainActivity.isService()) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
@@ -83,8 +83,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
-                Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // sIsService = " + MainActivity.sIsService);
-                if (ai.mIsOn && MainActivity.sIsService && MainActivity.getAlarmState(position) == ON) {
+                Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // sIsService = " + MainActivity.isService());
+                if (ai.mIsOn && MainActivity.isService() && MainActivity.getAlarmState(position) == ON) {
                     MainActivity.setAlarmState(position, SWITCHING);
                     stopAlarm(ai);
                 } else if (!ai.mIsOn && MainActivity.getAlarmState(position) == OFF) {
