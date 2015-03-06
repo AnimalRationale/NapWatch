@@ -17,7 +17,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
 
     private Intent mBI = new Intent(COUNTDOWN_BROADCAST);
-    private int notifyId = 0;
+    private int mNotifyId;
     private NotificationManager mNM;
     private NotificationCompat.Builder mNotify;
     private int mAlarmId;
@@ -30,8 +30,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private int mOriginalVolume;
     private AudioManager mAudioManager;
     private Context mContext;
-    boolean isFinished = false;
-    long mTimeUntilFinished;
+    private boolean mIsFinished = false;
+    private long mTimeUntilFinished;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId,
                                 String title, String alarmUnit, int alarmDuration,
@@ -51,14 +51,14 @@ public class AlarmCountDownTimer extends CountDownTimer {
         resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext, 0, resultIntent, 0);
-        notifyId = mAlarmId;
+        mNotifyId = mAlarmId;
         mNM = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotify = new NotificationCompat.Builder(mContext)
                 .setContentTitle(mAlarmDuration + mContext.getResources().getString(R.string.notification_title))
                 .setContentText(mAlarmName + mContext.getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + mContext.getResources().getString(R.string.notification_text03))
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
-        mNM.notify(notifyId, mNotify.build());
+        mNM.notify(mNotifyId, mNotify.build());
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         setVolume();
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
@@ -74,7 +74,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mBI.putExtra("countdown", (millisUntilFinished ) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
-        mNM.notify(notifyId, mNotify.build());
+        mNM.notify(mNotifyId, mNotify.build());
     }
 
     @Override
@@ -82,18 +82,18 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mRingtone.play();
         mNotify.setContentTitle(mAlarmName + mContext.getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + mContext.getResources().getString(R.string.notification_text03_finished))
                 .setContentText(mContext.getResources().getString(R.string.notification_text_finished));
-        mNM.notify(notifyId, mNotify.build());
+        mNM.notify(mNotifyId, mNotify.build());
         Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
         mBI.putExtra("AlarmID", mAlarmId);
         mBI.putExtra("countdown", Long.valueOf(0));
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown finished.");
-        isFinished = true;
+        mIsFinished = true;
     }
 
     public void broadcastTimeUntilFinished() {
         mBI.putExtra("AlarmID", mAlarmId);
-        if (isFinished) { mBI.putExtra("countdown", Long.valueOf(0));}
+        if (mIsFinished) { mBI.putExtra("countdown", Long.valueOf(0));}
             else mBI.putExtra("countdown", (mTimeUntilFinished ) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown time broadcasted on command.");
@@ -132,5 +132,9 @@ public class AlarmCountDownTimer extends CountDownTimer {
             return ringtone;
         }
         return ringtone;
+    }
+    
+    public boolean isFinished() {
+        return mIsFinished;
     }
 }
