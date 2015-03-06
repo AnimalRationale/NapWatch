@@ -13,21 +13,22 @@ import static pl.appnode.napwatch.StateConstants.ON;
 import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.STOP;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
+import static pl.appnode.napwatch.StateConstants.TIME_DEVIATION_FOR_LAST_TICK;
 
 public class AlarmBroadcastService extends Service {
 
     private final static String TAG = "::AlarmBroadcastService";
 
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
-    int notifyId = 0;
-    int mAlarmId;
-    String mAlarmName;
-    int mAlarmDuration;
-    String mAlarmUnit;
-    String mAlarmRingtone;
-    int mAlarmRingtoneVolume;
-    int mAlarmCommand;
-    int mStartMode;
+    private int mAlarmId;
+    private String mAlarmName;
+    private int mAlarmDuration;
+    private String mAlarmUnit;
+    private int mTimeFactor = 0;
+    private String mAlarmRingtone;
+    private int mAlarmRingtoneVolume;
+    private int mAlarmCommand;
+    private int mStartMode;
     
     AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
@@ -42,7 +43,6 @@ public class AlarmBroadcastService extends Service {
         mAlarmId = EMPTY;
         MainActivity.setIsService(true);
         Log.d(TAG, "Setting sIsService TRUE.");
-        int timeFactor = 0;
         if (intent.getExtras().get("AlarmId") != null) {mAlarmId = (Integer) intent.getExtras().get("AlarmId");}
         if (intent.getExtras().get("AlarmCommand") != null) {mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");}
         Log.d(TAG, "mAlarmId = " + mAlarmId);
@@ -51,15 +51,9 @@ public class AlarmBroadcastService extends Service {
             return mStartMode;
         } else
         if (mAlarmId != EMPTY && mAlarms[mAlarmId] == null && mAlarmCommand == START) {
-            mAlarmName = intent.getExtras().get("AlarmName").toString();
-            mAlarmDuration = (int) intent.getExtras().get("AlarmDuration");
-            mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
-            timeFactor = (int) intent.getExtras().get("AlarmFactor");
-            Log.d(TAG, "TimeFactor: " + timeFactor);
-            notifyId = mAlarmId;
-            mAlarmRingtone = intent.getExtras().get("AlarmRingtone").toString();
-            mAlarmRingtoneVolume = (int) intent.getExtras().get("AlarmRingtoneVol");
-            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * timeFactor, timeFactor - (timeFactor / 200),
+            getStartAlarmIntentData(intent);
+            mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * mTimeFactor,
+                    mTimeFactor - (mTimeFactor / TIME_DEVIATION_FOR_LAST_TICK),
                     mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, mAlarmRingtone, mAlarmRingtoneVolume, this);
             mAlarms[mAlarmId].start();
             MainActivity.setAlarmState(mAlarmId, ON);
@@ -98,6 +92,16 @@ public class AlarmBroadcastService extends Service {
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
+    }
+
+    private void getStartAlarmIntentData (Intent intent) {
+        mAlarmName = intent.getExtras().get("AlarmName").toString();
+        mAlarmDuration = (int) intent.getExtras().get("AlarmDuration");
+        mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
+        mTimeFactor = (int) intent.getExtras().get("AlarmFactor");
+        Log.d(TAG, "TimeFactor: " + mTimeFactor);
+        mAlarmRingtone = intent.getExtras().get("AlarmRingtone").toString();
+        mAlarmRingtoneVolume = (int) intent.getExtras().get("AlarmRingtoneVol");
     }
 
     public void stopAlarm(int alarmId) {
