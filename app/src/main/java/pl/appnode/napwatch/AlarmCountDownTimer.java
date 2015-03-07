@@ -9,6 +9,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -31,11 +32,13 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private Context mContext;
     private boolean mIsFinished = false;
     private long mTimeUntilFinished;
+    private long mStartTime;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId,
                                 String title, String alarmUnit, int alarmDuration,
                                 String alarmRingtone, int alarmRingtoneVolume, Context context) {
         super(millisInFuture, countDownInterval);
+        mStartTime = SystemClock.elapsedRealtime();
         mAlarmId = alarmId;
         mAlarmName = title;
         mAlarmUnit = alarmUnit;
@@ -135,5 +138,9 @@ public class AlarmCountDownTimer extends CountDownTimer {
 
     public boolean isFinished() {
         return mIsFinished;
+    }
+
+    public long getStartTime() {
+        return mStartTime;
     }
 }
