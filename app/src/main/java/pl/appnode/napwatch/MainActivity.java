@@ -47,7 +47,6 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        Log.d(TAG, "Before Setting Adapter.");
         mAA = new AlarmAdapter(createList(), MainActivity.this);
         recList.setAdapter(mAA);
         Log.d(TAG, "After Setting Adapter.");
@@ -68,18 +67,13 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
             AboutDialog.showDialog(MainActivity.this);
         }
@@ -120,10 +114,9 @@ public class MainActivity extends Activity {
     }
 
     private List<AlarmInfo> createList() {
-        Log.d(TAG, "Create list.");
-
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
         String alarmPrefix;
+
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
             AlarmInfo ai = new AlarmInfo();
@@ -142,7 +135,6 @@ public class MainActivity extends Activity {
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", null);
             ai.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", RINGTONE_MUTE);
-            Log.d(TAG, "before Result add #" + i);
             result.add(ai);
             Log.d(TAG, "Result add #" + i);
         }

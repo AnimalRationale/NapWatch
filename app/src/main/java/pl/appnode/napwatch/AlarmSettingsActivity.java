@@ -109,7 +109,6 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         Log.d(TAG, "onActivityResult fo Ringtone Picker.");
         if (requestCode == RINGTONE_INTENT_REQUEST && resultCode == RESULT_OK && resultIntent.getExtras() != null) {
-            Log.d(TAG, "Proper Ringtone ResultIntent.");
             mCurrentRingtoneUri = resultIntent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
             mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
             mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
@@ -167,10 +166,8 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");
             if (settingsIntent.getExtras().get("AlarmRingtoneVol") != null) {
                 mAlarmRingtoneVolume = (int) settingsIntent.getExtras().get("AlarmRingtoneVol");
-                Log.d(TAG, "Volume OK.");
             } else {
                 mAlarmRingtoneVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                Log.d(TAG, "Volume NULL");
             }
         }
     }
@@ -214,25 +211,20 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG, "Clicked!!");
         switch (v.getId()) {
             case R.id.okAlarmSettings:
-                Log.d(TAG, "Clicked OK!");
                 stopRingtone();
                 resultOk();
                 break;
             case R.id.cancelAlarmSettings:
-                Log.d(TAG, "Clicked CANCEL!");
                 stopRingtone();
                 resultCancel();
                 break;
             case R.id.changeRingtone:
-                Log.d(TAG, "Clicked RINGTONE!");
                 stopRingtone();
                 ringtonePicker();
                 break;
             case R.id.playAlarmSettings:
-                Log.d(TAG, "Clicked PLAY/STOP!");
                 if (mRingtone.isPlaying() || mIsPlaying) {
                     stopRingtone();
                 } else playRingtone();
