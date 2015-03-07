@@ -7,4 +7,7 @@
     <color name="bkg_card">#8C9EFF</color>
     <color name="accent_light">#EF5350</color>
     <color name="holo_primary">#33B5E5</color>
+    <color name="round_button_primary">#99CC00</color>
+    <color name="round_button_selected">#FF0055</color>
+    <color name="round_button_pressed">#FFCC00</color>
 </resources>
