@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
+import android.util.Log;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
+    private static final String TAG = "AlarmReceiver";
     private static final String LOCK_TAG = "pl.appnode.napwatch";
     private static PowerManager.WakeLock sWakeLock = null;
 
@@ -18,9 +20,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
         sWakeLock.acquire();
     }
+
+     public static synchronized void releaseLock() {
+         if (sWakeLock != null) {
+             sWakeLock.release();
+         }
+     }
+
     @Override
     public void onReceive(Context context, Intent alarmIntent) {
-
+        acquireWakeLock(context);
+        Intent serviceIntent = new Intent(context, AlarmBroadcastService.class);
+        context.startService(serviceIntent);
+        Log.d(TAG, "Service started.");
     }
 
 }
