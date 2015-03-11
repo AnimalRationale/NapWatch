@@ -91,6 +91,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mContext.sendBroadcast(mBI);
         Log.d(TAG, "Countdown finished.");
         mIsFinished = true;
+        AlarmReceiver.releaseLock();
     }
 
     public void broadcastTimeUntilFinished() {

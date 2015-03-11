@@ -81,6 +81,7 @@ public class AlarmBroadcastService extends Service {
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         Log.d(TAG, "Setting sIsService FALSE.");
         MainActivity.setIsService(false);
+        AlarmReceiver.releaseLock();
         super.onDestroy();
     }
 
