@@ -34,5 +34,4 @@ public class AlarmReceiver extends BroadcastReceiver {
         context.startService(serviceIntent);
         Log.d(TAG, "Service started.");
     }
-
 }

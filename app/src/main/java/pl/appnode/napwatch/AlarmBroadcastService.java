@@ -28,7 +28,7 @@ public class AlarmBroadcastService extends Service {
     private String mAlarmRingtone;
     private int mAlarmRingtoneVolume;
     private int mAlarmCommand;
-    private int mStartMode;
+    private int mStartMode = START_STICKY;
     
     private AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
@@ -73,14 +73,9 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public void onDestroy() {
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         for (int i = 0; i < 4; i++) {
             if (mAlarms[i] != null) {
-                mAlarms[i].stopRingtone();
-                mAlarms[i].cancel();
-                mAlarms[i] = null;
-                notificationManager.cancel(i);
-                MainActivity.setAlarmState(i, OFF);
+                stopAlarm(i);
             }
         }
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
