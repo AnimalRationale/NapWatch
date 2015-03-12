@@ -14,16 +14,19 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private static synchronized void acquireWakeLock (Context context) {
         if (sWakeLock == null) {
+            Log.d(TAG, "Wake lock == null, setting up.");
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             sWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOCK_TAG);
             sWakeLock.setReferenceCounted(true);
         }
         sWakeLock.acquire();
+        Log.d(TAG, "Wake lock acquired.");
     }
 
      public static synchronized void releaseLock() {
          if (sWakeLock != null) {
              sWakeLock.release();
+             Log.d(TAG, "Wake lock released.");
          }
      }
 

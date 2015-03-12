@@ -1,5 +1,6 @@
 package pl.appnode.napwatch;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,6 +13,8 @@ import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import static pl.appnode.napwatch.StateConstants.WAKE_UP_MARGIN;
 
 public class AlarmCountDownTimer extends CountDownTimer {
     private final static String TAG = "::AlarmCountdownTimer";
@@ -38,6 +41,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                                 String title, String alarmUnit, int alarmDuration,
                                 String alarmRingtone, int alarmRingtoneVolume, Context context) {
         super(millisInFuture, countDownInterval);
+        setAlarmManagerWakeUp(millisInFuture);
         mStartTime = SystemClock.elapsedRealtime();
         mAlarmId = alarmId;
         mAlarmName = title;
@@ -135,6 +139,16 @@ public class AlarmCountDownTimer extends CountDownTimer {
             return ringtone;
         }
         return ringtone;
+    }
+
+    private void setAlarmManagerWakeUp (Long timerDuration) {
+        Intent intent = new Intent(mContext, AlarmReceiver.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(
+                mContext.getApplicationContext(), 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(mContext.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                timerDuration - WAKE_UP_MARGIN,
+                alarmIntent);
     }
 
     public boolean isFinished() {
