@@ -54,7 +54,7 @@ public class AlarmBroadcastService extends Service {
             getStartAlarmIntentData(intent);
             mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * mTimeFactor,
                     mTimeFactor - (mTimeFactor / TIME_DEVIATION_FOR_LAST_TICK),
-                    mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, mAlarmRingtone, mAlarmRingtoneVolume, this);
+                    mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, mAlarmRingtone, mAlarmRingtoneVolume, this.getApplicationContext());
             mAlarms[mAlarmId].start();
             MainActivity.setAlarmState(mAlarmId, ON);
             return mStartMode;

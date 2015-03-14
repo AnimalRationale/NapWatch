@@ -41,7 +41,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                                 String title, String alarmUnit, int alarmDuration,
                                 String alarmRingtone, int alarmRingtoneVolume, Context context) {
         super(millisInFuture, countDownInterval);
-        // setAlarmManagerWakeUp(millisInFuture);
+        setAlarmManagerWakeUp(millisInFuture);
         mStartTime = SystemClock.elapsedRealtime();
         mAlarmId = alarmId;
         mAlarmName = title;
@@ -145,7 +145,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         Intent intent = new Intent(mContext.getApplicationContext(), AlarmReceiver.class);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(
                 mContext.getApplicationContext(), 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(mContext.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 timerDuration - WAKE_UP_MARGIN,
                 alarmIntent);
