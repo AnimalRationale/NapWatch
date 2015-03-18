@@ -41,7 +41,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                                 String title, String alarmUnit, int alarmDuration,
                                 String alarmRingtone, int alarmRingtoneVolume, Context context) {
         super(millisInFuture, countDownInterval);
-        // setAlarmManagerWakeUp(millisInFuture);
+        setAlarmManagerWakeUp(millisInFuture);
         mStartTime = SystemClock.elapsedRealtime();
         mAlarmId = alarmId;
         mAlarmName = title;
