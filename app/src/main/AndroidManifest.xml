@@ -29,7 +29,7 @@
             android:name=".AlarmBroadcastService"
             android:icon="@drawable/ic_alarm_add_grey600_48dp"
             android:exported="false" />
-        <receiver android:name=".AlarmReceiver" >
+        <receiver android:name="pl.appnode.napwatch.AlarmReceiver" >
         </receiver>
         <receiver android:name=".NapWatchWidgetProvider" >
             <intent-filter>
