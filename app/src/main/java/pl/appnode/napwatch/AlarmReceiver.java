@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.PowerManager;
 import android.util.Log;
 
+import static pl.appnode.napwatch.StateConstants.UPDATE;
+
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static final String TAG = "AlarmReceiver";
@@ -34,6 +36,8 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent alarmIntent) {
         acquireWakeLock(context);
         Intent serviceIntent = new Intent(context, AlarmBroadcastService.class);
+        serviceIntent.putExtra("AlarmCommand", UPDATE);
+        Log.d(TAG, "Starting service.");
         context.startService(serviceIntent);
         Log.d(TAG, "Service started.");
     }
