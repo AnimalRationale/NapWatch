@@ -18,7 +18,7 @@
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:background="@drawable/round_button_background"
-        android:text="0n"
+        android:text="0m"
         android:textAllCaps="false"
         android:textColor="#fff" />
     <Button
