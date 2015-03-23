@@ -88,8 +88,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     MainActivity.setAlarmState(position, SWITCHING);
                     stopAlarm(ai);
                 } else if (!ai.mIsOn && MainActivity.getAlarmState(position) == OFF) {
-                    MainActivity.setAlarmState(position,SWITCHING);
-                    startAlarm(ai);
+                    MainActivity.setAlarmState(position, SWITCHING);
+                    startAlarm(position);
                 }
             }
         });
@@ -130,8 +130,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         }
     }
 
-    public void startAlarm(AlarmInfo item) {
-        int position = mAlarmList.indexOf(item);
+    public void startAlarm(int position) {
         AlarmInfo alarm = mAlarmList.get(position);
         alarm.mIsOn = true;
         notifyItemChanged(position);
