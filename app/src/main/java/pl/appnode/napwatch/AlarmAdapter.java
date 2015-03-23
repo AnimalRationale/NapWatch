@@ -86,7 +86,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // sIsService = " + MainActivity.isService());
                 if (ai.mIsOn && MainActivity.isService() && MainActivity.getAlarmState(position) == ON) {
                     MainActivity.setAlarmState(position, SWITCHING);
-                    stopAlarm(ai);
+                    stopAlarm(position);
                 } else if (!ai.mIsOn && MainActivity.getAlarmState(position) == OFF) {
                     MainActivity.setAlarmState(position, SWITCHING);
                     startAlarm(position);
@@ -150,8 +150,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         Log.d(TAG, "Service started.");
     }
 
-    public void stopAlarm(AlarmInfo item) {
-        int position = mAlarmList.indexOf(item);
+    public void stopAlarm(int position) {
         AlarmInfo alarm = mAlarmList.get(position);
         Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
         serviceIntent.putExtra("AlarmId", position);
