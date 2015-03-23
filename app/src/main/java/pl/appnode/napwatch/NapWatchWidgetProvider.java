@@ -8,13 +8,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 
+import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
+import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
+import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.SECOND;
+
 public class NapWatchWidgetProvider extends AppWidgetProvider {
 
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
+    private static String[] sAlarmTimers = new String[5];
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
+        int timeUnit;
+        String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
         final int N = appWidgetIds.length;
         for (int i = 0; i < N; i++) {
             int appWidgetId = appWidgetIds[i];
@@ -24,10 +32,22 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.widget_round_btn1, pendingIntent);
             for (int j = 1; j <= 4; j++) {
                 alarmPrefix = "Alarm_" + j;
-
+                timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
+                switch (timeUnit) {
+                    case SECOND:  timeUnitSymbol = context.getString(R.string.time_unit_seconds);
+                        break;
+                    case MINUTE:  timeUnitSymbol = context.getString(R.string.time_unit_minutes);
+                        break;
+                }
+                sAlarmTimers[j] = alarmsPrefs.getInt(alarmPrefix + "_Duration", DEFAULT_TIMER_DURATION
+                        + (i * DEFAULT_TIMER_DURATION_MODIFIER))
+                + timeUnitSymbol;
             }
+            views.setTextViewText(R.id.widget_round_btn2, sAlarmTimers[1]);
+            views.setTextViewText(R.id.widget_round_btn3, sAlarmTimers[2]);
+            views.setTextViewText(R.id.widget_round_btn4, sAlarmTimers[3]);
+            views.setTextViewText(R.id.widget_round_btn5, sAlarmTimers[4]);
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
-
 }
