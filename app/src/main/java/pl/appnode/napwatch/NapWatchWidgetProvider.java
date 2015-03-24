@@ -29,7 +29,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.napwatch_widget);
-            views.setOnClickPendingIntent(R.id.widget_round_btn1, pendingIntent);
+            views.setOnClickPendingIntent(R.id.widget_round_btn0, pendingIntent);
             for (int j = 1; j <= 4; j++) {
                 alarmPrefix = "Alarm_" + j;
                 timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
@@ -43,10 +43,10 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
                         + (i * DEFAULT_TIMER_DURATION_MODIFIER))
                 + timeUnitSymbol;
             }
-            views.setTextViewText(R.id.widget_round_btn2, sAlarmTimers[1]);
-            views.setTextViewText(R.id.widget_round_btn3, sAlarmTimers[2]);
-            views.setTextViewText(R.id.widget_round_btn4, sAlarmTimers[3]);
-            views.setTextViewText(R.id.widget_round_btn5, sAlarmTimers[4]);
+            views.setTextViewText(R.id.widget_round_btn1, sAlarmTimers[1]);
+            views.setTextViewText(R.id.widget_round_btn2, sAlarmTimers[2]);
+            views.setTextViewText(R.id.widget_round_btn3, sAlarmTimers[3]);
+            views.setTextViewText(R.id.widget_round_btn4, sAlarmTimers[4]);
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
