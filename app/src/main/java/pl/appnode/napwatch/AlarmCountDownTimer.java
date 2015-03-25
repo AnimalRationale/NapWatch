@@ -3,6 +3,8 @@ package pl.appnode.napwatch;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -13,8 +15,10 @@ import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import static pl.appnode.napwatch.StateConstants.WAKE_UP_MARGIN;
+import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 
 public class AlarmCountDownTimer extends CountDownTimer {
     private final static String TAG = "::AlarmCountdownTimer";
@@ -36,6 +40,9 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private boolean mIsFinished = false;
     private long mTimeUntilFinished;
     private long mStartTime;
+    private RemoteViews mWidgetViews;
+    private ComponentName mWidget;
+    private AppWidgetManager mWidgetManager;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId,
                                 String title, String alarmUnit, int alarmDuration,
@@ -70,6 +77,11 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
+        mWidgetViews = new RemoteViews(mContext.getPackageName(), R.layout.napwatch_widget);
+        mWidgetViews.setInt(WIDGET_BUTTONS[mAlarmId + 1], "setBackgroundResource", R.drawable.round_button_selected);
+        mWidget = new ComponentName(mContext, NapWatchWidgetProvider.class);
+        mWidgetManager = AppWidgetManager.getInstance(mContext);
+        mWidgetManager.updateAppWidget(mWidget, mWidgetViews);
     }
 
     @Override
@@ -81,6 +93,10 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
         mNM.notify(mNotifyId, mNotify.build());
+        mWidgetViews.setTextViewText(WIDGET_BUTTONS[mAlarmId + 1], millisUntilFinished / mTimeUnitFactor + mAlarmUnit);
+        mWidget = new ComponentName(mContext, NapWatchWidgetProvider.class);
+        mWidgetManager = AppWidgetManager.getInstance(mContext);
+        mWidgetManager.updateAppWidget(mWidget, mWidgetViews);
     }
 
     @Override
