@@ -12,6 +12,7 @@ import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 
 public class NapWatchWidgetProvider extends AppWidgetProvider {
 
@@ -28,6 +29,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
         int timeUnit;
+        boolean isOn;
         String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
         final int N = appWidgetIds.length;
         for (int i = 0; i < N; i++) {
@@ -48,6 +50,9 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
                 views.setTextViewText(WIDGET_BUTTONS[j], alarmsPrefs.getInt(alarmPrefix + "_Duration",
                         DEFAULT_TIMER_DURATION + (i * DEFAULT_TIMER_DURATION_MODIFIER))
                         + timeUnitSymbol);
+                if (alarmsPrefs.getBoolean(alarmPrefix + "_State", false)) {
+                    views.setInt(WIDGET_BUTTONS[j], "setBackgroundResource", R.drawable.round_button_selected);
+                } else views.setInt(WIDGET_BUTTONS[j], "setBackgroundResource", R.drawable.round_button);
             }
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }

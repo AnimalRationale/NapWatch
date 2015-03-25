@@ -1,7 +1,9 @@
 package pl.appnode.napwatch;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -86,6 +88,12 @@ public class MainActivity extends Activity {
         saveSharedPrefs();
         unregisterReceiver(mCountDownBroadcast);
         Log.d(TAG, "OnPause unregistered broadcast receiver.");
+        Intent intent = new Intent(this,NapWatchWidgetProvider.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int ids[] = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), NapWatchWidgetProvider.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
     }
 
     @Override
