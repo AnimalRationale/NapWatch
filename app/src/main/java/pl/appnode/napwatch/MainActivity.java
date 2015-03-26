@@ -60,9 +60,7 @@ public class MainActivity extends Activity {
         registerReceiver(mCountDownBroadcast, new IntentFilter(AlarmBroadcastService.COUNTDOWN_BROADCAST));
         Log.d(TAG, "OnResume registered broadcast receiver.");
         if (sIsService) {
-            Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
-            serviceIntent.putExtra("AlarmCommand", UPDATE);
-            startService(serviceIntent);
+            updateTimeToFinishIntent();
             Log.d(TAG, "Time to finish update intent on active alarms.");
         };
     }
@@ -198,6 +196,12 @@ public class MainActivity extends Activity {
             if (!alarm.mIsOn & timeToFinish > 1) {alarm.mIsOn = true;}
             mAA.notifyItemChanged(position);
         }
+    }
+
+    public void updateTimeToFinishIntent() {
+        Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
+        serviceIntent.putExtra("AlarmCommand", UPDATE);
+        startService(serviceIntent);
     }
 
     public static int getAlarmState(int alarmId) {
