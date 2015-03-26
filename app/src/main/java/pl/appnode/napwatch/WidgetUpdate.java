@@ -20,19 +20,19 @@ public class WidgetUpdate {
     }
 
     public static void setButtonOn(int widgetButtonId, Context context) {
-        if (sWidgetViews == null) {getWidget(context);}
+        getWidget(context);
         sWidgetViews.setInt(WIDGET_BUTTONS[widgetButtonId], "setBackgroundResource", R.drawable.round_button_selected);
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
     }
 
     public static void setButtonOff(int widgetButtonId, Context context) {
-        if (sWidgetViews == null) {getWidget(context);}
+        getWidget(context);
         sWidgetViews.setInt(WIDGET_BUTTONS[widgetButtonId], "setBackgroundResource", R.drawable.round_button);
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
     }
 
     public static void buttonTime(int widgetButtonId, String timeToFinish, Context context) {
-        if (sWidgetViews == null) {getWidget(context);}
+        getWidget(context);
         sWidgetViews.setTextViewText(WIDGET_BUTTONS[widgetButtonId], timeToFinish);
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
     }
