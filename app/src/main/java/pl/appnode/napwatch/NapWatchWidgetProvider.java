@@ -17,19 +17,11 @@ import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 public class NapWatchWidgetProvider extends AppWidgetProvider {
 
     public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
-    public static final int[] WIDGET_BUTTONS = {
-            R.id.widget_round_btn0,
-            R.id.widget_round_btn1,
-            R.id.widget_round_btn2,
-            R.id.widget_round_btn3,
-            R.id.widget_round_btn4,
-    };
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
         int timeUnit;
-        boolean isOn;
         String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
         final int N = appWidgetIds.length;
         for (int i = 0; i < N; i++) {
