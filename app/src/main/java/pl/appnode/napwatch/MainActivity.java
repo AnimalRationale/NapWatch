@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_MUTE;
@@ -27,7 +28,6 @@ import static pl.appnode.napwatch.StateConstants.UPDATE;
 
 public class MainActivity extends Activity {
 
-    public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     private static final String TAG = "MainActivity";
     protected AlarmAdapter mAA;
     private static boolean sIsService;

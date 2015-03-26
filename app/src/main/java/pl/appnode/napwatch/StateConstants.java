@@ -10,6 +10,7 @@ public final class StateConstants {
 
     private StateConstants() {} /** Private constructor of final class to prevent instantiating. */
 
+    public static final String ALARMS_PREFS_FILE = "AlarmsPrefsFile";
     public static final int DEFAULT_TIMER_DURATION = 12;
     public static final int DEFAULT_TIMER_DURATION_MODIFIER = 4;
     public static final int OFF = 0;
@@ -28,7 +29,6 @@ public final class StateConstants {
     public static final int SETTINGS_INTENT_REQUEST = 501;
     public static final int RINGTONE_INTENT_REQUEST = 502;
     public static final int RINGTONE_MUTE = 0;
-
     public static final int[] WIDGET_BUTTONS = {
             R.id.widget_round_btn0,
             R.id.widget_round_btn1,
