@@ -68,7 +68,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         Button buttonCancel = (Button) findViewById(R.id.cancelAlarmSettings);
         buttonCancel.setOnClickListener(this);
         getSettingsIntentData (getIntent());
-        mCurrentRingtoneUri = setNotNullRingtone(Uri.parse(mAlarmRingtoneUri));
+        mCurrentRingtoneUri = setNotNullRingtone(mAlarmRingtoneUri);
         mRingtone = RingtoneManager.getRingtone(this.getApplicationContext(), mCurrentRingtoneUri);
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
         mRingtoneTextButton.setText(mRingtoneName);
@@ -117,18 +117,19 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         }
     }
 
-    private Uri setNotNullRingtone(Uri ringtone) {
-        if (ringtone == null) {
-            ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            if (ringtone == null) {
-                ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                if (ringtone == null) {
-                    ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+    private Uri setNotNullRingtone(String ringtoneIn) {
+        Uri ringtoneOut;
+        if (ringtoneIn == null) {
+            ringtoneOut = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (ringtoneOut == null) {
+                ringtoneOut = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (ringtoneOut == null) {
+                    ringtoneOut = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
                 }
             }
-            return ringtone;
+            return ringtoneOut;
         }
-        return ringtone;
+        return Uri.parse(ringtoneIn);
     }
 
     private void setVolume() {
