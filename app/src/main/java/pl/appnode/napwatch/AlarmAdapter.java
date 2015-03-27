@@ -125,7 +125,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     public void alarmAction (int position) {
-        final AlarmInfo ai = mAlarmList.get(position);
+        AlarmInfo ai = mAlarmList.get(position);
         if (ai.mIsOn && MainActivity.isService() && MainActivity.getAlarmState(position) == ON) {
             MainActivity.setAlarmState(position, SWITCHING);
             stopAlarm(position);

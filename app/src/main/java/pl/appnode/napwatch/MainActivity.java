@@ -29,7 +29,7 @@ import static pl.appnode.napwatch.StateConstants.UPDATE;
 public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
-    protected AlarmAdapter mAA;
+    protected static AlarmAdapter mAA;
     private static boolean sIsService;
     private static int[] sAlarmState = new int[4];
 
@@ -197,6 +197,10 @@ public class MainActivity extends Activity {
         Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
         serviceIntent.putExtra("AlarmCommand", UPDATE);
         startService(serviceIntent);
+    }
+
+    public static void alarmAction(int position) {
+        mAA.alarmAction(position);
     }
 
     public static int getAlarmState(int alarmId) {

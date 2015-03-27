@@ -36,4 +36,5 @@ public final class StateConstants {
             R.id.widget_round_btn3,
             R.id.widget_round_btn4,
     };
+    public static final String[] WIDGET_BUTTON_ACTION = {"A", "0", "1", "2", "3"};
 }
