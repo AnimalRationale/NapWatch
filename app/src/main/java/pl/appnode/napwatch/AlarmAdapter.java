@@ -91,6 +91,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setDuration(ai, progress);
+                WidgetUpdate.buttonTime(position + 1, ai.mDuration + ai.mTimeUnitSymbol, mContext);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {

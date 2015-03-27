@@ -200,7 +200,7 @@ public class MainActivity extends Activity {
     }
 
     public static void alarmAction(int position) {
-        mAA.alarmAction(position);
+        if (mAA != null) {mAA.alarmAction(position);}
     }
 
     public static int getAlarmState(int alarmId) {
