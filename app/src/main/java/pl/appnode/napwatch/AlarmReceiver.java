@@ -27,8 +27,15 @@ public class AlarmReceiver extends BroadcastReceiver {
 
      public static synchronized void releaseLock() {
          if (sWakeLock != null) {
-             sWakeLock.release();
-             Log.d(TAG, "Wake lock released.");
+             Log.d(TAG, "Releasing wakelock.");
+             try {
+                 sWakeLock.release();
+                 Log.d(TAG, "Wake lock released.");
+             } catch (Throwable thex) {
+                 // wakeLock probably was already released
+             }
+         } else {
+             Log.d(TAG, "Wakelock null.");
          }
      }
 
