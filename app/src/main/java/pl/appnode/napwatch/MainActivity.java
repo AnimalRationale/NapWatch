@@ -24,6 +24,7 @@ import static pl.appnode.napwatch.StateConstants.RINGTONE_MUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
+import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
 
 public class MainActivity extends Activity {
@@ -201,6 +202,16 @@ public class MainActivity extends Activity {
 
     public static void alarmAction(int position) {
         if (mAA != null) {mAA.alarmAction(position);}
+        else {Intent serviceIntent = new Intent(AppContext.getContext(), AlarmBroadcastService.class);
+            serviceIntent.putExtra("AlarmId", position);
+            serviceIntent.putExtra("AlarmName", "test");
+            serviceIntent.putExtra("AlarmDuration", 90000);
+            serviceIntent.putExtra("AlarmUnit", "m");
+            serviceIntent.putExtra("AlarmFactor", 1);
+            serviceIntent.putExtra("AlarmRingtone", "test");
+            serviceIntent.putExtra("AlarmRingtoneVol", 3);
+            serviceIntent.putExtra("AlarmCommand", START);
+            AppContext.getContext().startService(serviceIntent);}
     }
 
     public static int getAlarmState(int alarmId) {
