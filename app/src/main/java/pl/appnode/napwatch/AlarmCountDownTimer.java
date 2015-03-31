@@ -50,7 +50,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mAlarmDuration = alarmDuration;
         mTimeUnitFactor = (int) countDownInterval;
         Log.d(TAG, "TimeFactor in timer: " + mTimeUnitFactor);
-        Uri alert = setNotNullRingtone(Uri.parse(alarmRingtone));
+        Uri alert = setNotNullRingtone(alarmRingtone);
         mRingtoneVolume = alarmRingtoneVolume;
         Intent resultIntent = new Intent(mContext, MainActivity.class);
         resultIntent.setAction(Intent.ACTION_MAIN);
@@ -130,18 +130,19 @@ public class AlarmCountDownTimer extends CountDownTimer {
         restoreVolume();
     }
 
-    private Uri setNotNullRingtone(Uri ringtone) {
+    private Uri setNotNullRingtone(String ringtone) {
+        Uri ringtoneUri;
         if (ringtone == null) {
-            ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            if (ringtone == null) {
-                ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                if (ringtone == null) {
-                    ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (ringtoneUri == null) {
+                ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (ringtoneUri == null) {
+                    ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
                 }
             }
-            return ringtone;
+            return ringtoneUri;
         }
-        return ringtone;
+        return Uri.parse(ringtone);
     }
 
     private void setAlarmManagerWakeUp (Long timerDuration) {

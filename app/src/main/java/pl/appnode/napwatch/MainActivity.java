@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -135,7 +137,7 @@ public class MainActivity extends Activity {
                     break;
             }
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
-            ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", null);
+            ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
             ai.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", RINGTONE_MUTE);
             result.add(ai);
             Log.d(TAG, "Result add #" + i);
@@ -162,6 +164,18 @@ public class MainActivity extends Activity {
         }
         editor.commit();
         Log.d(TAG, "COMMITED SharedPrefs.");
+    }
+
+    private String setRingtone() {
+        Uri ringtoneUri;
+            ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (ringtoneUri == null) {
+                ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                if (ringtoneUri == null) {
+                    ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                }
+            }
+            return ringtoneUri.toString();
     }
 
     @Override

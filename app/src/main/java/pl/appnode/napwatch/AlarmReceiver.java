@@ -32,6 +32,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                  sWakeLock.release();
                  Log.d(TAG, "Wake lock released.");
              } catch (Throwable thex) {
+                 Log.d(TAG, "Wake lock catch.");
                  // wakeLock probably was already released
              }
          } else {
