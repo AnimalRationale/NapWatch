@@ -142,6 +142,11 @@ public class AlarmCountDownTimer extends CountDownTimer {
             }
             return ringtoneUri;
         }
+        try {
+            Uri.parse(ringtone);
+        } catch (Throwable thex) {
+            Log.d(TAG, "Parsing URI exception.");
+        }
         return Uri.parse(ringtone);
     }
 
