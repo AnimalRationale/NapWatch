@@ -89,7 +89,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
     public void onFinish() {
         mRingtone.play();
         mNotify.setContentTitle(mAlarmName + mContext.getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + mContext.getResources().getString(R.string.notification_text03_finished))
-                .setContentText(mContext.getResources().getString(R.string.notification_text_finished));
+                .setContentText(mContext.getResources().getString(R.string.notification_text_finished))
+                .setSmallIcon(R.drawable.ic_launcher);
         mNM.notify(mNotifyId, mNotify.build());
         Log.d(TAG, "Timer [" + mAlarmId + "] finished.");
         mBI.putExtra("AlarmID", mAlarmId);
