@@ -14,7 +14,6 @@ public class AboutDialog {
 
     private static String sVersionName;
     private static String sVersionCode;
-    private static Drawable sVersionIcon;
 
     private static void versionInfo(Context context) {
         try {
@@ -22,12 +21,10 @@ public class AboutDialog {
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             sVersionName = info.versionName;
             sVersionCode = String.valueOf(info.versionCode);
-            sVersionIcon = manager.getApplicationIcon("pl.appnode.napwatch");
         }
         catch (PackageManager.NameNotFoundException ex) {
             sVersionName = context.getResources().getString(R.string.about_dialog_ver_name_err);
             sVersionCode = context.getResources().getString(R.string.about_dialog_ver_code_err);
-            sVersionIcon = null;
         }
     }
 
