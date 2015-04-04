@@ -22,9 +22,11 @@ import java.util.List;
 import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
+import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_MUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
@@ -166,7 +168,7 @@ public class MainActivity extends Activity {
         Log.d(TAG, "COMMITED SharedPrefs.");
     }
 
-    private String setRingtone() {
+    private static String setRingtone() {
         Uri ringtoneUri;
             ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
             if (ringtoneUri == null) {
@@ -215,15 +217,19 @@ public class MainActivity extends Activity {
     }
 
     public static void alarmAction(int position) {
+        SharedPreferences alarmsPrefs = AppContext.getContext().getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
+        String alarmPrefix;
         if (mAA != null) {mAA.alarmAction(position);}
         else {Intent serviceIntent = new Intent(AppContext.getContext(), AlarmBroadcastService.class);
+            alarmPrefix = "Alarm_" + position;
             serviceIntent.putExtra("AlarmId", position);
-            serviceIntent.putExtra("AlarmName", "test");
-            serviceIntent.putExtra("AlarmDuration", 90000);
-            serviceIntent.putExtra("AlarmUnit", "m");
-            serviceIntent.putExtra("AlarmFactor", 1);
-            serviceIntent.putExtra("AlarmRingtone", "test");
-            serviceIntent.putExtra("AlarmRingtoneVol", 3);
+            serviceIntent.putExtra("AlarmName", alarmsPrefs.getString(alarmPrefix, "Def Alarm " + position));
+            serviceIntent.putExtra("AlarmDuration", alarmsPrefs.getInt(alarmPrefix + "_Duration", DEFAULT_TIMER_DURATION
+                    + (position * DEFAULT_TIMER_DURATION_MODIFIER)));
+            serviceIntent.putExtra("AlarmUnit", alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND));
+            if (alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND) == SECOND) {serviceIntent.putExtra("AlarmFactor", SECOND_IN_MILLIS);} else {serviceIntent.putExtra("AlarmFactor", MINUTE_IN_MILLIS);}
+            serviceIntent.putExtra("AlarmRingtone", alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone()));
+            serviceIntent.putExtra("AlarmRingtoneVol", alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", RINGTONE_MUTE));
             serviceIntent.putExtra("AlarmCommand", START);
             AppContext.getContext().startService(serviceIntent);}
     }
