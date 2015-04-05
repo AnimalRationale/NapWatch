@@ -220,18 +220,7 @@ public class MainActivity extends Activity {
         SharedPreferences alarmsPrefs = AppContext.getContext().getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
         String alarmPrefix;
         if (mAA != null) {mAA.alarmAction(position);}
-        else {Intent serviceIntent = new Intent(AppContext.getContext(), AlarmBroadcastService.class);
-            alarmPrefix = "Alarm_" + position;
-            serviceIntent.putExtra("AlarmId", position);
-            serviceIntent.putExtra("AlarmName", alarmsPrefs.getString(alarmPrefix, "Def Alarm " + position));
-            serviceIntent.putExtra("AlarmDuration", alarmsPrefs.getInt(alarmPrefix + "_Duration", DEFAULT_TIMER_DURATION
-                    + (position * DEFAULT_TIMER_DURATION_MODIFIER)));
-            serviceIntent.putExtra("AlarmUnit", alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND));
-            if (alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND) == SECOND) {serviceIntent.putExtra("AlarmFactor", SECOND_IN_MILLIS);} else {serviceIntent.putExtra("AlarmFactor", MINUTE_IN_MILLIS);}
-            serviceIntent.putExtra("AlarmRingtone", alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone()));
-            serviceIntent.putExtra("AlarmRingtoneVol", alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", RINGTONE_MUTE));
-            serviceIntent.putExtra("AlarmCommand", START);
-            AppContext.getContext().startService(serviceIntent);}
+        else {}
     }
 
     public static int getAlarmState(int alarmId) {

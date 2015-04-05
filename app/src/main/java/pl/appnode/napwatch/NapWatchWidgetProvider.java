@@ -6,6 +6,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -13,7 +15,11 @@ import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
+import static pl.appnode.napwatch.StateConstants.RINGTONE_MUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
+import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTON_ACTION;
 
@@ -51,6 +57,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
                 views.setOnClickPendingIntent(WIDGET_BUTTONS[j], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[j]));
             }
             appWidgetManager.updateAppWidget(appWidgetId, views);
+            Log.d(TAG, "Widget updated.");
         }
     }
 
@@ -60,9 +67,29 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
         while (i != 5) {
             if (WIDGET_BUTTON_ACTION[i].equals(intent.getAction())) {
                 i = 5;
-                MainActivity.alarmAction(Integer.parseInt(intent.getAction()));
+                int j = Integer.parseInt(intent.getAction());
+                // MainActivity.alarmAction(Integer.parseInt(intent.getAction()));
+                if (MainActivity.mAA != null) {MainActivity.mAA.alarmAction(Integer.parseInt(intent.getAction()));}
+                else {
+                    Intent commandIntent = new Intent(context, MainActivity.class);
+                    commandIntent.putExtra("id", j);
+                    commandIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(commandIntent);
+                }
             } else i++;
         }
+    }
+
+    private static String setRingtone() {
+        Uri ringtoneUri;
+        ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        if (ringtoneUri == null) {
+            ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            if (ringtoneUri == null) {
+                ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            }
+        }
+        return ringtoneUri.toString();
     }
 
     private PendingIntent getPendingSelfIntent(Context context, String action) {
