@@ -217,8 +217,6 @@ public class MainActivity extends Activity {
     }
 
     public static void alarmAction(int position) {
-        SharedPreferences alarmsPrefs = AppContext.getContext().getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
-        String alarmPrefix;
         if (mAA != null) {mAA.alarmAction(position);}
         else {}
     }
