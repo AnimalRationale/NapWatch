@@ -53,7 +53,10 @@ public class MainActivity extends Activity {
             if (mAA == null) {
                 mAA = new AlarmAdapter(createList(), MainActivity.this);
                 mAA.alarmAction(intent.getIntExtra("id", 1));
-                finish();
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory(Intent.CATEGORY_HOME);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(homeIntent);
             }
         }
         setContentView(R.layout.activity_main);
