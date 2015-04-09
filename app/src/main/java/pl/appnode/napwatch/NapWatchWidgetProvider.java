@@ -58,7 +58,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         int i = 1;
-        Log.d(TAG, "Widget button clicked: " + intent.getAction());
+        Log.d(TAG, "########## Widget button: " + intent.getAction());
         while (i != 5) {
             if (WIDGET_BUTTON_ACTION[i].equals(intent.getAction())) {
                 i = 5;
