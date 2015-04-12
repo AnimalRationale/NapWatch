@@ -8,8 +8,8 @@ android {
         applicationId "pl.appnode.napwatch"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 9
-        versionName "0.8"
+        versionCode 10
+        versionName "0.9"
     }
     buildTypes {
         release {
