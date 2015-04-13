@@ -1,9 +1,7 @@
 package pl.appnode.napwatch;
 
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -22,13 +20,10 @@ import java.util.List;
 import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
-import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_MUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
-import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
-import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
 
 public class MainActivity extends Activity {
