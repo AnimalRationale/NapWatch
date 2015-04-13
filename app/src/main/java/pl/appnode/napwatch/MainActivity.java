@@ -201,6 +201,7 @@ public class MainActivity extends Activity {
             alarm.mRingtoneVolume = (int) resultIntent.getExtras().get("AlarmRingtoneVol");
             mAA.notifyItemChanged(position);
             saveSharedPrefs();
+            WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, this);
         }
     }
 
