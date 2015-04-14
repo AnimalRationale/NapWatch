@@ -223,11 +223,6 @@ public class MainActivity extends Activity {
         startService(serviceIntent);
     }
 
-    public static void alarmAction(int position) {
-        if (mAA != null) {mAA.alarmAction(position);}
-        else {}
-    }
-
     public static int getAlarmState(int alarmId) {
         return sAlarmState[alarmId];
     }

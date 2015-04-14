@@ -39,7 +39,6 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG,"Using service.");
         mAlarmId = EMPTY;
         MainActivity.setIsService(true);
         Log.d(TAG, "Setting sIsService TRUE.");
@@ -79,7 +78,6 @@ public class AlarmBroadcastService extends Service {
             }
         }
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
-        Log.d(TAG, "Setting sIsService FALSE.");
         MainActivity.setIsService(false);
         AlarmReceiver.releaseLock();
         super.onDestroy();
