@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -146,7 +147,7 @@ public class MainActivity extends Activity {
             }
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
-            ai.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", RINGTONE_MUTE);
+            ai.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
             result.add(ai);
             Log.d(TAG, "Result add #" + i);
         }
@@ -184,6 +185,11 @@ public class MainActivity extends Activity {
                 }
             }
             return ringtoneUri.toString();
+    }
+
+    private int setMaxVolume() {
+        AudioManager audioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
+        return audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
     }
 
     @Override
