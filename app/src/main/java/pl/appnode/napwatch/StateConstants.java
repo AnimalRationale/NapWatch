@@ -28,7 +28,6 @@ public final class StateConstants {
     public static final int EMPTY = 10;
     public static final int SETTINGS_INTENT_REQUEST = 501;
     public static final int RINGTONE_INTENT_REQUEST = 502;
-    public static final int RINGTONE_MUTE = 0;
     public static final int[] WIDGET_BUTTONS = {
             R.id.widget_round_btn0,
             R.id.widget_round_btn1,
