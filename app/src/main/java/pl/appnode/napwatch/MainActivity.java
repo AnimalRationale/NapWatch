@@ -21,6 +21,7 @@ import java.util.List;
 import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
+import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
@@ -97,7 +98,11 @@ public class MainActivity extends Activity {
         saveSharedPrefs();
         unregisterReceiver(mCountDownBroadcast);
         Log.d(TAG, "OnPause unregistered broadcast receiver.");
-
+        for (int i = 0; i < 4; i++) {
+            if ( sAlarmState[i] == OFF) {
+                WidgetUpdate.setButtonOff(i + 1, this);
+            }
+        }
     }
 
     @Override
