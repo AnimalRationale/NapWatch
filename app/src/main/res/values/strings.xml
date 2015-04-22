@@ -28,7 +28,7 @@
     <string name="about_dialog_ver_name_err">.</string>
     <string name="about_dialog_ver_code_err">.</string>
 
-    <string name="title_activity_fullscreen_off">Alarm!</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_fullscreen_off">Alarm Stop!</string>
+    <string name="default_button_off_text">OFF</string>
+    <string name="default_off_text">Alarm\nSTOP</string>
 </resources>
