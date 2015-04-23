@@ -100,6 +100,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         Log.d(TAG, "Countdown finished.");
         mIsFinished = true;
         AlarmReceiver.releaseLock();
+        showFullscreenOff();
     }
 
     public void broadcastTimeUntilFinished() {
@@ -161,7 +162,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 alarmIntent);
     }
 
-    public void showFullscreenOff(int alarmId) {
+    public void showFullscreenOff() {
         Intent intent = new Intent(mContext, FullscreenOffActivity.class);
         intent.putExtra("AlarmID", mAlarmId);
         mContext.startActivity(intent);
