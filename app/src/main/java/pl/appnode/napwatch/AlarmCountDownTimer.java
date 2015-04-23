@@ -161,6 +161,12 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 alarmIntent);
     }
 
+    public void showFullscreenOff(int alarmId) {
+        Intent intent = new Intent(mContext, FullscreenOffActivity.class);
+        intent.putExtra("AlarmID", mAlarmId);
+        mContext.startActivity(intent);
+    }
+
     public boolean isFinished() {
         return mIsFinished;
     }
