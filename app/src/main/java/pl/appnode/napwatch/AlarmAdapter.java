@@ -175,6 +175,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         AlarmInfo alarm = mAlarmList.get(position);
         alarm.mDuration = duration;
         alarm.mDurationCounter = duration;
-        notifyItemChanged(position);
+        // notifyItemChanged(position);
+        try {
+            notifyItemChanged(position);
+        } catch (Exception e) {
+            Log.d(TAG, "RView exception: " + e.toString());
+        }
     }
 }
