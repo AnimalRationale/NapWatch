@@ -39,7 +39,6 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private TextView mTitle;
     private EditText mEditAlarmName;
     private RadioButton mRbSeconds;
-    private RadioButton mRbMinutes;
     private Button mRingtoneTextButton;
     private ImageButton mPlayStopButton;
     private SeekBar mVolumeSeekBar;
@@ -57,7 +56,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mTitle = (TextView) findViewById(R.id.alarmEditTitle);
         mEditAlarmName = (EditText) findViewById(R.id.alarmNameText);
         mRbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
-        mRbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
+        RadioButton rbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
         mRingtoneTextButton = (Button) findViewById(R.id.changeRingtone);
         mRingtoneTextButton.setOnClickListener(this);
         mVolumeSeekBar = (SeekBar) findViewById(R.id.volumeSeekBar);
@@ -95,7 +94,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mEditAlarmName.setText(mAlarmName);
         if (mAlarmTimeUnit == SECOND) {
             mRbSeconds.toggle();
-        } else mRbMinutes.toggle();
+        } else rbMinutes.toggle();
         Log.d(TAG, "AlarmSettingsActivity started.");
     }
 
