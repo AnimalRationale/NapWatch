@@ -2,6 +2,7 @@ package pl.appnode.napwatch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,6 +36,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         this.mAlarmList = alarmList;
         mContext = context;
     }
+
+    Handler mAAHandler = new Handler();
 
     @Override
     public int getItemCount() {
@@ -175,11 +178,20 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         AlarmInfo alarm = mAlarmList.get(position);
         alarm.mDuration = duration;
         alarm.mDurationCounter = duration;
+        handleChanges(position);
         // notifyItemChanged(position);
-        try {
-            notifyItemChanged(position);
-        } catch (Exception e) {
-            Log.d(TAG, "RView exception: " + e.toString());
-        }
+//        try {
+//            notifyItemChanged(position);
+//        } catch (Exception e) {
+//            Log.d(TAG, "RView exception: " + e.toString());
+//        }
+    }
+
+    public void handleChanges(final int position) {
+        mAAHandler.post(new Runnable() {
+            public void run(){
+                notifyItemInserted(position);
+            }
+        });
     }
 }
