@@ -190,7 +190,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     public void handleChanges(final int position) {
         mAAHandler.post(new Runnable() {
             public void run(){
-                notifyItemInserted(position);
+                notifyItemChanged(position);
             }
         });
     }
