@@ -173,12 +173,18 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         Log.d(TAG, "Alarm OFF.");
     }
 
-    public void setDuration(AlarmInfo item, int duration) {
-        int position = mAlarmList.indexOf(item);
-        AlarmInfo alarm = mAlarmList.get(position);
-        alarm.mDuration = duration;
-        alarm.mDurationCounter = duration;
-        handleChanges(position);
+    public void setDuration(final AlarmInfo item, final int duration) {
+
+        mAAHandler.post(new Runnable() {
+            public void run(){
+                final int position = mAlarmList.indexOf(item);
+                AlarmInfo alarm = mAlarmList.get(position);
+                alarm.mDuration = duration;
+                alarm.mDurationCounter = duration;
+                notifyItemChanged(position);
+            }
+        });
+        // handleChanges(position);
         // notifyItemChanged(position);
 //        try {
 //            notifyItemChanged(position);
