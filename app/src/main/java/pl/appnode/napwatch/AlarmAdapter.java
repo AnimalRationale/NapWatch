@@ -184,20 +184,5 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 notifyItemChanged(position);
             }
         });
-        // handleChanges(position);
-        // notifyItemChanged(position);
-//        try {
-//            notifyItemChanged(position);
-//        } catch (Exception e) {
-//            Log.d(TAG, "RView exception: " + e.toString());
-//        }
-    }
-
-    public void handleChanges(final int position) {
-        mAAHandler.post(new Runnable() {
-            public void run(){
-                notifyItemChanged(position);
-            }
-        });
     }
 }
