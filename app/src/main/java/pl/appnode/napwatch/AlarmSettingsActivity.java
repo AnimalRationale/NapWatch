@@ -41,7 +41,6 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private RadioButton mRbSeconds;
     private Button mRingtoneTextButton;
     private ImageButton mPlayStopButton;
-    private SeekBar mVolumeSeekBar;
     private boolean mIsPlaying = false;
 
     @Override
@@ -59,7 +58,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         RadioButton rbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
         mRingtoneTextButton = (Button) findViewById(R.id.changeRingtone);
         mRingtoneTextButton.setOnClickListener(this);
-        mVolumeSeekBar = (SeekBar) findViewById(R.id.volumeSeekBar);
+        SeekBar volumeSeekBar = (SeekBar) findViewById(R.id.volumeSeekBar);
         mPlayStopButton = (ImageButton) findViewById(R.id.playAlarmSettings);
         mPlayStopButton.setOnClickListener(this);
         Button buttonOk = (Button) findViewById(R.id.okAlarmSettings);
@@ -72,9 +71,9 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRingtoneName =  mRingtone.getTitle(this.getApplicationContext());
         mRingtoneTextButton.setText(mRingtoneName);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
-        mVolumeSeekBar.setMax(mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
-        mVolumeSeekBar.setProgress(mAlarmRingtoneVolume);
-        mVolumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        volumeSeekBar.setMax(mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
+        volumeSeekBar.setProgress(mAlarmRingtoneVolume);
+        volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlarmRingtoneVolume = progress;
