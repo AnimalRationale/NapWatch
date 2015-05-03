@@ -30,7 +30,18 @@
             android:name=".AlarmSettingsActivity"
             android:excludeFromRecents="true"
             android:label="Alarm Settings Dialog"
-            android:theme="@android:style/android:Theme.Holo.Light.Dialog" />
+            android:theme="@android:style/android:Theme.Holo.Light.Dialog">
+         </activity>
+        <activity
+            android:name=".FullscreenOffActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen_off"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/FullscreenTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pl.appnode.napwatch.MainActivity" />
+        </activity>
 
         <service
             android:name=".AlarmBroadcastService"

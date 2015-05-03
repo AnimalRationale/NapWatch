@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 
 /**
@@ -63,6 +64,10 @@ public class FullscreenOffActivity extends Activity {
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
+        TextView alarmText = (TextView) findViewById(R.id.fullscreen_content);
+        if (getIntent().getExtras() != null) {
+            alarmText.setText((String) getIntent().getExtras().get("AlarmName"));
+        }
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
