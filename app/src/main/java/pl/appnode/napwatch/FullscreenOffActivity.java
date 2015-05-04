@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.MenuItem;
@@ -27,6 +28,9 @@ public class FullscreenOffActivity extends Activity {
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
+
+    private final static String TAG = "ActivityOFF";
+    private int mAlarmId;
     private static final boolean AUTO_HIDE = true;
 
     /**
@@ -66,6 +70,8 @@ public class FullscreenOffActivity extends Activity {
         final View contentView = findViewById(R.id.fullscreen_content);
         TextView alarmText = (TextView) findViewById(R.id.fullscreen_content);
         if (getIntent().getExtras() != null) {
+            mAlarmId = (int) getIntent().getExtras().get("AlarmID");
+            Log.d(TAG, "AlarmID: " + mAlarmId);
             alarmText.setText((String) getIntent().getExtras().get("AlarmName"));
         }
 
@@ -180,8 +186,17 @@ public class FullscreenOffActivity extends Activity {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
+                if (MainActivity.mAA != null) {MainActivity.mAA.alarmAction(mAlarmId);
+                    Log.d(TAG, "mAA not null. AlarmID: " + mAlarmId );
+                } else {
+                    Log.d(TAG, "mAA null. AlarmID: " + mAlarmId);
+                }
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory(Intent.CATEGORY_HOME);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(homeIntent);
             }
-            return false;
+            return true;
         }
     };
 

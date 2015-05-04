@@ -63,9 +63,9 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
                 i = 5;
                 int j = Integer.parseInt(intent.getAction());
                 if (MainActivity.mAA != null) {MainActivity.mAA.alarmAction(Integer.parseInt(intent.getAction()));
-                    Log.d(TAG, "mAA not null.");}
+                    Log.d(TAG, "mAA not null. Action: " + j);}
                 else {
-                    Log.d(TAG, "mAA null.");
+                    Log.d(TAG, "mAA null. Action: " + j);
                     Intent commandIntent = new Intent(context, MainActivity.class);
                     commandIntent.putExtra("id", j);
                     commandIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
