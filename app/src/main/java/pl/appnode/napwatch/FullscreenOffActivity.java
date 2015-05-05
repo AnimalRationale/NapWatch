@@ -68,7 +68,7 @@ public class FullscreenOffActivity extends Activity {
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
-        TextView alarmText = (TextView) findViewById(R.id.fullscreen_content);
+        TextView alarmText = (TextView) contentView;
         if (getIntent().getExtras() != null) {
             mAlarmId = (int) getIntent().getExtras().get("AlarmID");
             Log.d(TAG, "AlarmID: " + mAlarmId);
@@ -186,7 +186,7 @@ public class FullscreenOffActivity extends Activity {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                if (MainActivity.mAA != null) {MainActivity.mAA.alarmAction(mAlarmId);
+                if (MainActivity.mAA != null) {MainActivity.mAA.stopAlarm(mAlarmId);
                     Log.d(TAG, "mAA not null. AlarmID: " + mAlarmId );
                 } else {
                     Log.d(TAG, "mAA null. AlarmID: " + mAlarmId);
