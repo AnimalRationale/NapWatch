@@ -31,6 +31,7 @@ public class FullscreenOffActivity extends Activity {
 
     private final static String TAG = "ActivityOFF";
     private int mAlarmId;
+    private int mCommand = 0;
     private static final boolean AUTO_HIDE = true;
 
     /**
@@ -57,6 +58,9 @@ public class FullscreenOffActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if ( (int) getIntent().getExtras().get("Command") != 1) {
+            mCommand = 0;
+        }
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -72,6 +76,7 @@ public class FullscreenOffActivity extends Activity {
         if (getIntent().getExtras() != null) {
             mAlarmId = (int) getIntent().getExtras().get("AlarmID");
             Log.d(TAG, "AlarmID: " + mAlarmId);
+            mCommand = (int) getIntent().getExtras().get("Command");
             alarmText.setText((String) getIntent().getExtras().get("AlarmName"));
         }
 
@@ -146,6 +151,15 @@ public class FullscreenOffActivity extends Activity {
         delayedHide(100);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mCommand != 1) {
+            Intent mainIntent = new Intent(this, MainActivity.class);
+            this.startActivity(mainIntent);
+        }
+    }
+
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
@@ -186,6 +200,7 @@ public class FullscreenOffActivity extends Activity {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
+                mCommand = 0;
                 if (MainActivity.mAA != null) {MainActivity.mAA.stopAlarm(mAlarmId);
                     Log.d(TAG, "mAA not null. AlarmID: " + mAlarmId );
                 } else {
