@@ -36,4 +36,6 @@ public final class StateConstants {
             R.id.widget_round_btn4,
     };
     public static final String[] WIDGET_BUTTON_ACTION = {"A", "0", "1", "2", "3"};
+    public static final int OFF_SCREEN_START_FROM_SERVICE = 1;
+    public static final int OFF_SCREEN_NOT_STARTED_FROM_SERVICE = 0;
 }
