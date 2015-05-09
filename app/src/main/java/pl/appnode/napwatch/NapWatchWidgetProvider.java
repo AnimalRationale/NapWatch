@@ -45,7 +45,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
                 views.setTextViewText(WIDGET_BUTTONS[j], alarmsPrefs.getInt(alarmPrefix + "_Duration",
                         DEFAULT_TIMER_DURATION + (i * DEFAULT_TIMER_DURATION_MODIFIER))
                         + timeUnitSymbol);
-                if (alarmsPrefs.getBoolean(alarmPrefix + "_State", false)) {
+                if (alarmsPrefs.getBoolean(alarmPrefix + "_State", false) & MainActivity.isService()) {
                     views.setInt(WIDGET_BUTTONS[j], "setBackgroundResource", R.drawable.round_button_selected);
                 } else views.setInt(WIDGET_BUTTONS[j], "setBackgroundResource", R.drawable.round_button);
                 views.setOnClickPendingIntent(WIDGET_BUTTONS[j], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[j]));

@@ -14,6 +14,7 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import static pl.appnode.napwatch.StateConstants.OFF_SCREEN_START_FROM_SERVICE;
 import static pl.appnode.napwatch.StateConstants.WAKE_UP_MARGIN;
 
 public class AlarmCountDownTimer extends CountDownTimer {
@@ -166,7 +167,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         Intent intent = new Intent(mContext, FullscreenOffActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("AlarmID", mAlarmId);
-        intent.putExtra("Command", 1);
+        intent.putExtra("Command", OFF_SCREEN_START_FROM_SERVICE);
         intent.putExtra("AlarmName", mAlarmName);
         mContext.startActivity(intent);
     }

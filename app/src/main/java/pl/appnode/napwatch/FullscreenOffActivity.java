@@ -16,6 +16,8 @@ import android.support.v4.app.NavUtils;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import static pl.appnode.napwatch.StateConstants.OFF_SCREEN_DEACTIVATED;
+import static pl.appnode.napwatch.StateConstants.OFF_SCREEN_START_FROM_SERVICE;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -154,7 +156,7 @@ public class FullscreenOffActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mCommand != 1) {
+        if (mCommand != OFF_SCREEN_START_FROM_SERVICE) {
             Intent mainIntent = new Intent(this, MainActivity.class);
             this.startActivity(mainIntent);
         }
@@ -200,7 +202,7 @@ public class FullscreenOffActivity extends Activity {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                mCommand = 0;
+                mCommand = OFF_SCREEN_DEACTIVATED;
                 if (MainActivity.mAA != null) {MainActivity.mAA.stopAlarm(mAlarmId);
                     Log.d(TAG, "mAA not null. AlarmID: " + mAlarmId );
                 } else {
