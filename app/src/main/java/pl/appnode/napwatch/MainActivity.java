@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
         if (sIsService) {
             updateTimeToFinishIntent();
             Log.d(TAG, "Time to finish update intent on active alarms.");
-        };
+        }
     }
 
     @Override
@@ -126,7 +126,7 @@ public class MainActivity extends Activity {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
             stopService(serviceIntent);
             Log.d(TAG, "OnDestroy stopping service.");
-        };
+        }
         super.onDestroy();
     }
 
@@ -192,7 +192,7 @@ public class MainActivity extends Activity {
     }
 
     private int setMaxVolume() {
-        AudioManager audioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager) this.getSystemService(AUDIO_SERVICE);
         return audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
     }
 
