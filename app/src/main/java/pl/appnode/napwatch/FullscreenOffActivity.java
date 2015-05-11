@@ -208,10 +208,7 @@ public class FullscreenOffActivity extends Activity {
                 } else {
                     Log.d(TAG, "mAA null. AlarmID: " + mAlarmId);
                 }
-                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                homeIntent.addCategory(Intent.CATEGORY_HOME);
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(homeIntent);
+                moveTaskToBack(true);
             }
             return true;
         }
