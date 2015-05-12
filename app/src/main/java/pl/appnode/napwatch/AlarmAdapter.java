@@ -93,8 +93,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vMinutesBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                setDuration(ai, progress);
-                WidgetUpdate.buttonTime(position + 1, ai.mDuration + ai.mTimeUnitSymbol, mContext);
+                    ai.mDuration = progress;
+                    ai.mDurationCounter = progress;
+                    notifyItemChanged(position);
+                    // setDuration(ai, progress);
+                    WidgetUpdate.buttonTime(position + 1, ai.mDuration + ai.mTimeUnitSymbol, mContext);
+
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -174,14 +178,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     public void setDuration(final AlarmInfo item, final int duration) {
 
-        mAAHandler.post(new Runnable() {
-            public void run(){
-                final int position = mAlarmList.indexOf(item);
-                AlarmInfo alarm = mAlarmList.get(position);
-                alarm.mDuration = duration;
-                alarm.mDurationCounter = duration;
-                notifyItemChanged(position);
-            }
-        });
+//        mAAHandler.post(new Runnable() {
+//            public void run(){
+//                final int position = mAlarmList.indexOf(item);
+//                AlarmInfo alarm = mAlarmList.get(position);
+//                alarm.mDuration = duration;
+//                alarm.mDurationCounter = duration;
+//                notifyItemChanged(position);
+//            }
+//        });
     }
 }

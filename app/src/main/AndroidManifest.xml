@@ -37,7 +37,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen_off"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/FullscreenTheme" >
+            android:theme="@style/FullscreenTheme"
+            android:showOnLockScreen="true" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pl.appnode.napwatch.MainActivity" />
