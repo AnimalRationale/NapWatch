@@ -52,15 +52,18 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
+            Log.d(TAG, "Alarm view #1: ai = " + ai + " // duration = " + ai.mDuration);
         } else if (ai.mIsOn & MainActivity.isService() & MainActivity.getAlarmState(position) == ON) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
+            Log.d(TAG, "Alarm view #2: ai = " + ai + " // duration = " + ai.mDuration);
             alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
         } else if (ai.mIsOn & MainActivity.getAlarmState(position) != ON) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
             ai.mIsOn = false;
+            Log.d(TAG, "Alarm view #3: ai = " + ai + " // duration = " + ai.mDuration);
         }
         alarmViewHolder.vMinutesBar.setMax(100);
         alarmViewHolder.vMinutesBar.setProgress(ai.mDuration);
@@ -93,10 +96,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vMinutesBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    ai.mDuration = progress;
-                    ai.mDurationCounter = progress;
-                    notifyItemChanged(position);
-                    // setDuration(ai, progress);
+//                    ai.mDuration = progress;
+//                    ai.mDurationCounter = progress;
+//                    notifyItemChanged(position);
+                    setDuration(ai, progress);
                     WidgetUpdate.buttonTime(position + 1, ai.mDuration + ai.mTimeUnitSymbol, mContext);
 
             }
@@ -178,14 +181,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     public void setDuration(final AlarmInfo item, final int duration) {
 
-//        mAAHandler.post(new Runnable() {
-//            public void run(){
-//                final int position = mAlarmList.indexOf(item);
-//                AlarmInfo alarm = mAlarmList.get(position);
-//                alarm.mDuration = duration;
-//                alarm.mDurationCounter = duration;
-//                notifyItemChanged(position);
-//            }
-//        });
+        mAAHandler.post(new Runnable() {
+            public void run(){
+                final int position = mAlarmList.indexOf(item);
+                AlarmInfo alarm = mAlarmList.get(position);
+                alarm.mDuration = duration;
+                alarm.mDurationCounter = duration;
+                notifyItemChanged(position);
+            }
+        });
     }
 }
