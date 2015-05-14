@@ -184,9 +184,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         mAAHandler.post(new Runnable() {
             public void run(){
                 final int position = mAlarmList.indexOf(item);
-//                AlarmInfo alarm = mAlarmList.get(position);
-//                alarm.mDuration = duration;
-//                alarm.mDurationCounter = duration;
                 notifyItemChanged(position);
             }
         });
