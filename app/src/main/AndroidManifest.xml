@@ -10,6 +10,14 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:name=".AppContext"
         android:allowBackup="true"
@@ -30,15 +38,15 @@
             android:name=".AlarmSettingsActivity"
             android:excludeFromRecents="true"
             android:label="Alarm Settings Dialog"
-            android:theme="@android:style/android:Theme.Holo.Light.Dialog">
-         </activity>
+            android:theme="@android:style/android:Theme.Holo.Light.Dialog" >
+        </activity>
         <activity
             android:name=".FullscreenOffActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen_off"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/FullscreenTheme"
-            android:showOnLockScreen="true" >
+            android:showOnLockScreen="true"
+            android:theme="@style/FullscreenTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pl.appnode.napwatch.MainActivity" />
@@ -62,6 +70,10 @@
                 android:resource="@xml/widget_provider_info" />
         </receiver>
 
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>
