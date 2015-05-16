@@ -89,6 +89,10 @@ public class MainActivity extends Activity {
         if (id == R.id.action_about) {
             AboutDialog.showDialog(MainActivity.this);
         }
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            this.startActivity(settingsIntent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
