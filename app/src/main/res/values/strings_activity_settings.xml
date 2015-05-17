@@ -6,9 +6,8 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
+    <string name="pref_fullscreen_off">Full screen alarm off</string>
+    <string name="pref_fullscreen_off_recommendations">On timer finish show full screen off switch
     </string>
 
     <string name="pref_title_display_name">Display name</string>

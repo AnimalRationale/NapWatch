@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="fullscreen_off_checkbox"
+        android:title="@string/pref_fullscreen_off"
+        android:summary="@string/pref_fullscreen_off_recommendations"
+        android:defaultValue="true" />
+</PreferenceScreen>
