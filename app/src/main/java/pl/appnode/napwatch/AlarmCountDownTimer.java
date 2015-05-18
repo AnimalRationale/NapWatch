@@ -5,12 +5,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -79,7 +81,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         Log.d(TAG, "Countdown time remaining: " + millisUntilFinished / mTimeUnitFactor);
         mTimeUntilFinished = millisUntilFinished;
         mBI.putExtra("AlarmId", mAlarmId);
-        mBI.putExtra("countdown", (millisUntilFinished ) / mTimeUnitFactor);
+        mBI.putExtra("countdown", (millisUntilFinished) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
         mNM.notify(mNotifyId, mNotify.build());
@@ -101,7 +103,10 @@ public class AlarmCountDownTimer extends CountDownTimer {
         Log.d(TAG, "Countdown finished.");
         mIsFinished = true;
         AlarmReceiver.releaseLock();
-        showFullscreenOff();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (settings.getBoolean("fullscreen_off_checkbox", true)) {
+            showFullscreenOff();
+        }
     }
 
     public void broadcastTimeUntilFinished() {
