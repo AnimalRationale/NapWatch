@@ -27,6 +27,8 @@
         android:layout_marginTop="7dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/alarm_settings_fullscreenoff_switch"
+        android:textOn="@string/alarm_settings_fullscreenoff_switch_on"
+        android:textOff="@string/alarm_settings_fullscreenoff_switch_off"
         />
     <TextView
         android:id="@+id/textViewRadioButtons"
