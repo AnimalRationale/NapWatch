@@ -21,6 +21,13 @@
         android:layout_height="wrap_content" >
         <requestFocus />
     </EditText>
+    <Switch android:id="@+id/switchFullscreenOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/alarm_settings_fullscreenoff_switch"
+        />
     <TextView
         android:id="@+id/textViewRadioButtons"
         android:layout_width="fill_parent"
