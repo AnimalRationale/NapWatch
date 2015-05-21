@@ -28,6 +28,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private NotificationCompat.Builder mNotify;
     private int mAlarmId;
     private String mAlarmName;
+    private boolean mAlarmFullscreenOff;
     private int mAlarmDuration;
     private int mTimeUnitFactor;
     private String mAlarmUnit;
@@ -41,12 +42,13 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private long mStartTime;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId,
-                                String title, String alarmUnit, int alarmDuration,
+                                String title, boolean alarmFullscreenOff ,String alarmUnit, int alarmDuration,
                                 String alarmRingtone, int alarmRingtoneVolume, Context context) {
         super(millisInFuture, countDownInterval);
         mStartTime = SystemClock.elapsedRealtime();
         mAlarmId = alarmId;
         mAlarmName = title;
+        mAlarmFullscreenOff = alarmFullscreenOff;
         mAlarmUnit = alarmUnit;
         mContext = context;
         setAlarmManagerWakeUp(millisInFuture);
@@ -104,7 +106,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mIsFinished = true;
         AlarmReceiver.releaseLock();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (settings.getBoolean("fullscreen_off_checkbox", true)) {
+        if (mAlarmFullscreenOff) {
             showFullscreenOff();
         }
     }

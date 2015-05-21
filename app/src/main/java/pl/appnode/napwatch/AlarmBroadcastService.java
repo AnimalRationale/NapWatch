@@ -21,6 +21,7 @@ public class AlarmBroadcastService extends Service {
 
     public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     private int mAlarmId;
+    private boolean mAlarmFullscreenOff;
     private String mAlarmName;
     private int mAlarmDuration;
     private String mAlarmUnit;
@@ -53,7 +54,7 @@ public class AlarmBroadcastService extends Service {
             getStartAlarmIntentData(intent);
             mAlarms[mAlarmId] = new AlarmCountDownTimer(mAlarmDuration * mTimeFactor,
                     mTimeFactor - (mTimeFactor / TIME_DEVIATION_FOR_LAST_TICK),
-                    mAlarmId, mAlarmName, mAlarmUnit, mAlarmDuration, mAlarmRingtone, mAlarmRingtoneVolume, this.getApplicationContext());
+                    mAlarmId, mAlarmName, mAlarmFullscreenOff, mAlarmUnit, mAlarmDuration, mAlarmRingtone, mAlarmRingtoneVolume, this.getApplicationContext());
             mAlarms[mAlarmId].start();
             MainActivity.setAlarmState(mAlarmId, ON);
             return mStartMode;
@@ -90,6 +91,7 @@ public class AlarmBroadcastService extends Service {
 
     private void getStartAlarmIntentData (Intent intent) {
         mAlarmName = intent.getExtras().get("AlarmName").toString();
+        mAlarmFullscreenOff = (boolean) intent.getExtras().get("AlarmFullscreenOff");
         mAlarmDuration = (int) intent.getExtras().get("AlarmDuration");
         mAlarmUnit = intent.getExtras().get("AlarmUnit").toString();
         mTimeFactor = (int) intent.getExtras().get("AlarmFactor");
