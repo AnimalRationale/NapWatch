@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import static pl.appnode.napwatch.StateConstants.MINUTE;
@@ -31,6 +32,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private int mAlarmTimeUnit;
     private String mAlarmRingtoneUri;
     private int mAlarmRingtoneVolume;
+    private boolean mAlarmFullscreenOff;
     private int mOriginalVolume;
     private AudioManager mAudioManager;
     private Uri mCurrentRingtoneUri;
@@ -38,6 +40,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private String mRingtoneName;
     private TextView mTitle;
     private EditText mEditAlarmName;
+    private Switch mFullscreenOffSwitch;
     private RadioButton mRbSeconds;
     private Button mRingtoneTextButton;
     private ImageButton mPlayStopButton;
@@ -54,6 +57,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         mTitle = (TextView) findViewById(R.id.alarmEditTitle);
         mEditAlarmName = (EditText) findViewById(R.id.alarmNameText);
+        mFullscreenOffSwitch = (Switch) findViewById(R.id.switchFullscreenOff);
         mRbSeconds = (RadioButton) findViewById(R.id.radioSeconds);
         RadioButton rbMinutes = (RadioButton) findViewById(R.id.radioMinutes);
         mRingtoneTextButton = (Button) findViewById(R.id.changeRingtone);
@@ -162,6 +166,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
             mAlarmId = (int) settingsIntent.getExtras().get("AlarmId");
             mAlarmName = (String) settingsIntent.getExtras().get("AlarmName");
             mAlarmTimeUnit = (int) settingsIntent.getExtras().get("AlarmUnit");
+            mAlarmFullscreenOff = (boolean) settingsIntent.getExtras().get("AlarmFullscreenOff");
             mAlarmRingtoneUri = (String) settingsIntent.getExtras().get("AlarmRingtoneUri");
             if (settingsIntent.getExtras().get("AlarmRingtoneVol") != null) {
                 mAlarmRingtoneVolume = (int) settingsIntent.getExtras().get("AlarmRingtoneVol");
