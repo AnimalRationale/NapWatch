@@ -209,6 +209,7 @@ public class MainActivity extends Activity {
             int position = resultIntent.getIntExtra("AlarmId", 0);
             AlarmInfo alarm = mAA.mAlarmList.get(position);
             alarm.mName = (String) resultIntent.getExtras().get("AlarmName");
+            alarm.mFullscreenOff = (boolean) resultIntent.getExtras().get("AlarmFullscreenOff");
             alarm.mTimeUnit = (int) resultIntent.getExtras().get("AlarmUnit");
             if (alarm.mTimeUnit == SECOND) {
                 alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);

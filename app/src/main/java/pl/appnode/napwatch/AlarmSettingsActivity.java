@@ -95,6 +95,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mTitle.setText(R.string.alarm_settings_title);
         mTitle.append("" + (mAlarmId + 1));
         mEditAlarmName.setText(mAlarmName);
+        mFullscreenOffSwitch.setChecked(mAlarmFullscreenOff);
         if (mAlarmTimeUnit == SECOND) {
             mRbSeconds.toggle();
         } else rbMinutes.toggle();
@@ -180,6 +181,8 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         Intent resultIntent = getIntent();
         resultIntent.putExtra("AlarmId", mAlarmId);
         resultIntent.putExtra("AlarmName", mEditAlarmName.getText().toString());
+        mAlarmFullscreenOff = mFullscreenOffSwitch.isChecked();
+        resultIntent.putExtra("AlarmFullscreenOff", mAlarmFullscreenOff);
         if (mRbSeconds.isChecked()) {
             mAlarmTimeUnit = SECOND;
         } else {
