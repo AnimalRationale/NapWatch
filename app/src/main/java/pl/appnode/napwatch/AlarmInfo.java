@@ -9,5 +9,6 @@ public class AlarmInfo {
     protected boolean mIsOn;
     protected String mRingtoneUri;
     protected int mRingtoneVolume;
+    protected boolean mFullscreenOff;
 }
 

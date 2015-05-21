@@ -156,6 +156,7 @@ public class MainActivity extends Activity {
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
             ai.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
+            ai.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
             result.add(ai);
             Log.d(TAG, "Result add #" + i);
         }
@@ -175,9 +176,10 @@ public class MainActivity extends Activity {
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
             editor.putString(alarmPrefix + "_Ringtone", alarm.mRingtoneUri);
             editor.putInt(alarmPrefix + "_RingtoneVol", alarm.mRingtoneVolume);
+            editor.putBoolean(alarmPrefix + "_FullScreenOff", alarm.mFullscreenOff);
             Log.d(TAG, "Create SharedPrefs: " + alarmPrefix + ": " + alarm.mDuration
                     + ": TimeUnit: " + alarm.mTimeUnitSymbol
-                    + " :: isOn: " + alarm.mIsOn + " Vol: " + alarm.mRingtoneVolume);
+                    + " :: isOn: " + alarm.mIsOn + " Vol: " + alarm.mRingtoneVolume + " FSOFF: " + alarm.mFullscreenOff);
         }
         editor.commit();
         Log.d(TAG, "COMMITED SharedPrefs.");
