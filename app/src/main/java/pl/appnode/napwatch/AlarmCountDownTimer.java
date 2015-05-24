@@ -105,7 +105,6 @@ public class AlarmCountDownTimer extends CountDownTimer {
         Log.d(TAG, "Countdown finished.");
         mIsFinished = true;
         AlarmReceiver.releaseLock();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (mAlarmFullscreenOff) {
             showFullscreenOff();
         }

@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,6 +56,8 @@ public class MainActivity extends Activity {
                 startActivity(homeIntent);
             }
         }
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(android.R.style.Theme_Holo);
         setContentView(R.layout.activity_main);
         RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
         recList.setHasFixedSize(true);
