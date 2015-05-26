@@ -53,8 +53,8 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         if (settings.getBoolean("settings_checkbox_theme", false)) {
-            setTheme(android.R.style.Theme_Holo);
-        } else setTheme(android.R.style.Theme_Holo_Light);
+            setTheme(android.R.style.Theme_DeviceDefault);
+        } else setTheme(android.R.style.Theme_DeviceDefault_Light);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alarm_settings_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

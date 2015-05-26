@@ -58,8 +58,8 @@ public class MainActivity extends Activity {
         }
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         if (settings.getBoolean("settings_checkbox_theme", false)) {
-            setTheme(android.R.style.Theme_Holo);
-        } else setTheme(android.R.style.Theme_Holo_Light);
+            setTheme(android.R.style.Theme_DeviceDefault);
+        } else setTheme(android.R.style.Theme_DeviceDefault_Light);
         setContentView(R.layout.activity_main);
         RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
         recList.setHasFixedSize(true);

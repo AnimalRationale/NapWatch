@@ -30,11 +30,11 @@ public class AboutDialog {
     }
 
     public static void showDialog(Activity callingActivity) {
-        int theme = 3; // Holo Light
+        int theme = 5; // DeviceDafault-Light Theme
         versionInfo(callingActivity);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(callingActivity);
         if (settings.getBoolean("settings_checkbox_theme", false)) {
-            theme = 2; // Holo Dark
+            theme = 4; // DeviceDafault Theme
         }
         String aboutVersion = sVersionName + "." + sVersionCode;
         LayoutInflater layoutInflater = LayoutInflater.from(callingActivity);

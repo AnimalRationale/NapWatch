@@ -7,7 +7,7 @@
     <string name="pref_header_general">General</string>
 
     <string name="pref_checkbox_theme">Dark theme</string>
-    <string name="pref_checkbox_theme_desc">Switch to dark version of Holo theme
+    <string name="pref_checkbox_theme_desc">Switch to dark version of device\'s default theme
     </string>
 
     <string name="pref_title_display_name">Display name</string>
