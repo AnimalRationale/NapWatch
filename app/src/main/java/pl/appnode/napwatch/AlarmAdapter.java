@@ -2,8 +2,12 @@ package pl.appnode.napwatch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,6 +122,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(R.layout.card_layout, viewGroup, false);
+        CardView card = (CardView) itemView;
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (settings.getBoolean("settings_checkbox_theme", false)) {
+            card.setCardBackgroundColor(Color.BLACK);
+        } else card.setCardBackgroundColor(Color.WHITE);
         return new AlarmViewHolder(itemView);
     }
 
