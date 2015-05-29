@@ -5,14 +5,16 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    card_view:cardCornerRadius="2dp"
+    card_view:cardCornerRadius="32dp"
+    card_view:cardBackgroundColor="@color/dark_background"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
-    android:layout_marginTop="32dp">
+    android:layout_marginTop="32dp"
+    >
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:padding="6dip" >
+        android:padding="6dip">
         <Button
             android:id="@+id/round_btn1"
             android:layout_width="50dip"
