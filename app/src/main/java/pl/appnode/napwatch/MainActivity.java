@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
     protected static AlarmAdapter mAA;
     private static boolean sIsService;
     private static int[] sAlarmState = new int[4];
+    private static boolean sThemeChange;
 
     private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
         @Override
@@ -57,7 +58,8 @@ public class MainActivity extends Activity {
             }
         }
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        if (settings.getBoolean("settings_checkbox_theme", false)) {
+        sThemeChange = settings.getBoolean("settings_checkbox_theme", false);
+        if (sThemeChange) {
             setTheme(android.R.style.Theme_DeviceDefault);
         } else setTheme(android.R.style.Theme_DeviceDefault_Light);
         setContentView(R.layout.activity_main);
