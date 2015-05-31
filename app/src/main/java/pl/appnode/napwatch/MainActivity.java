@@ -82,6 +82,14 @@ public class MainActivity extends Activity {
             updateTimeToFinishIntent();
             Log.d(TAG, "Time to finish update intent on active alarms.");
         }
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sThemeChange != settings.getBoolean("settings_checkbox_theme", false) & !runningTimer()) {
+            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -233,7 +241,7 @@ public class MainActivity extends Activity {
         if (intent.getExtras() != null) {
             long timeToFinish = intent.getLongExtra("countdown", 0);
             int position = intent.getIntExtra("AlarmId", 0);
-            Log.d(TAG, "Countdown time remaining: " +  timeToFinish);
+            Log.d(TAG, "Countdown time remaining: " + timeToFinish);
             AlarmInfo alarm = mAA.mAlarmList.get(position);
             alarm.mDurationCounter = (int) timeToFinish;
             if (!alarm.mIsOn & timeToFinish > 1) {alarm.mIsOn = true;}
@@ -245,6 +253,13 @@ public class MainActivity extends Activity {
         Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
         serviceIntent.putExtra("AlarmCommand", UPDATE);
         startService(serviceIntent);
+    }
+
+    private boolean runningTimer() {
+        for (int i = 0; i < 4; i++) {
+            if (sAlarmState[i] != 0) return true;
+        }
+        return false;
     }
 
     public static int getAlarmState(int alarmId) {
