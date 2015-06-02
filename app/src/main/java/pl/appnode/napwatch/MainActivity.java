@@ -64,6 +64,7 @@ public class MainActivity extends Activity {
         } else setTheme(android.R.style.Theme_DeviceDefault_Light);
         setContentView(R.layout.activity_main);
         RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
+        recList.setItemAnimator(null);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
