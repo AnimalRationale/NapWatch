@@ -30,18 +30,13 @@ public class AboutDialog {
     }
 
     public static void showDialog(Activity callingActivity) {
-        int theme = 5; // DeviceDafault-Light Theme
         versionInfo(callingActivity);
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(callingActivity);
-        if (settings.getBoolean("settings_checkbox_theme", false)) {
-            theme = 4; // DeviceDafault Theme
-        }
         String aboutVersion = sVersionName + "." + sVersionCode;
         LayoutInflater layoutInflater = LayoutInflater.from(callingActivity);
         View aboutDialog = layoutInflater.inflate(R.layout.about_dialog, null);
         TextView textAbout = (TextView) aboutDialog.findViewById(R.id.aboutDialogInfo);
         textAbout.setText(aboutVersion);
-        new AlertDialog.Builder(callingActivity, theme)
+        new AlertDialog.Builder(callingActivity)
                 .setTitle(callingActivity.getResources().getString(R.string.about_dialog_title)
                         + callingActivity.getString(R.string.app_name))
                 .setIcon(R.drawable.ic_launcher)
