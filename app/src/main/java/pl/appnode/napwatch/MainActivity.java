@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -60,14 +61,14 @@ public class MainActivity extends Activity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         sThemeChange = settings.getBoolean("settings_checkbox_theme", false);
         if (sThemeChange) {
-            if (android.os.Build.VERSION.SDK_INT < 20) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 setTheme(android.R.style.Theme_Holo);
             }
             else
             {
                 setTheme(android.R.style.Theme_Material);
             }
-        } else if (android.os.Build.VERSION.SDK_INT < 20) {
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                     setTheme(android.R.style.Theme_Holo_Light);
                 }
                 else
