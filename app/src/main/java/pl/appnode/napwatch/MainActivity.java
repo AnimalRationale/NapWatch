@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -28,6 +27,7 @@ import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
+import static pl.appnode.napwatch.ThemeSetup.themeSetup;
 
 public class MainActivity extends Activity {
 
@@ -58,23 +58,24 @@ public class MainActivity extends Activity {
                 startActivity(homeIntent);
             }
         }
+        themeSetup(this);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         sThemeChange = settings.getBoolean("settings_checkbox_theme", false);
-        if (sThemeChange) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                setTheme(android.R.style.Theme_Holo);
-            }
-            else
-            {
-                setTheme(android.R.style.Theme_Material);
-            }
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    setTheme(android.R.style.Theme_Holo_Light);
-                }
-                else
-                {
-                    setTheme(android.R.style.Theme_Material_Light);
-                }
+//        if (sThemeChange) {
+//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//                setTheme(android.R.style.Theme_Holo);
+//            }
+//            else
+//            {
+//                setTheme(android.R.style.Theme_Material);
+//            }
+//        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//                    setTheme(android.R.style.Theme_Holo_Light);
+//                }
+//                else
+//                {
+//                    setTheme(android.R.style.Theme_Material_Light);
+//                }
         setContentView(R.layout.activity_main);
         RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
         recList.setItemAnimator(null);

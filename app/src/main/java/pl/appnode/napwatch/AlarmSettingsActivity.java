@@ -25,6 +25,7 @@ import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.ThemeSetup.themeSetup;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
 
@@ -51,6 +52,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        themeSetup(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alarm_settings_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
