@@ -21,6 +21,12 @@ public class WidgetUpdate {
 
     public static void setButtonOn(int widgetButtonId, Context context) {
         getWidget(context);
+        sWidgetViews.setInt(WIDGET_BUTTONS[widgetButtonId], "setBackgroundResource", R.drawable.round_button_pressed);
+        sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
+    }
+
+    public static void setButtonFinish(int widgetButtonId, Context context) {
+        getWidget(context);
         sWidgetViews.setInt(WIDGET_BUTTONS[widgetButtonId], "setBackgroundResource", R.drawable.round_button_selected);
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
     }

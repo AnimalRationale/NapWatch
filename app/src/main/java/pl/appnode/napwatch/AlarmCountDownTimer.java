@@ -102,6 +102,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mBI.putExtra("countdown", Long.valueOf(0));
         mContext.sendBroadcast(mBI);
         WidgetUpdate.buttonTime(mAlarmId + 1, "0" + mAlarmUnit, mContext);
+        WidgetUpdate.setButtonFinish(mAlarmId + 1, mContext);
         Log.d(TAG, "Countdown finished.");
         mIsFinished = true;
         AlarmReceiver.releaseLock();

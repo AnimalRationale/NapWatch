@@ -58,7 +58,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
             Log.d(TAG, "Alarm view #1: ai = " + ai + " // duration = " + ai.mDuration);
         } else if (ai.mIsOn & MainActivity.isService() & MainActivity.getAlarmState(position) == ON) {
-            alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
+            if (ai.mDurationCounter == 0) {
+                alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
+            } else alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_pressed);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
             Log.d(TAG, "Alarm view #2: ai = " + ai + " // duration = " + ai.mDuration);
             alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
