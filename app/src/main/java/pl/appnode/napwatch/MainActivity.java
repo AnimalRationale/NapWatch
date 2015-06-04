@@ -61,21 +61,6 @@ public class MainActivity extends Activity {
         themeSetup(this);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         sThemeChange = settings.getBoolean("settings_checkbox_theme", false);
-//        if (sThemeChange) {
-//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//                setTheme(android.R.style.Theme_Holo);
-//            }
-//            else
-//            {
-//                setTheme(android.R.style.Theme_Material);
-//            }
-//        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//                    setTheme(android.R.style.Theme_Holo_Light);
-//                }
-//                else
-//                {
-//                    setTheme(android.R.style.Theme_Material_Light);
-//                }
         setContentView(R.layout.activity_main);
         RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
         recList.setItemAnimator(null);
@@ -97,14 +82,7 @@ public class MainActivity extends Activity {
             updateTimeToFinishIntent();
             Log.d(TAG, "Time to finish update intent on active alarms.");
         }
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sThemeChange != settings.getBoolean("settings_checkbox_theme", false) & !runningTimer()) {
-            finish();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+        checkThemeChange();
     }
 
     @Override
@@ -275,6 +253,17 @@ public class MainActivity extends Activity {
             if (sAlarmState[i] != 0) return true;
         }
         return false;
+    }
+
+    private void checkThemeChange() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sThemeChange != settings.getBoolean("settings_checkbox_theme", false) & !runningTimer()) {
+            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
     public static int getAlarmState(int alarmId) {
