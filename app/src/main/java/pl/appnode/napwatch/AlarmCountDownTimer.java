@@ -183,7 +183,5 @@ public class AlarmCountDownTimer extends CountDownTimer {
         return mIsFinished;
     }
 
-    public long getStartTime() {
-        return mStartTime;
-    }
+    public long getStartTime() { return mStartTime; }
 }
