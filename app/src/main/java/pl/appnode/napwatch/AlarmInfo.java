@@ -7,6 +7,7 @@ public class AlarmInfo {
     protected int mTimeUnit;
     protected String mTimeUnitSymbol;
     protected boolean mIsOn;
+    protected long mFinishTime;
     protected String mRingtoneUri;
     protected int mRingtoneVolume;
     protected boolean mFullscreenOff;
