@@ -39,13 +39,11 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private Context mContext;
     private boolean mIsFinished = false;
     private long mTimeUntilFinished;
-    private long mStartTime;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId,
                                 String title, boolean alarmFullscreenOff ,String alarmUnit, int alarmDuration,
                                 String alarmRingtone, int alarmRingtoneVolume, Context context) {
         super(millisInFuture, countDownInterval);
-        mStartTime = SystemClock.elapsedRealtime();
         mAlarmId = alarmId;
         mAlarmName = title;
         mAlarmFullscreenOff = alarmFullscreenOff;
@@ -178,10 +176,4 @@ public class AlarmCountDownTimer extends CountDownTimer {
         intent.putExtra("AlarmName", mAlarmName);
         mContext.startActivity(intent);
     }
-
-    public boolean isFinished() {
-        return mIsFinished;
-    }
-
-    public long getStartTime() { return mStartTime; }
 }
