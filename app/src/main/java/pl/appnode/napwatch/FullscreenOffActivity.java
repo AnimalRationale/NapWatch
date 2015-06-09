@@ -186,11 +186,7 @@ public class FullscreenOffActivity extends Activity {
             //
             // TODO: If Settings has multiple levels, Up should navigate up
             // that hierarchy.
-            if (MainActivity.mAA != null) {MainActivity.mAA.stopAlarm(mAlarmId);
-                Log.d(TAG, "ActionBar Up: mAA not null. AlarmID: " + mAlarmId );
-            } else {
-                Log.d(TAG, "ActionBar Up: mAA null. AlarmID: " + mAlarmId);
-            }
+            stopAlarm();
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
@@ -208,11 +204,7 @@ public class FullscreenOffActivity extends Activity {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
                 mCommand = OFF_SCREEN_DEACTIVATED;
-                if (MainActivity.mAA != null) {MainActivity.mAA.stopAlarm(mAlarmId);
-                    Log.d(TAG, "mAA not null. AlarmID: " + mAlarmId );
-                } else {
-                    Log.d(TAG, "mAA null. AlarmID: " + mAlarmId);
-                }
+                stopAlarm();
                 moveTaskToBack(true);
             }
             return true;
@@ -234,5 +226,13 @@ public class FullscreenOffActivity extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    private void stopAlarm() {
+        if (MainActivity.mAA != null) {MainActivity.mAA.stopAlarm(mAlarmId);
+            Log.d(TAG, "mAA not null. AlarmID: " + mAlarmId );
+        } else {
+            Log.d(TAG, "mAA null. AlarmID: " + mAlarmId);
+        }
     }
 }
