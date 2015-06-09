@@ -186,6 +186,11 @@ public class FullscreenOffActivity extends Activity {
             //
             // TODO: If Settings has multiple levels, Up should navigate up
             // that hierarchy.
+            if (MainActivity.mAA != null) {MainActivity.mAA.stopAlarm(mAlarmId);
+                Log.d(TAG, "ActionBar Up: mAA not null. AlarmID: " + mAlarmId );
+            } else {
+                Log.d(TAG, "ActionBar Up: mAA null. AlarmID: " + mAlarmId);
+            }
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
