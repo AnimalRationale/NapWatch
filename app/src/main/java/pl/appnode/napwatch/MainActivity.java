@@ -179,6 +179,7 @@ public class MainActivity extends Activity {
                     break;
             }
             ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
+            ai.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
             ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
             ai.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
             ai.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
@@ -199,6 +200,7 @@ public class MainActivity extends Activity {
             editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
             editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
+            editor.putLong(alarmPrefix + "_FinishTime", alarm.mFinishTime);
             editor.putString(alarmPrefix + "_Ringtone", alarm.mRingtoneUri);
             editor.putInt(alarmPrefix + "_RingtoneVol", alarm.mRingtoneVolume);
             editor.putBoolean(alarmPrefix + "_FullScreenOff", alarm.mFullscreenOff);
