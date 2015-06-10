@@ -39,6 +39,7 @@
             android:name=".AlarmSettingsActivity"
             android:excludeFromRecents="true"
             android:label="Alarm Settings Dialog"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@android:style/android:Theme.Holo.Light.Dialog" >
         </activity>
         <activity
