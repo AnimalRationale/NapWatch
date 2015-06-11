@@ -200,7 +200,9 @@ public class MainActivity extends Activity {
             editor.putInt(alarmPrefix + "_Duration", alarm.mDuration);
             editor.putInt(alarmPrefix + "_TimeUnit", alarm.mTimeUnit);
             editor.putBoolean(alarmPrefix + "_State", alarm.mIsOn);
-            editor.putLong(alarmPrefix + "_FinishTime", alarm.mFinishTime);
+            if (alarm.mIsOn) {
+                editor.putLong(alarmPrefix + "_FinishTime", alarm.mFinishTime);
+            } else editor.putLong(alarmPrefix + "_FinishTime", 0);
             editor.putString(alarmPrefix + "_Ringtone", alarm.mRingtoneUri);
             editor.putInt(alarmPrefix + "_RingtoneVol", alarm.mRingtoneVolume);
             editor.putBoolean(alarmPrefix + "_FullScreenOff", alarm.mFullscreenOff);

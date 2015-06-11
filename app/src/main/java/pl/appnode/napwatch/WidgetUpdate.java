@@ -3,7 +3,6 @@ package pl.appnode.napwatch;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.widget.RemoteViews;
 
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
@@ -27,15 +26,15 @@ public class WidgetUpdate {
     }
 
     public static void setButtonOn(int widgetButtonId, Context context) {
-        setButtonColor(widgetButtonId, context, R.drawable.round_button_pressed);
+        setButtonColor(widgetButtonId, context, R.drawable.round_button_orange);
     }
 
     public static void setButtonFinish(int widgetButtonId, Context context) {
-        setButtonColor(widgetButtonId, context, R.drawable.round_button_selected);
+        setButtonColor(widgetButtonId, context, R.drawable.round_button_red);
     }
 
     public static void setButtonOff(int widgetButtonId, Context context) {
-        setButtonColor(widgetButtonId, context, R.drawable.round_button);
+        setButtonColor(widgetButtonId, context, R.drawable.round_button_green);
     }
 
     public static void buttonTime(int widgetButtonId, String timeToFinish, Context context) {

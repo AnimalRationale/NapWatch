@@ -2,13 +2,11 @@ package pl.appnode.napwatch;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -156,7 +154,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     private void playRingtone() {
         setVolume();
-        mPlayStopButton.setBackgroundResource(R.drawable.round_button_selected);
+        mPlayStopButton.setBackgroundResource(R.drawable.round_button_red);
         mPlayStopButton.setImageResource(R.drawable.ic_stop_white_36dp);
         mIsPlaying = true;
         mRingtone.play();
@@ -166,7 +164,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         mRingtone.stop();
         mIsPlaying = false;
         mAudioManager.setStreamVolume(AudioManager.STREAM_ALARM, mOriginalVolume, 0);
-        mPlayStopButton.setBackgroundResource(R.drawable.round_button);
+        mPlayStopButton.setBackgroundResource(R.drawable.round_button_green);
         mPlayStopButton.setImageResource(R.drawable.ic_play_arrow_white_36dp);
         Log.d(TAG, "Restored ringtone volume: " + mOriginalVolume);
     }
