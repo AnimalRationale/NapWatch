@@ -56,27 +56,27 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             if (ai.mDurationCounter == 0) {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_red);
                 alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-                Log.d(TAG, "Alarm view #1: ai = " + ai + " // duration = " + ai.mDuration);
+                Log.d(TAG, "Alarm view #1: ai = " + ai.mName + " // duration = " + ai.mDuration);
                 alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
             } else {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_green);
                 alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
                 alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
-                Log.d(TAG, "Alarm view #2: ai = " + ai + " // duration = " + ai.mDuration);
+                Log.d(TAG, "Alarm view #2: ai = " + ai.mName + " // duration = " + ai.mDuration);
             }
         } else if (ai.mIsOn & MainActivity.isService() & MainActivity.getAlarmState(position) == ON) {
             if (ai.mDurationCounter == 0) {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_red);
             } else alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_orange);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-            Log.d(TAG, "Alarm view #3: ai = " + ai + " // duration = " + ai.mDuration);
+            Log.d(TAG, "Alarm view #3: ai = " + ai.mName + " // duration = " + ai.mDuration);
             alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
         } else if (ai.mIsOn & MainActivity.getAlarmState(position) != ON) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_green);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
             ai.mIsOn = false;
-            Log.d(TAG, "Alarm view #4: ai = " + ai + " // duration = " + ai.mDuration);
+            Log.d(TAG, "Alarm view #4: ai = " + ai.mName + " // duration = " + ai.mDuration);
         }
         alarmViewHolder.vMinutesBar.setMax(100);
         alarmViewHolder.vMinutesBar.setProgress(ai.mDuration);
@@ -192,7 +192,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         serviceIntent.putExtra("AlarmId", position);
         serviceIntent.putExtra("AlarmCommand", STOP);
         mContext.startService(serviceIntent);
-        alarm.mDurationCounter = alarm.mDuration;
+        if (alarm.mDuration > 0) {
+            alarm.mDurationCounter = alarm.mDuration;
+        } else alarm.mDurationCounter = 1;
         alarm.mIsOn = false;
         notifyItemChanged(position);
         MainActivity.setAlarmState(position, OFF);
