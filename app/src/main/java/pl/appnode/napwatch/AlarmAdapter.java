@@ -50,50 +50,43 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     @Override
     public void onBindViewHolder(final AlarmViewHolder alarmViewHolder, final int position) {
-        final AlarmInfo ai = mAlarmList.get(position);
-        alarmViewHolder.vTitle.setText(ai.mName);
-        if (!ai.mIsOn) {
-            if (ai.mDurationCounter == 0) {
+        final AlarmInfo alarm = mAlarmList.get(position);
+        alarmViewHolder.vTitle.setText(alarm.mName);
+        if (!alarm.mIsOn) {
+            if (alarm.mDurationCounter == 0) {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_red);
                 alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-                Log.d(TAG, "Alarm view #1: ai = " + ai.mName + " // duration = " + ai.mDuration);
-                alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
+                Log.d(TAG, "Alarm view #1: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
+                alarmViewHolder.vDuration.setText(alarm.mDurationCounter + alarm.mTimeUnitSymbol);
             } else {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_green);
                 alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-                alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
-                Log.d(TAG, "Alarm view #2: ai = " + ai.mName + " // duration = " + ai.mDuration);
+                alarmViewHolder.vDuration.setText(alarm.mDuration + alarm.mTimeUnitSymbol);
+                Log.d(TAG, "Alarm view #2: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
             }
-        } else if (ai.mIsOn & MainActivity.isService() & MainActivity.getAlarmState(position) == ON) {
-            if (ai.mDurationCounter == 0) {
+        } else if (alarm.mIsOn & MainActivity.isService() & MainActivity.getAlarmState(position) == ON) {
+            if (alarm.mDurationCounter == 0) {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_red);
             } else alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_orange);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-            Log.d(TAG, "Alarm view #3: ai = " + ai.mName + " // duration = " + ai.mDuration);
-            alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
-        } else if (ai.mIsOn & MainActivity.getAlarmState(position) != ON) {
+            Log.d(TAG, "Alarm view #3: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
+            alarmViewHolder.vDuration.setText(alarm.mDurationCounter + alarm.mTimeUnitSymbol);
+        } else if (alarm.mIsOn & MainActivity.getAlarmState(position) != ON) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_green);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-            alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
-            ai.mIsOn = false;
-            Log.d(TAG, "Alarm view #4: ai = " + ai.mName + " // duration = " + ai.mDuration);
+            alarmViewHolder.vDuration.setText(alarm.mDuration + alarm.mTimeUnitSymbol);
+            alarm.mIsOn = false;
+            Log.d(TAG, "Alarm view #4: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
         }
         alarmViewHolder.vMinutesBar.setMax(100);
-        alarmViewHolder.vMinutesBar.setProgress(ai.mDuration);
-        Log.d(TAG, "Alarm ai = " + ai + " // setting progress duration = " + ai.mDuration);
+        alarmViewHolder.vMinutesBar.setProgress(alarm.mDuration);
+        Log.d(TAG, "Alarm alarm = " + alarm + " // setting progress duration = " + alarm.mDuration);
 
         alarmViewHolder.vTitle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!ai.mIsOn) {
-                    Intent settingsIntent = new Intent(mContext, AlarmSettingsActivity.class);
-                    settingsIntent.putExtra("AlarmId", position);
-                    settingsIntent.putExtra("AlarmName", ai.mName);
-                    settingsIntent.putExtra("AlarmUnit", ai.mTimeUnit);
-                    settingsIntent.putExtra("AlarmRingtoneUri", ai.mRingtoneUri);
-                    settingsIntent.putExtra("AlarmRingtoneVol", ai.mRingtoneVolume);
-                    settingsIntent.putExtra("AlarmFullscreenOff", ai.mFullscreenOff);
-                    ((MainActivity)mContext).startActivityForResult(settingsIntent, SETTINGS_INTENT_REQUEST);
+                if (!alarm.mIsOn) {
+                    showAlarmSettings(position);
                 }
             }
         });
@@ -104,24 +97,24 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
-                Log.d(TAG, "Alarm TAPPED: ai.mIsOn = " + ai.mIsOn + " // sIsService = " + MainActivity.isService());
+                Log.d(TAG, "Alarm TAPPED: alarm.mIsOn = " + alarm.mIsOn + " // sIsService = " + MainActivity.isService());
                 alarmAction(position);
             }
         });
         alarmViewHolder.vMinutesBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    ai.mDuration = progress;
-                    ai.mDurationCounter = progress;
-                    alarmViewHolder.vDuration.setText(progress + ai.mTimeUnitSymbol);
+                    alarm.mDuration = progress;
+                    alarm.mDurationCounter = progress;
+                    alarmViewHolder.vDuration.setText(progress + alarm.mTimeUnitSymbol);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                setDuration(ai);
-                WidgetUpdate.buttonTime(position + 1, ai.mDuration + ai.mTimeUnitSymbol, mContext);
+                setDuration(alarm);
+                WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, mContext);
             }
         });
     }
@@ -201,6 +194,18 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         WidgetUpdate.setButtonOff(position + 1, mContext);
         WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, mContext);
         Log.d(TAG, "Alarm OFF.");
+    }
+
+    private void showAlarmSettings(int position) {
+        AlarmInfo alarm = mAlarmList.get(position);
+        Intent settingsIntent = new Intent(mContext, AlarmSettingsActivity.class);
+        settingsIntent.putExtra("AlarmId", position);
+        settingsIntent.putExtra("AlarmName", alarm.mName);
+        settingsIntent.putExtra("AlarmUnit", alarm.mTimeUnit);
+        settingsIntent.putExtra("AlarmRingtoneUri", alarm.mRingtoneUri);
+        settingsIntent.putExtra("AlarmRingtoneVol", alarm.mRingtoneVolume);
+        settingsIntent.putExtra("AlarmFullscreenOff", alarm.mFullscreenOff);
+        ((MainActivity)mContext).startActivityForResult(settingsIntent, SETTINGS_INTENT_REQUEST);
     }
 
     public void setDuration(final AlarmInfo item) {
