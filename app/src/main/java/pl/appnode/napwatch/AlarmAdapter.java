@@ -52,16 +52,18 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     public void onBindViewHolder(final AlarmViewHolder alarmViewHolder, final int position) {
         final AlarmInfo ai = mAlarmList.get(position);
         alarmViewHolder.vTitle.setText(ai.mName);
-        if (!ai.mIsOn & ai.mDurationCounter == 0) {
-            alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
-            alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-            Log.d(TAG, "Alarm view #1: ai = " + ai + " // duration = " + ai.mDuration);
-            alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
-        } else if (!ai.mIsOn) {
-            alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
-            alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
-            alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
-            Log.d(TAG, "Alarm view #2: ai = " + ai + " // duration = " + ai.mDuration);
+        if (!ai.mIsOn) {
+            if (ai.mDurationCounter == 0) {
+                alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
+                alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
+                Log.d(TAG, "Alarm view #1: ai = " + ai + " // duration = " + ai.mDuration);
+                alarmViewHolder.vDuration.setText(ai.mDurationCounter + ai.mTimeUnitSymbol);
+            } else {
+                alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button);
+                alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
+                alarmViewHolder.vDuration.setText(ai.mDuration + ai.mTimeUnitSymbol);
+                Log.d(TAG, "Alarm view #2: ai = " + ai + " // duration = " + ai.mDuration);
+            }
         } else if (ai.mIsOn & MainActivity.isService() & MainActivity.getAlarmState(position) == ON) {
             if (ai.mDurationCounter == 0) {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_selected);
