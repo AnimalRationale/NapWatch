@@ -22,6 +22,7 @@ public final class StateConstants {
     public static final int MINUTE_IN_MILLIS = 1000 * 60;
     public static final int TIME_DEVIATION_FOR_LAST_TICK = 200;
     public static final int WAKE_UP_MARGIN = 2000;
+    public static final int BUTTON_PRESS_DELAY = 700;
     public static final int STOP = 0;
     public static final int START = 1;
     public static final int UPDATE = 2;

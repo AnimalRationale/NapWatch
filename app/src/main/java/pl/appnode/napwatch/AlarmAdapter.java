@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
 
+import static pl.appnode.napwatch.StateConstants.BUTTON_PRESS_DELAY;
 import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
@@ -93,7 +94,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vDuration.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 700){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < BUTTON_PRESS_DELAY){
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
@@ -161,7 +162,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarm.mIsOn = true;
         notifyItemChanged(position);
         Log.d(TAG, "Alarm ON.");
-        int timeUnitFactor = 0;
+        int timeUnitFactor;
         if (alarm.mTimeUnit == SECOND) { timeUnitFactor = SECOND_IN_MILLIS;} else {timeUnitFactor = (MINUTE_IN_MILLIS);}
         alarm.mFinishTime = SystemClock.elapsedRealtime() + (alarm.mDuration * timeUnitFactor);
         Log.d(TAG, "Finish Time: " + alarm.mFinishTime);
