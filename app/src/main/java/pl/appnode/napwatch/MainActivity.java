@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -170,7 +171,6 @@ public class MainActivity extends Activity {
             alarm.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
             alarm.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", DEFAULT_TIMER_DURATION
                     + (i * DEFAULT_TIMER_DURATION_MODIFIER));
-            alarm.mDurationCounter = alarm.mDuration;
             alarm.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
             switch (alarm.mTimeUnit) {
                 case SECOND:  alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);
@@ -180,6 +180,9 @@ public class MainActivity extends Activity {
             }
             alarm.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
+            if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
+                alarm.mDurationCounter = (int) (alarm.mFinishTime - SystemClock.elapsedRealtime());
+            } else alarm.mDurationCounter = alarm.mDuration;
             alarm.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
             alarm.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
             alarm.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
