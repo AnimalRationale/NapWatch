@@ -164,7 +164,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         Log.d(TAG, "Alarm ON.");
         int timeUnitFactor;
         if (alarm.mTimeUnit == SECOND) { timeUnitFactor = SECOND_IN_MILLIS;} else {timeUnitFactor = (MINUTE_IN_MILLIS);}
-        alarm.mFinishTime = SystemClock.elapsedRealtime() + (alarm.mDuration * timeUnitFactor);
+        alarm.mFinishTime = SystemClock.elapsedRealtime() + (alarm.mDurationCounter * timeUnitFactor);
         Log.d(TAG, "ERT: " + SystemClock.elapsedRealtime() + " # Finish Time: " + alarm.mFinishTime);
         Intent serviceIntent = new Intent(mContext, AlarmBroadcastService.class);
         serviceIntent.putExtra("AlarmId", position);

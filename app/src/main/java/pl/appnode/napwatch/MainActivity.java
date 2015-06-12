@@ -166,6 +166,7 @@ public class MainActivity extends Activity {
 
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
+            sAlarmState[i - 1] = OFF;
             AlarmInfo alarm = new AlarmInfo();
             alarmPrefix = "Alarm_" + i;
             alarm.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
@@ -179,14 +180,14 @@ public class MainActivity extends Activity {
                     break;
             }
             alarm.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
-            alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
-            if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
-                alarm.mDurationCounter = (int) (alarm.mFinishTime - SystemClock.elapsedRealtime());
-            } else alarm.mDurationCounter = alarm.mDuration;
             alarm.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
             alarm.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
             alarm.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
             result.add(alarm);
+            alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
+            if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
+                alarm.mDurationCounter = (int) (alarm.mFinishTime - SystemClock.elapsedRealtime());
+            } else alarm.mDurationCounter = alarm.mDuration;
             Log.d(TAG, "Result add #" + i);
         }
         Log.d(TAG, "RETURN!");
