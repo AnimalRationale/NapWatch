@@ -64,16 +64,16 @@ public class MainActivity extends Activity {
         themeSetup(this);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         sThemeChange = settings.getBoolean("settings_checkbox_theme", false);
-        makeActionOverflowMenuShown();
+        showActionOverflowMenu();
         setContentView(R.layout.activity_main);
-        RecyclerView recList = (RecyclerView) findViewById(R.id.alarmList);
-        recList.setItemAnimator(null);
-        recList.setHasFixedSize(true);
+        RecyclerView recyclerList = (RecyclerView) findViewById(R.id.alarmList);
+        recyclerList.setItemAnimator(null);
+        recyclerList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recList.setLayoutManager(llm);
+        recyclerList.setLayoutManager(llm);
         mAA = new AlarmAdapter(createList(), MainActivity.this);
-        recList.setAdapter(mAA);
+        recyclerList.setAdapter(mAA);
         Log.d(TAG, "After Setting Adapter.");
     }
 
@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    private void makeActionOverflowMenuShown() {
+    private void showActionOverflowMenu() {
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
             Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
