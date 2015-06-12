@@ -165,25 +165,25 @@ public class MainActivity extends Activity {
 
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
-            AlarmInfo ai = new AlarmInfo();
+            AlarmInfo alarm = new AlarmInfo();
             alarmPrefix = "Alarm_" + i;
-            ai.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
-            ai.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", DEFAULT_TIMER_DURATION
+            alarm.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
+            alarm.mDuration = alarmsPrefs.getInt(alarmPrefix + "_Duration", DEFAULT_TIMER_DURATION
                     + (i * DEFAULT_TIMER_DURATION_MODIFIER));
-            ai.mDurationCounter = ai.mDuration;
-            ai.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
-            switch (ai.mTimeUnit) {
-                case SECOND:  ai.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);
+            alarm.mDurationCounter = alarm.mDuration;
+            alarm.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
+            switch (alarm.mTimeUnit) {
+                case SECOND:  alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);
                     break;
-                case MINUTE:  ai.mTimeUnitSymbol = getResources().getString(R.string.time_unit_minutes);
+                case MINUTE:  alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_minutes);
                     break;
             }
-            ai.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
-            ai.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
-            ai.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
-            ai.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
-            ai.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
-            result.add(ai);
+            alarm.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
+            alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
+            alarm.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
+            alarm.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
+            alarm.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
+            result.add(alarm);
             Log.d(TAG, "Result add #" + i);
         }
         Log.d(TAG, "RETURN!");
