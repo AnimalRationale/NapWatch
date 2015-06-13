@@ -187,6 +187,7 @@ public class MainActivity extends Activity {
             alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
             if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
                 alarm.mDurationCounter = (int) (alarm.mFinishTime - SystemClock.elapsedRealtime());
+                mAA.startAlarm(i - 1);
             } else alarm.mDurationCounter = alarm.mDuration;
             Log.d(TAG, "Result add #" + i);
         }
