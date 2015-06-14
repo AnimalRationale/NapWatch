@@ -78,6 +78,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmViewHolder.vDuration.setText(alarm.mDuration + alarm.mTimeUnitSymbol);
             alarm.mIsOn = false;
             Log.d(TAG, "Alarm view #4: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
+        } else if (alarm.mIsOn & MainActivity.getAlarmState(position) != ON) {
+
         }
         alarmViewHolder.vMinutesBar.setMax(100);
         alarmViewHolder.vMinutesBar.setProgress(alarm.mDuration);

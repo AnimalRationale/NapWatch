@@ -166,7 +166,7 @@ public class MainActivity extends Activity {
 
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
-            sAlarmState[i - 1] = OFF;
+            // sAlarmState[i - 1] = OFF;
             AlarmInfo alarm = new AlarmInfo();
             alarmPrefix = "Alarm_" + i;
             alarm.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
