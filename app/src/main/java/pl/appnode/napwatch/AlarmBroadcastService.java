@@ -75,7 +75,7 @@ public class AlarmBroadcastService extends Service {
     public void onDestroy() {
         for (int i = 0; i < 4; i++) {
             if (mAlarms[i] != null) {
-                // stopAlarm(i);
+                stopAlarm(i);
             }
         }
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
