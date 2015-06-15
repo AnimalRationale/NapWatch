@@ -155,6 +155,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onDestroy() {
+        saveSharedPrefs();
         if (sIsService) {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
             stopService(serviceIntent);
@@ -289,6 +290,7 @@ public class MainActivity extends Activity {
     private void checkThemeChange() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         if (sThemeChange != settings.getBoolean("settings_checkbox_theme", false)) {
+            saveSharedPrefs();
             finish();
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
