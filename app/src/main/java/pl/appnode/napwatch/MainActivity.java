@@ -26,10 +26,12 @@ import java.util.List;
 import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
+import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.RESTORE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
 import static pl.appnode.napwatch.ThemeSetup.themeSetup;
@@ -164,7 +166,7 @@ public class MainActivity extends Activity {
     private List<AlarmInfo> createList() {
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
         String alarmPrefix;
-        int timeFactor = 1000;
+        int timeFactor = SECOND_IN_MILLIS;
 
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
@@ -176,10 +178,10 @@ public class MainActivity extends Activity {
             alarm.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
             switch (alarm.mTimeUnit) {
                 case SECOND:  alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);
-                    timeFactor = 1000;
+                    timeFactor = SECOND_IN_MILLIS;
                     break;
                 case MINUTE:  alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_minutes);
-                    timeFactor = 60000;
+                    timeFactor = MINUTE_IN_MILLIS;
                     break;
             }
             alarm.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
@@ -188,7 +190,7 @@ public class MainActivity extends Activity {
             alarm.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
             alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
             if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
-                alarm.mDurationCounter = ((int) (alarm.mFinishTime - SystemClock.elapsedRealtime()) / timeFactor);
+                alarm.mDurationCounter = (int) (((alarm.mFinishTime - SystemClock.elapsedRealtime()) + timeFactor) / timeFactor);
                 sAlarmState[i - 1] = RESTORE;
             } else alarm.mDurationCounter = alarm.mDuration;
             result.add(alarm);
@@ -286,7 +288,7 @@ public class MainActivity extends Activity {
 
     private void checkThemeChange() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sThemeChange != settings.getBoolean("settings_checkbox_theme", false) & !runningTimer()) {
+        if (sThemeChange != settings.getBoolean("settings_checkbox_theme", false)) {
             finish();
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
