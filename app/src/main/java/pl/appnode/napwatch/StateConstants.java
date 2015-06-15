@@ -16,6 +16,7 @@ public final class StateConstants {
     public static final int OFF = 0;
     public static final int SWITCHING = 1;
     public static final int ON = 2;
+    public static final int RESTORE = 3;
     public static final int SECOND = 0;
     public static final int MINUTE = 1;
     public static final int SECOND_IN_MILLIS = 1000;

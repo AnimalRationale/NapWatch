@@ -27,6 +27,7 @@ import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
 import static pl.appnode.napwatch.StateConstants.OFF;
+import static pl.appnode.napwatch.StateConstants.RESTORE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
@@ -163,10 +164,10 @@ public class MainActivity extends Activity {
     private List<AlarmInfo> createList() {
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
         String alarmPrefix;
+        int timeFactor = 1000;
 
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
         for (int i = 1; i <= 4; i++) {
-            // sAlarmState[i - 1] = OFF;
             AlarmInfo alarm = new AlarmInfo();
             alarmPrefix = "Alarm_" + i;
             alarm.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
@@ -175,20 +176,22 @@ public class MainActivity extends Activity {
             alarm.mTimeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
             switch (alarm.mTimeUnit) {
                 case SECOND:  alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_seconds);
+                    timeFactor = 1000;
                     break;
                 case MINUTE:  alarm.mTimeUnitSymbol = getResources().getString(R.string.time_unit_minutes);
+                    timeFactor = 60000;
                     break;
             }
             alarm.mIsOn = alarmsPrefs.getBoolean(alarmPrefix + "_State", false);
             alarm.mRingtoneUri = alarmsPrefs.getString(alarmPrefix + "_Ringtone", setRingtone());
             alarm.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
             alarm.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
-            result.add(alarm);
             alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
             if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
-                alarm.mDurationCounter = (int) (alarm.mFinishTime - SystemClock.elapsedRealtime());
-                mAA.startAlarm(i - 1);
+                alarm.mDurationCounter = ((int) (alarm.mFinishTime - SystemClock.elapsedRealtime()) / timeFactor);
+                sAlarmState[i - 1] = RESTORE;
             } else alarm.mDurationCounter = alarm.mDuration;
+            result.add(alarm);
             Log.d(TAG, "Result add #" + i);
         }
         Log.d(TAG, "RETURN!");
