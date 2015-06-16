@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -17,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.List;
@@ -141,6 +137,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (settings.getBoolean("settings_checkbox_theme", false)) {
             card.setCardBackgroundColor(Color.BLACK);
+
         } else card.setCardBackgroundColor(Color.WHITE);
         return new AlarmViewHolder(itemView);
     }
