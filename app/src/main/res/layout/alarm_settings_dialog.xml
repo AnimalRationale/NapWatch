@@ -85,12 +85,14 @@
             android:layout_margin="0dip"
             android:gravity="center" />
         <ImageView
+            android:id="@+id/volumeIconMute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center"
             android:background="@drawable/round_icon_background"
             android:src="@drawable/ic_volume_mute_white_18dp"/>
         <ImageView
+            android:id="@+id/volumeIconUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
