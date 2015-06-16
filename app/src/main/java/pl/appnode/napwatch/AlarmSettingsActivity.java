@@ -2,11 +2,16 @@ package pl.appnode.napwatch;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -51,7 +57,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        themeSetup(this);
+        boolean darkTheme = themeSetup(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alarm_settings_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -60,6 +66,14 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         getWindow().setAttributes(layoutParams);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         this.setFinishOnTouchOutside(false);
+        if (darkTheme & Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ImageView iconMute = (ImageView) findViewById(R.id.volumeIconMute);
+            GradientDrawable drawable = (GradientDrawable) iconMute.getBackground().getCurrent();;
+            drawable.setColor(getResources().getColor(R.color.primary_light));
+            ImageView iconUp = (ImageView) findViewById(R.id.volumeIconUp);
+            GradientDrawable drawable2 = (GradientDrawable) iconUp.getBackground().getCurrent();;
+            drawable2.setColor(getResources().getColor(R.color.primary_light));
+        }
         mAudioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
         mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         mTitle = (TextView) findViewById(R.id.alarmEditTitle);

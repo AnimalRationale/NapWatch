@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 
 public class ThemeSetup {
 
-    public static void themeSetup(Context context) {
+    public static boolean themeSetup(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         boolean themeDark = settings.getBoolean("settings_checkbox_theme", false);
         if (themeDark) {
@@ -21,5 +21,6 @@ public class ThemeSetup {
         } else {
             context.setTheme(android.R.style.Theme_Material_Light);
         }
+        return themeDark;
     }
 }
