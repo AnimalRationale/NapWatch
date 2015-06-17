@@ -50,11 +50,12 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private Button mRingtoneTextButton;
     private ImageButton mPlayStopButton;
     private boolean mIsPlaying = false;
+    boolean mDarkTheme = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean darkTheme = themeSetup(this);
+        mDarkTheme = themeSetup(this); // Setting theme
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alarm_settings_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -63,14 +64,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         getWindow().setAttributes(layoutParams);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         this.setFinishOnTouchOutside(false);
-        if (darkTheme & Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ImageView iconMute = (ImageView) findViewById(R.id.volumeIconMute);
-            GradientDrawable drawable = (GradientDrawable) iconMute.getBackground().getCurrent();;
-            drawable.setColor(getResources().getColor(R.color.primary_light));
-            ImageView iconUp = (ImageView) findViewById(R.id.volumeIconUp);
-            GradientDrawable drawable2 = (GradientDrawable) iconUp.getBackground().getCurrent();;
-            drawable2.setColor(getResources().getColor(R.color.primary_light));
-        }
+        colorFixForMaterialDark();
         mAudioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
         mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         mTitle = (TextView) findViewById(R.id.alarmEditTitle);
@@ -231,7 +225,18 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
         ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, mCurrentRingtoneUri);
         ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALL);
-        startActivityForResult( ringtoneIntent, RINGTONE_INTENT_REQUEST);
+        startActivityForResult(ringtoneIntent, RINGTONE_INTENT_REQUEST);
+    }
+
+    private void colorFixForMaterialDark() {
+        if (mDarkTheme & Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ImageView iconMute = (ImageView) findViewById(R.id.volumeIconMute);
+            GradientDrawable drawable = (GradientDrawable) iconMute.getBackground().getCurrent();;
+            drawable.setColor(getResources().getColor(R.color.primary_light));
+            ImageView iconUp = (ImageView) findViewById(R.id.volumeIconUp);
+            GradientDrawable drawable2 = (GradientDrawable) iconUp.getBackground().getCurrent();;
+            drawable2.setColor(getResources().getColor(R.color.primary_light));
+        }
     }
 
     @Override
