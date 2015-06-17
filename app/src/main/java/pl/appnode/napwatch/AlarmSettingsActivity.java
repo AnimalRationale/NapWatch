@@ -28,6 +28,7 @@ import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.ThemeSetup.themeSetup;
+import static pl.appnode.napwatch.IsDarkTheme.isDarkTheme;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {
 
@@ -50,12 +51,11 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     private Button mRingtoneTextButton;
     private ImageButton mPlayStopButton;
     private boolean mIsPlaying = false;
-    boolean mDarkTheme = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDarkTheme = themeSetup(this); // Setting theme
+        themeSetup(this); // Setting theme
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alarm_settings_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -229,7 +229,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
     }
 
     private void colorFixForMaterialDark() {
-        if (mDarkTheme & Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (isDarkTheme(this) & Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ImageView iconMute = (ImageView) findViewById(R.id.volumeIconMute);
             GradientDrawable drawable = (GradientDrawable) iconMute.getBackground().getCurrent();;
             drawable.setColor(getResources().getColor(R.color.primary_light));

@@ -11,7 +11,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +34,7 @@ import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
 import static pl.appnode.napwatch.ThemeSetup.themeSetup;
+import static pl.appnode.napwatch.IsDarkTheme.isDarkTheme;
 
 public class MainActivity extends Activity {
 
@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
             }
         }
         themeSetup(this);
-        sThemeChange = isDarkTheme();
+        sThemeChange = isDarkTheme(this);
         showActionOverflowMenu();
         setContentView(R.layout.activity_main);
         RecyclerView recyclerList = (RecyclerView) findViewById(R.id.alarmList);
@@ -287,7 +287,7 @@ public class MainActivity extends Activity {
     }
 
     private void checkThemeChange() {
-        if (sThemeChange != isDarkTheme()) {
+        if (sThemeChange != isDarkTheme(this)) {
             saveSharedPrefs();
             finish();
             Intent intent = new Intent(this, MainActivity.class);
@@ -295,11 +295,6 @@ public class MainActivity extends Activity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-    }
-
-    private boolean isDarkTheme() {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        return settings.getBoolean("settings_checkbox_theme", false);
     }
 
     public static int getAlarmState(int alarmId) {
