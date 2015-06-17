@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
 
+import static pl.appnode.napwatch.IsDarkTheme.isDarkTheme;
 import static pl.appnode.napwatch.StateConstants.BUTTON_PRESS_DELAY;
 import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.OFF;
@@ -134,10 +135,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 from(viewGroup.getContext()).
                 inflate(R.layout.card_layout, viewGroup, false);
         CardView card = (CardView) itemView;
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (settings.getBoolean("settings_checkbox_theme", false)) {
+        if (isDarkTheme(mContext)) {
             card.setCardBackgroundColor(Color.BLACK);
-
         } else card.setCardBackgroundColor(Color.WHITE);
         return new AlarmViewHolder(itemView);
     }
