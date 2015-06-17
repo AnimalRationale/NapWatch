@@ -57,12 +57,7 @@ public class MainActivity extends Activity {
         Intent intent = getIntent();
         if (intent.hasExtra("id")) {
             if (mAA == null) {
-                mAA = new AlarmAdapter(createList(), MainActivity.this);
-                mAA.alarmAction(intent.getIntExtra("id", 1));
-                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                homeIntent.addCategory(Intent.CATEGORY_HOME);
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(homeIntent);
+                silentInit(intent.getIntExtra("id", 1));
             }
         }
         themeSetup(this);
@@ -161,6 +156,15 @@ public class MainActivity extends Activity {
             Log.d(TAG, "OnDestroy stopping service.");
         }
         super.onDestroy();
+    }
+
+    private void silentInit(int alarmId) {
+        mAA = new AlarmAdapter(createList(), MainActivity.this);
+        mAA.alarmAction(alarmId);
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(homeIntent);
     }
 
     private List<AlarmInfo> createList() {
