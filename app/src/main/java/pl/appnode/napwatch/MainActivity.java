@@ -66,8 +66,7 @@ public class MainActivity extends Activity {
             }
         }
         themeSetup(this);
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        sThemeChange = settings.getBoolean("settings_checkbox_theme", false);
+        sThemeChange = isDarkTheme();
         showActionOverflowMenu();
         setContentView(R.layout.activity_main);
         RecyclerView recyclerList = (RecyclerView) findViewById(R.id.alarmList);
@@ -288,8 +287,7 @@ public class MainActivity extends Activity {
     }
 
     private void checkThemeChange() {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sThemeChange != settings.getBoolean("settings_checkbox_theme", false)) {
+        if (sThemeChange != isDarkTheme()) {
             saveSharedPrefs();
             finish();
             Intent intent = new Intent(this, MainActivity.class);
@@ -297,6 +295,11 @@ public class MainActivity extends Activity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    private boolean isDarkTheme() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        return settings.getBoolean("settings_checkbox_theme", false);
     }
 
     public static int getAlarmState(int alarmId) {
