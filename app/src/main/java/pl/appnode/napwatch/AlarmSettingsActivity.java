@@ -23,6 +23,8 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_INTENT_REQUEST;
@@ -230,12 +232,13 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
 
     private void colorFixForMaterialDark() {
         if (isDarkTheme(this) & Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ImageView iconMute = (ImageView) findViewById(R.id.volumeIconMute);
-            GradientDrawable drawable = (GradientDrawable) iconMute.getBackground().getCurrent();;
-            drawable.setColor(getResources().getColor(R.color.primary_light));
-            ImageView iconUp = (ImageView) findViewById(R.id.volumeIconUp);
-            GradientDrawable drawable2 = (GradientDrawable) iconUp.getBackground().getCurrent();;
-            drawable2.setColor(getResources().getColor(R.color.primary_light));
+            ImageView[] imageViews = new ImageView[2];
+            imageViews[0] = (ImageView) findViewById(R.id.volumeIconMute);
+            imageViews[1] = (ImageView) findViewById(R.id.volumeIconUp);
+            for (int i = 0; i < imageViews.length; i++) {
+                GradientDrawable drawable = (GradientDrawable) imageViews[i].getBackground().getCurrent();
+                drawable.setColor(getResources().getColor(R.color.primary_light));
+            }
         }
     }
 
