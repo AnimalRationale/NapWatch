@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
     protected static AlarmAdapter mAA;
     private static boolean sIsService;
     private static int[] sAlarmState = new int[4];
-    private static boolean sThemeChange;
+    private static boolean sThemeChangeFlag;
 
     private BroadcastReceiver mCountDownBroadcast = new BroadcastReceiver() {
         @Override
@@ -55,13 +55,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        if (intent.hasExtra("id")) {
+        if (intent.hasExtra("buttonId")) {
             if (mAA == null) {
-                silentInit(intent.getIntExtra("id", 1));
+                silentInit(intent.getIntExtra("buttonId", 1));
             }
         }
         themeSetup(this);
-        sThemeChange = isDarkTheme(this);
+        sThemeChangeFlag = isDarkTheme(this);
         showActionOverflowMenu();
         setContentView(R.layout.activity_main);
         RecyclerView recyclerList = (RecyclerView) findViewById(R.id.alarmList);
@@ -196,6 +196,7 @@ public class MainActivity extends Activity {
             if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
                 alarm.mDurationCounter = (int) (((alarm.mFinishTime - SystemClock.elapsedRealtime()) + timeFactor) / timeFactor);
                 sAlarmState[i - 1] = RESTORE;
+                Log.d(TAG, "Alarm #" + i + " set to RESTORE.");
             } else alarm.mDurationCounter = alarm.mDuration;
             result.add(alarm);
             Log.d(TAG, "Result add #" + i);
@@ -291,7 +292,7 @@ public class MainActivity extends Activity {
     }
 
     private void checkThemeChange() {
-        if (sThemeChange != isDarkTheme(this)) {
+        if (sThemeChangeFlag != isDarkTheme(this)) {
             saveSharedPrefs();
             finish();
             Intent intent = new Intent(this, MainActivity.class);

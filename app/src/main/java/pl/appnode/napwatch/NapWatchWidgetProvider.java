@@ -67,7 +67,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
                 else {
                     Log.d(TAG, "mAA null. Action: " + j);
                     Intent commandIntent = new Intent(context, MainActivity.class);
-                    commandIntent.putExtra("id", j);
+                    commandIntent.putExtra("buttonId", j);
                     commandIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(commandIntent);
                 }
