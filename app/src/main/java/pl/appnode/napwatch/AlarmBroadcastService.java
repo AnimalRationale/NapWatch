@@ -107,5 +107,6 @@ public class AlarmBroadcastService extends Service {
         notificationManager.cancel(alarmId);
         mAlarms[alarmId] = null;
         MainActivity.setAlarmState(alarmId, OFF);
+        Log.d(TAG, "Alarm stopped #" + alarmId);
     }
 }
