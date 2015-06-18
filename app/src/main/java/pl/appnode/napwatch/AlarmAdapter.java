@@ -65,28 +65,28 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_green);
                 alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
                 alarmViewHolder.vDuration.setText(alarm.mDuration + alarm.mTimeUnitSymbol);
-                Log.d(TAG, "Alarm view #2: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
+                Log.d(TAG, "Alarm view #2: alarm = " + alarm.mName + " alarmState: " + MainActivity.getAlarmState(position) + " // duration = " + alarm.mDuration);
             }
         } else if (alarm.mIsOn & MainActivity.isService() & MainActivity.getAlarmState(position) == ON) {
             if (alarm.mDurationCounter == 0) {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_red);
             } else alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_orange);
             alarmViewHolder.vMinutesBar.setVisibility(View.GONE);
-            Log.d(TAG, "Alarm view #3: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
+            Log.d(TAG, "Alarm view #3: alarm = " + alarm.mName + " alarmState: " + MainActivity.getAlarmState(position) + " // duration = " + alarm.mDuration);
             alarmViewHolder.vDuration.setText(alarm.mDurationCounter + alarm.mTimeUnitSymbol);
         } else if (alarm.mIsOn & MainActivity.getAlarmState(position) != ON & MainActivity.getAlarmState(position) != RESTORE) {
             alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_green);
             alarmViewHolder.vMinutesBar.setVisibility(View.VISIBLE);
             alarmViewHolder.vDuration.setText(alarm.mDuration + alarm.mTimeUnitSymbol);
             alarm.mIsOn = false;
-            Log.d(TAG, "Alarm view #4: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
+            Log.d(TAG, "Alarm view #4: alarm = " + alarm.mName + " alarmState: " + MainActivity.getAlarmState(position) + " // duration = " + alarm.mDuration);
         } else if (alarm.mIsOn & MainActivity.getAlarmState(position) == RESTORE) {
             mAAHandler.post(new Runnable() {
                 public void run() {
                     alarmAction(position);
                 }
             });
-            Log.d(TAG, "Alarm view #5: alarm = " + alarm.mName + " // duration = " + alarm.mDuration);
+            Log.d(TAG, "Alarm view #5: alarm = " + alarm.mName + " alarmState: " + MainActivity.getAlarmState(position) + " // duration = " + alarm.mDuration);
         }
         alarmViewHolder.vMinutesBar.setMax(100);
         alarmViewHolder.vMinutesBar.setProgress(alarm.mDuration);

@@ -284,13 +284,6 @@ public class MainActivity extends Activity {
         startService(serviceIntent);
     }
 
-    private boolean runningTimer() {
-        for (int i = 0; i < 4; i++) {
-            if (sAlarmState[i] != 0) return true;
-        }
-        return false;
-    }
-
     private void checkThemeChange() {
         if (sThemeChangeFlag != isDarkTheme(this)) {
             saveSharedPrefs();
