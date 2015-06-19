@@ -10,6 +10,7 @@ import android.util.Log;
 import static pl.appnode.napwatch.StateConstants.EMPTY;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.ON;
+import static pl.appnode.napwatch.StateConstants.RESTORE;
 import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.STOP;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
@@ -106,7 +107,9 @@ public class AlarmBroadcastService extends Service {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(alarmId);
         mAlarms[alarmId] = null;
-        MainActivity.setAlarmState(alarmId, OFF);
+        if (MainActivity.getAlarmState(alarmId) != RESTORE) {
+            MainActivity.setAlarmState(alarmId, OFF);
+        }
         Log.d(TAG, "Alarm stopped #" + alarmId);
     }
 }
