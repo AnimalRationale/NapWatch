@@ -194,9 +194,12 @@ public class MainActivity extends Activity {
             alarm.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
             alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
             if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
-                alarm.mDurationCounter = (int) (((alarm.mFinishTime - SystemClock.elapsedRealtime()) + timeFactor) / timeFactor);
-                sAlarmState[i - 1] = RESTORE;
-                Log.d(TAG, "Alarm #" + i + " set to RESTORE.");
+                int continuation = (int) (((alarm.mFinishTime - SystemClock.elapsedRealtime()) + timeFactor) / timeFactor);
+                if (continuation < 100) {
+                    alarm.mDurationCounter = continuation;
+                    sAlarmState[i - 1] = RESTORE;
+                    Log.d(TAG, "Alarm #" + i + " set to RESTORE.");
+                }
             } else alarm.mDurationCounter = alarm.mDuration;
             result.add(alarm);
             Log.d(TAG, "Result add #" + i);
