@@ -10,6 +10,10 @@
     <string name="pref_checkbox_theme_desc">Switch to dark version of device\'s default theme
     </string>
 
+    <string name="pref_checkbox_orientation">Screen rotation</string>
+    <string name="pref_checkbox_orientation_desc">Allow changing of screen orientation portrait/landscape
+    </string>
+
     <string name="pref_title_display_name">Display name</string>
     <string name="pref_default_display_name">John Smith</string>
 
