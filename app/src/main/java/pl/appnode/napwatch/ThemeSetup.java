@@ -2,7 +2,7 @@ package pl.appnode.napwatch;
 
 import android.content.Context;
 import android.os.Build;
-import static pl.appnode.napwatch.IsDarkTheme.isDarkTheme;
+import static pl.appnode.napwatch.AppSettings.isDarkTheme;
 
 public class ThemeSetup {
 

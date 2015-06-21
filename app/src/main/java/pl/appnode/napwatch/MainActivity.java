@@ -34,7 +34,7 @@ import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
 import static pl.appnode.napwatch.ThemeSetup.themeSetup;
-import static pl.appnode.napwatch.IsDarkTheme.isDarkTheme;
+import static pl.appnode.napwatch.AppSettings.isDarkTheme;
 
 public class MainActivity extends Activity {
 

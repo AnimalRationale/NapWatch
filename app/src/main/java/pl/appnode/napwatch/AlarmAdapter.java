@@ -2,11 +2,9 @@ package pl.appnode.napwatch;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 import android.view.View.OnClickListener;
 
-import static pl.appnode.napwatch.IsDarkTheme.isDarkTheme;
+import static pl.appnode.napwatch.AppSettings.isDarkTheme;
 import static pl.appnode.napwatch.StateConstants.BUTTON_PRESS_DELAY;
 import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.OFF;
