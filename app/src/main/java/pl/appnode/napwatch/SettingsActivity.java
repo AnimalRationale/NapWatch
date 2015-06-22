@@ -26,4 +26,10 @@ public class SettingsActivity extends PreferenceActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        orientationSetup(this);
+    }
 }
