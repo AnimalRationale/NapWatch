@@ -27,7 +27,7 @@ import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.SECOND;
-import static pl.appnode.napwatch.ThemeSetup.themeSetup;
+import static pl.appnode.napwatch.PreferenceSetup.themeSetup;
 import static pl.appnode.napwatch.AppSettings.isDarkTheme;
 
 public class AlarmSettingsActivity extends Activity implements View.OnClickListener {

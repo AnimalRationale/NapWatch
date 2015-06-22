@@ -5,7 +5,7 @@ import android.preference.PreferenceActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-import static pl.appnode.napwatch.ThemeSetup.themeSetup;
+import static pl.appnode.napwatch.PreferenceSetup.themeSetup;
 
 public class SettingsActivity extends PreferenceActivity {
     @Override
