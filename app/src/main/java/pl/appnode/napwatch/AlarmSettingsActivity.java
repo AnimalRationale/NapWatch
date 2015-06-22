@@ -23,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import static pl.appnode.napwatch.PreferenceSetup.orientationSetup;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.RINGTONE_INTENT_REQUEST;

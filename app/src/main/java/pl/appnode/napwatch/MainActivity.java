@@ -85,6 +85,7 @@ public class MainActivity extends Activity {
             updateTimeToFinishIntent();
             Log.d(TAG, "Time to finish update intent on active alarms.");
         }
+        orientationSetup(this);
         checkThemeChange();
     }
 
