@@ -78,6 +78,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onResume() {
+        orientationSetup(this);
         super.onResume();
         registerReceiver(mCountDownBroadcast, new IntentFilter(AlarmBroadcastService.COUNTDOWN_BROADCAST));
         Log.d(TAG, "OnResume registered broadcast receiver.");
@@ -85,7 +86,6 @@ public class MainActivity extends Activity {
             updateTimeToFinishIntent();
             Log.d(TAG, "Time to finish update intent on active alarms.");
         }
-        orientationSetup(this);
         checkThemeChange();
     }
 
