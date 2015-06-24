@@ -76,6 +76,10 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
         }
     }
 
+    public void setupWidgetButtons(Context context) {
+            Log.d(TAG, "Widget buttons setup.");
+    }
+
     private PendingIntent getPendingSelfIntent(Context context, String action) {
         Intent intent = new Intent(context, getClass());
         intent.setAction(action);
