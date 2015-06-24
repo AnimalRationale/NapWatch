@@ -57,6 +57,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
 
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
+        Log.d(TAG, "Widget onReceive.");
         int i = 1;
         while (i != 5) {
             if (WIDGET_BUTTON_ACTION[i].equals(intent.getAction())) {
@@ -78,6 +79,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
     private PendingIntent getPendingSelfIntent(Context context, String action) {
         Intent intent = new Intent(context, getClass());
         intent.setAction(action);
+        Log.d(TAG, "Widget pendingSelfIntent.");
         return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 }
