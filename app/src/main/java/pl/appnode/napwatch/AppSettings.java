@@ -14,7 +14,7 @@ public class AppSettings {
 
     public static boolean isRotationOn(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean rotationOn = settings.getBoolean("settings_checkbox_orientstion", false);
+        boolean rotationOn = settings.getBoolean("settings_checkbox_orientation", false);
         return rotationOn;
     }
 }

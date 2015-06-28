@@ -6,7 +6,7 @@
         android:summary="@string/pref_checkbox_theme_desc"
         android:defaultValue="false" />
     <CheckBoxPreference
-        android:key="settings_checkbox_orientstion"
+        android:key="settings_checkbox_orientation"
         android:title="@string/pref_checkbox_orientation"
         android:summary="@string/pref_checkbox_orientation_desc"
         android:defaultValue="false" />
