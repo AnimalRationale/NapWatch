@@ -7,7 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -26,6 +25,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
     private static ComponentName sWidget = null;
     private static AppWidgetManager sWidgetManager = null;
 
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
@@ -60,6 +60,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
         }
     }
 
+    @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         Log.d(TAG, "Widget onReceive.");
