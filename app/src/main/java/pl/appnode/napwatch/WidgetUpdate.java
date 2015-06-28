@@ -9,6 +9,7 @@ import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 
 public class WidgetUpdate {
 
+    private static final String TAG = "WidgetUpdate";
     private static RemoteViews sWidgetViews = null;
     private static ComponentName sWidget = null;
     private static AppWidgetManager sWidgetManager = null;
@@ -19,7 +20,7 @@ public class WidgetUpdate {
         sWidgetManager = AppWidgetManager.getInstance(context);
     }
 
-    private static void setButtonColor (int widgetButtonId, Context context, int background) {
+    private static void setButtonColor(int widgetButtonId, Context context, int background) {
         getWidget(context);
         sWidgetViews.setInt(WIDGET_BUTTONS[widgetButtonId], "setBackgroundResource", background);
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
