@@ -106,6 +106,25 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
             sWidgetManager = AppWidgetManager.getInstance(context);
         }
 
+        public void reassignWidgetButtons(Context context) {
+            getWidget(context);
+            Intent intent = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
+            Log.d(TAG, "WidgetUpdate reassigning app button.");
+            for (int i = 1; i <= 4; i++) {
+                sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
+                Log.d(TAG, "WidgetUpdate reassigning timer #" + i + " button.");
+            }
+        }
+
+        private PendingIntent getPendingSelfIntent(Context context, String action) {
+            Intent intent = new Intent(context, getClass());
+            intent.setAction(action);
+            Log.d(TAG, "Widget pendingSelfIntent.");
+            return PendingIntent.getBroadcast(context, 0, intent, 0);
+        }
+
         @Override
         public void onConfigurationChanged(Configuration newConfig)
         {
@@ -113,7 +132,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
 
             if(newConfig.orientation != oldOrientation)
             {
-
+                reassignWidgetButtons(this);
             }
         }
 
