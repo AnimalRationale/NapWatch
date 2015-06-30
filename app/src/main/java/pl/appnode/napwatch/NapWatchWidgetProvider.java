@@ -30,6 +30,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        context.startService(new Intent(context, WidgetUpdate.class));
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
         int timeUnit;
@@ -96,9 +97,9 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
         }
 
         @Override
-        public int onStartCommand(Intent intent, int flags, int startId) {
+        public void onStart(Intent intent, int startId) {
             mOrientation = this.getResources().getConfiguration().orientation;
-            return mStartMode;
+            Log.d(TAG, "WidgetUpdate Service.");
         }
 
         private static void getWidget(Context context) {
@@ -112,23 +113,23 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
-            Log.d(TAG, "WidgetUpdate reassigning app button.");
+            Log.d(TAG, "WidgetUpdate Service reassigning app button.");
             for (int i = 1; i <= 4; i++) {
                 sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
-                Log.d(TAG, "WidgetUpdate reassigning timer #" + i + " button.");
+                Log.d(TAG, "WidgetUpdate Service reassigning timer #" + i + " button.");
             }
         }
 
         private PendingIntent getPendingSelfIntent(Context context, String action) {
             Intent intent = new Intent(context, getClass());
             intent.setAction(action);
-            Log.d(TAG, "Widget pendingSelfIntent.");
+            Log.d(TAG, "WidgetUpdate Service pendingSelfIntent.");
             return PendingIntent.getBroadcast(context, 0, intent, 0);
         }
 
         @Override
         public void onConfigurationChanged(Configuration newConfig) {
-
+            Log.d(TAG, "WidgetUpdate Service configuration change.");
             if(newConfig.orientation != mOrientation)
             {
                 mOrientation = newConfig.orientation;
