@@ -30,7 +30,6 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        context.startService(new Intent(context, WidgetUpdate.class));
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
         int timeUnit;
@@ -60,6 +59,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
                 views.setOnClickPendingIntent(WIDGET_BUTTONS[j], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[j]));
             }
             appWidgetManager.updateAppWidget(appWidgetId, views);
+            context.startService(new Intent(context, WidgetUpdate.class));
             Log.d(TAG, "Widget updated.");
         }
     }
@@ -97,9 +97,10 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
         }
 
         @Override
-        public void onStart(Intent intent, int startId) {
+        public int onStartCommand(Intent intent, int flags, int startId) {
             mOrientation = this.getResources().getConfiguration().orientation;
             Log.d(TAG, "WidgetUpdate Service.");
+            return mStartMode;
         }
 
         private static void getWidget(Context context) {
