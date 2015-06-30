@@ -85,9 +85,10 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    public static class MyUpdateService extends Service {
+    public static class WidgetUpdateService extends Service {
 
-    private int mStartMode = START_STICKY;
+        private int mStartMode = START_STICKY;
+        private int mOrientation;
 
         @Override
         public void onCreate() {
@@ -96,7 +97,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
 
         @Override
         public int onStartCommand(Intent intent, int flags, int startId) {
-
+            mOrientation = this.getResources().getConfiguration().orientation;
             return mStartMode;
         }
 
@@ -126,12 +127,11 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
         }
 
         @Override
-        public void onConfigurationChanged(Configuration newConfig)
-        {
-            int oldOrientation = this.getResources().getConfiguration().orientation;
+        public void onConfigurationChanged(Configuration newConfig) {
 
-            if(newConfig.orientation != oldOrientation)
+            if(newConfig.orientation != mOrientation)
             {
+                mOrientation = newConfig.orientation;
                 reassignWidgetButtons(this);
             }
         }
