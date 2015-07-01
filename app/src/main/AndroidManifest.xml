@@ -73,7 +73,7 @@
         </receiver>
 
         <service
-            android:name=".NapWatchWidgetProvider$WidgetUpdateService"
+            android:name=".WidgetSetUpService"
             android:exported="false"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/ic_alarm_add_grey600_48dp" />
