@@ -49,8 +49,9 @@ public class WidgetSetUpService extends Service {
         Log.d(TAG, "WidgetSetUpService Service reassigning app button.");
         for (int i = 1; i <= 4; i++) {
             sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
-            Log.d(TAG, "WidgeSetUp Service reassigning timer #" + i + " button.");
+            Log.d(TAG, "WidgetSetUp Service reassigning timer #" + i + " button.");
         }
+        sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
     }
 
     private PendingIntent getPendingSelfIntent(Context context, String action) {
@@ -66,7 +67,7 @@ public class WidgetSetUpService extends Service {
         if(newConfig.orientation != mOrientation)
         {
             mOrientation = newConfig.orientation;
-            reassignWidgetButtons(this);
+            reassignWidgetButtons(AppContext.getContext());
         }
     }
 

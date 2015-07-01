@@ -86,7 +86,7 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
     private PendingIntent getPendingSelfIntent(Context context, String action) {
         Intent intent = new Intent(context, getClass());
         intent.setAction(action);
-        Log.d(TAG, "Widget pendingSelfIntent.");
+        Log.d(TAG, "Widget pendingSelfIntent for action: " + action);
         return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 }
