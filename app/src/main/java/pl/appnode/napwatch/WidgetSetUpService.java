@@ -6,11 +6,17 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
+import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
+import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
+import static pl.appnode.napwatch.StateConstants.MINUTE;
+import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTON_ACTION;
 
@@ -32,6 +38,7 @@ public class WidgetSetUpService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         mOrientation = this.getResources().getConfiguration().orientation;
         Log.d(TAG, "WidgetSetUpService Start.");
+        setUpWidget(getApplicationContext());
         return mStartMode;
     }
 
@@ -41,7 +48,38 @@ public class WidgetSetUpService extends Service {
         sWidgetManager = AppWidgetManager.getInstance(context);
     }
 
-    public void reassignWidgetButtons(Context context) {
+    private void setUpWidget(Context context) {
+        SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
+        String alarmPrefix;
+        int timeUnit;
+        String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
+        getWidget(context);
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
+        Log.d(TAG, "WidgetSetUpService assigning app button.");
+        for (int i = 1; i <= 4; i++) {
+            alarmPrefix = "Alarm_" + i;
+            timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
+            switch (timeUnit) {
+                case SECOND:  timeUnitSymbol = context.getString(R.string.time_unit_seconds);
+                    break;
+                case MINUTE:  timeUnitSymbol = context.getString(R.string.time_unit_minutes);
+                    break;
+            }
+            sWidgetViews.setTextViewText(WIDGET_BUTTONS[i], alarmsPrefs.getInt(alarmPrefix + "_Duration",
+                    DEFAULT_TIMER_DURATION + (i * DEFAULT_TIMER_DURATION_MODIFIER))
+                    + timeUnitSymbol);
+            if (alarmsPrefs.getBoolean(alarmPrefix + "_State", false) & MainActivity.isService()) {
+                sWidgetViews.setInt(WIDGET_BUTTONS[i], "setBackgroundResource", R.drawable.round_button_red);
+            } else sWidgetViews.setInt(WIDGET_BUTTONS[i], "setBackgroundResource", R.drawable.round_button_green);
+            sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
+        }
+        sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
+        Log.d(TAG, "Widget updated.");
+    }
+
+    private void reassignWidgetButtons(Context context) {
         getWidget(context);
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
@@ -63,11 +101,13 @@ public class WidgetSetUpService extends Service {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        Log.d(TAG, "WidgetSetUpService Service configuration change.");
+        Log.d(TAG, "WidgetSetUpService configuration change.");
         if(newConfig.orientation != mOrientation)
         {
             mOrientation = newConfig.orientation;
-            reassignWidgetButtons(getApplicationContext());
+            Log.d(TAG, "WidgetSetUpService orientation change.");
+            setUpWidget(getApplicationContext());
+            // reassignWidgetButtons(getApplicationContext());
         }
     }
 
