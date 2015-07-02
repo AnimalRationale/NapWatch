@@ -49,15 +49,15 @@ public class WidgetSetUpService extends Service {
         Log.d(TAG, "WidgetSetUpService Service reassigning app button.");
         for (int i = 1; i <= 4; i++) {
             sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
-            Log.d(TAG, "WidgetSetUp Service reassigning timer #" + i + " button.");
+            Log.d(TAG, "WidgetSetUp Service reassigning timer #" + i + " button for action: " + WIDGET_BUTTON_ACTION[i]);
         }
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
     }
 
     private PendingIntent getPendingSelfIntent(Context context, String action) {
-        Intent intent = new Intent(context, getClass());
+        Intent intent = new Intent(context, NapWatchWidgetProvider.class);
         intent.setAction(action);
-        Log.d(TAG, "WidgetSetUpService Service pendingSelfIntent.");
+        Log.d(TAG, "WidgetSetUpService Service pendingSelfIntent for action: " + action);
         return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
@@ -67,7 +67,7 @@ public class WidgetSetUpService extends Service {
         if(newConfig.orientation != mOrientation)
         {
             mOrientation = newConfig.orientation;
-            reassignWidgetButtons(AppContext.getContext());
+            reassignWidgetButtons(getApplicationContext());
         }
     }
 

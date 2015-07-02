@@ -29,7 +29,6 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
-        context.startService(new Intent(context, WidgetSetUpService.class));
         int timeUnit;
         String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
         final int N = appWidgetIds.length;
@@ -37,8 +36,8 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
             int appWidgetId = appWidgetIds[i];
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.napwatch_widget);
-            views.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
+            RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.napwatch_widget);
+            widget.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
             for (int j = 1; j <= 4; j++) {
                 alarmPrefix = "Alarm_" + j;
                 timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
@@ -48,17 +47,18 @@ public class NapWatchWidgetProvider extends AppWidgetProvider {
                     case MINUTE:  timeUnitSymbol = context.getString(R.string.time_unit_minutes);
                         break;
                 }
-                views.setTextViewText(WIDGET_BUTTONS[j], alarmsPrefs.getInt(alarmPrefix + "_Duration",
+                widget.setTextViewText(WIDGET_BUTTONS[j], alarmsPrefs.getInt(alarmPrefix + "_Duration",
                         DEFAULT_TIMER_DURATION + (i * DEFAULT_TIMER_DURATION_MODIFIER))
                         + timeUnitSymbol);
                 if (alarmsPrefs.getBoolean(alarmPrefix + "_State", false) & MainActivity.isService()) {
-                    views.setInt(WIDGET_BUTTONS[j], "setBackgroundResource", R.drawable.round_button_red);
-                } else views.setInt(WIDGET_BUTTONS[j], "setBackgroundResource", R.drawable.round_button_green);
-                views.setOnClickPendingIntent(WIDGET_BUTTONS[j], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[j]));
+                    widget.setInt(WIDGET_BUTTONS[j], "setBackgroundResource", R.drawable.round_button_red);
+                } else widget.setInt(WIDGET_BUTTONS[j], "setBackgroundResource", R.drawable.round_button_green);
+                widget.setOnClickPendingIntent(WIDGET_BUTTONS[j], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[j]));
             }
-            appWidgetManager.updateAppWidget(appWidgetId, views);
+            appWidgetManager.updateAppWidget(appWidgetId, widget);
             Log.d(TAG, "Widget updated.");
         }
+        context.startService(new Intent(context, WidgetSetUpService.class));
     }
 
     @Override
