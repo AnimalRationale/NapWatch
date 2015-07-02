@@ -1,24 +1,11 @@
 package pl.appnode.napwatch;
 
-import android.app.PendingIntent;
-import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.os.IBinder;
 import android.util.Log;
-import android.widget.RemoteViews;
 
-import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
-import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
-import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
-import static pl.appnode.napwatch.StateConstants.MINUTE;
-import static pl.appnode.napwatch.StateConstants.SECOND;
-import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTON_ACTION;
 
 public class NapWatchWidgetProvider extends AppWidgetProvider {
