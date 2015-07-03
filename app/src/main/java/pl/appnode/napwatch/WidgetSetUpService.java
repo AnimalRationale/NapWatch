@@ -49,12 +49,18 @@ public class WidgetSetUpService extends Service {
     }
 
     private static void setUpWidget(Context context) {
-        SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
-        String alarmPrefix;
-        int timeUnit;
-        String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
         getWidget(context);
         assignWidgetButtons(context);
+        setUpFromSharedPrefs(context);
+        sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
+        Log.d(TAG, "Widget updated.");
+    }
+
+    private static void setUpFromSharedPrefs (Context context) {
+        int timeUnit;
+        String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
+        SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
+        String alarmPrefix;
         for (int i = 1; i <= 4; i++) {
             alarmPrefix = "Alarm_" + i;
             timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
@@ -71,11 +77,9 @@ public class WidgetSetUpService extends Service {
                 sWidgetViews.setInt(WIDGET_BUTTONS[i], "setBackgroundResource", R.drawable.round_button_red);
             } else sWidgetViews.setInt(WIDGET_BUTTONS[i], "setBackgroundResource", R.drawable.round_button_green);
         }
-        sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
-        Log.d(TAG, "Widget updated.");
     }
 
-    public static void assignWidgetButtons(Context context) {
+    private static void assignWidgetButtons(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
