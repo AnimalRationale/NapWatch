@@ -5,6 +5,8 @@
     <string name="time_unit_seconds">s</string>
     <string name="time_unit_minutes">m</string>
 
+    <string name="default_widget_button_text"></string>
+
     <string name="alarm_settings_title">Timer \u0020</string>
     <string name="alarm_settings_alarm_name_hint">Alarm name</string>
     <string name="alarm_settings_ok">OK</string>
