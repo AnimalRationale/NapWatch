@@ -38,7 +38,7 @@ public class WidgetSetUpService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         mOrientation = this.getResources().getConfiguration().orientation;
         Log.d(TAG, "WidgetSetUpService Start.");
-        setUpWidget(getApplicationContext());
+        setUpWidget(AppContext.getContext());
         return mStartMode;
     }
 
@@ -54,10 +54,7 @@ public class WidgetSetUpService extends Service {
         int timeUnit;
         String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
         getWidget(context);
-        Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
-        Log.d(TAG, "WidgetSetUpService assigning app button.");
+        assignWidgetButtons(context);
         for (int i = 1; i <= 4; i++) {
             alarmPrefix = "Alarm_" + i;
             timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
@@ -73,14 +70,12 @@ public class WidgetSetUpService extends Service {
             if (alarmsPrefs.getBoolean(alarmPrefix + "_State", false) & MainActivity.isService()) {
                 sWidgetViews.setInt(WIDGET_BUTTONS[i], "setBackgroundResource", R.drawable.round_button_red);
             } else sWidgetViews.setInt(WIDGET_BUTTONS[i], "setBackgroundResource", R.drawable.round_button_green);
-            sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
         }
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
         Log.d(TAG, "Widget updated.");
     }
 
-    public static void reassignWidgetButtons(Context context) {
-        getWidget(context);
+    public static void assignWidgetButtons(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
@@ -89,7 +84,6 @@ public class WidgetSetUpService extends Service {
             sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
             Log.d(TAG, "WidgetSetUp Service reassigning timer #" + i + " button for action: " + WIDGET_BUTTON_ACTION[i]);
         }
-        sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
     }
 
     private static PendingIntent getPendingSelfIntent(Context context, String action) {
@@ -107,7 +101,6 @@ public class WidgetSetUpService extends Service {
             mOrientation = newConfig.orientation;
             Log.d(TAG, "WidgetSetUpService orientation change.");
             setUpWidget(getApplicationContext());
-            // reassignWidgetButtons(getApplicationContext());
         }
     }
 
