@@ -48,7 +48,7 @@ public class WidgetSetUpService extends Service {
         sWidgetManager = AppWidgetManager.getInstance(context);
     }
 
-    private void setUpWidget(Context context) {
+    private static void setUpWidget(Context context) {
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
         int timeUnit;
@@ -79,7 +79,7 @@ public class WidgetSetUpService extends Service {
         Log.d(TAG, "Widget updated.");
     }
 
-    private void reassignWidgetButtons(Context context) {
+    public static void reassignWidgetButtons(Context context) {
         getWidget(context);
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
@@ -92,7 +92,7 @@ public class WidgetSetUpService extends Service {
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
     }
 
-    private PendingIntent getPendingSelfIntent(Context context, String action) {
+    private static PendingIntent getPendingSelfIntent(Context context, String action) {
         Intent intent = new Intent(context, NapWatchWidgetProvider.class);
         intent.setAction(action);
         Log.d(TAG, "WidgetSetUpService Service pendingSelfIntent for action: " + action);
