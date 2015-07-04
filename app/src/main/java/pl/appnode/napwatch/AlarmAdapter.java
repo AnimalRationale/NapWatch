@@ -113,6 +113,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarmViewHolder.vMinutesBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    if (progress == 0) {progress = 1;}
                     alarm.mDuration = progress;
                     alarm.mDurationCounter = progress;
                     alarmViewHolder.vDuration.setText(progress + alarm.mTimeUnitSymbol);
