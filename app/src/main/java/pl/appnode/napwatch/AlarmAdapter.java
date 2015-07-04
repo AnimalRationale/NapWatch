@@ -215,7 +215,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     private void widgetUpdate() {
-        if (!MainActivity.isWidgetUpdateService()) {
+        if (MainActivity.isWidgetUpdateService()) {
             Context context = AppContext.getContext();
             context.startService(new Intent(context, WidgetSetUpService.class));
         }

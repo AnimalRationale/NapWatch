@@ -174,7 +174,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     }
 
     private void widgetUpdate() {
-        if (!MainActivity.isWidgetUpdateService()) {
+        if (MainActivity.isWidgetUpdateService()) {
             Context context = AppContext.getContext();
             context.startService(new Intent(context, WidgetSetUpService.class));
         }
