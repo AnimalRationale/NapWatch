@@ -29,15 +29,20 @@ public class WidgetSetUpService extends Service {
     private static RemoteViews sWidgetViews = null;
     private static ComponentName sWidget = null;
     private static AppWidgetManager sWidgetManager = null;
+    private static boolean sWidgetUpdateServiceRunning = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mOrientation = this.getResources().getConfiguration().orientation;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mOrientation = this.getResources().getConfiguration().orientation;
+        if (!sWidgetUpdateServiceRunning) {
+            MainActivity.setIsWidgetUpdateService(true);
+            sWidgetUpdateServiceRunning = true;
+        }
         Log.d(TAG, "WidgetSetUpService Start.");
         setUpWidget(AppContext.getContext());
         return mStartMode;
@@ -96,9 +101,10 @@ public class WidgetSetUpService extends Service {
             sWidgetViews.setTextViewText(WIDGET_BUTTONS[i], alarmsPrefs.getInt(alarmPrefix + "_Duration",
                     DEFAULT_TIMER_DURATION + (i * DEFAULT_TIMER_DURATION_MODIFIER))
                     + timeUnitSymbol);
-            if (alarmsPrefs.getBoolean(alarmPrefix + "_State", false) & MainActivity.isService()) {
+            if (alarmsPrefs.getBoolean(alarmPrefix + "_State", false) & MainActivity.isAlarmBroadcastService()) {
                 sWidgetViews.setInt(WIDGET_BUTTONS[i], "setBackgroundResource", R.drawable.round_button_red);
             } else sWidgetViews.setInt(WIDGET_BUTTONS[i], "setBackgroundResource", R.drawable.round_button_green);
+            Log.d(TAG, "Shared Prefs widget button #" + WIDGET_BUTTONS[i]);
         }
     }
 

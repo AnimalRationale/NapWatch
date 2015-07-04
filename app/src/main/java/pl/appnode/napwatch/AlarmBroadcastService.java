@@ -42,7 +42,7 @@ public class AlarmBroadcastService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mAlarmId = EMPTY;
-        MainActivity.setIsService(true);
+        MainActivity.setIsAlarmBroadcastService(true);
         Log.d(TAG, "Setting sIsService TRUE.");
         if (intent.getExtras().get("AlarmId") != null) {mAlarmId = (Integer) intent.getExtras().get("AlarmId");}
         if (intent.getExtras().get("AlarmCommand") != null) {mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");}
@@ -80,7 +80,7 @@ public class AlarmBroadcastService extends Service {
             }
         }
         Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
-        MainActivity.setIsService(false);
+        MainActivity.setIsAlarmBroadcastService(false);
         AlarmReceiver.releaseLock();
         super.onDestroy();
     }

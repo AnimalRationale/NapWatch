@@ -70,7 +70,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
         Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
-        WidgetUpdate.setButtonOn(mAlarmId + 1, mContext);
+        // WidgetUpdate.setButtonOn(mAlarmId + 1, mContext);
+        widgetUpdate();
     }
 
     @Override
@@ -82,7 +83,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
         mNM.notify(mNotifyId, mNotify.build());
-        WidgetUpdate.buttonTime(mAlarmId + 1, millisUntilFinished / mTimeUnitFactor + mAlarmUnit, mContext);
+        // WidgetUpdate.buttonTime(mAlarmId + 1, millisUntilFinished / mTimeUnitFactor + mAlarmUnit, mContext);
+        widgetUpdate();
     }
 
     @Override
@@ -96,8 +98,9 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mBI.putExtra("AlarmID", mAlarmId);
         mBI.putExtra("countdown", Long.valueOf(0));
         mContext.sendBroadcast(mBI);
-        WidgetUpdate.buttonTime(mAlarmId + 1, "0" + mAlarmUnit, mContext);
-        WidgetUpdate.setButtonFinish(mAlarmId + 1, mContext);
+        // WidgetUpdate.buttonTime(mAlarmId + 1, "0" + mAlarmUnit, mContext);
+        // WidgetUpdate.setButtonFinish(mAlarmId + 1, mContext);
+        widgetUpdate();
         Log.d(TAG, "Countdown finished.");
         mIsFinished = true;
         AlarmReceiver.releaseLock();
@@ -172,5 +175,12 @@ public class AlarmCountDownTimer extends CountDownTimer {
         intent.putExtra("Command", OFF_SCREEN_START_FROM_SERVICE);
         intent.putExtra("AlarmName", mAlarmName);
         mContext.startActivity(intent);
+    }
+
+    private void widgetUpdate() {
+        if (!MainActivity.isWidgetUpdateService()) {
+            Context context = AppContext.getContext();
+            context.startService(new Intent(context, WidgetSetUpService.class));
+        }
     }
 }

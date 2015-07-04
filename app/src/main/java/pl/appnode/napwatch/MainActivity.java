@@ -42,7 +42,8 @@ public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
     protected static AlarmAdapter mAA;
-    private static boolean sIsService;
+    private static boolean sIsAlarmBroadcastService;
+    private static boolean sIsWidgetUpdateService;
     private static int[] sAlarmState = new int[4];
     private static boolean sThemeChangeFlag;
 
@@ -83,7 +84,7 @@ public class MainActivity extends Activity {
         super.onResume();
         registerReceiver(mCountDownBroadcast, new IntentFilter(AlarmBroadcastService.COUNTDOWN_BROADCAST));
         Log.d(TAG, "OnResume registered broadcast receiver.");
-        if (sIsService) {
+        if (sIsAlarmBroadcastService) {
             updateTimeToFinishIntent();
             Log.d(TAG, "Time to finish update intent on active alarms.");
         }
@@ -153,7 +154,7 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy() {
         saveSharedPrefs();
-        if (sIsService) {
+        if (sIsAlarmBroadcastService) {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
             stopService(serviceIntent);
             Log.d(TAG, "OnDestroy stopping service.");
@@ -309,11 +310,19 @@ public class MainActivity extends Activity {
         sAlarmState[alarmId] = state;
     }
 
-    public static boolean isService() {
-        return sIsService;
+    public static boolean isAlarmBroadcastService() {
+        return sIsAlarmBroadcastService;
     }
 
-    public static void setIsService(boolean isService) {
-        sIsService = isService;
+    public static void setIsAlarmBroadcastService(boolean isService) {
+        sIsAlarmBroadcastService = isService;
+    }
+
+    public static boolean isWidgetUpdateService() {
+        return sIsWidgetUpdateService;
+    }
+
+    public static void setIsWidgetUpdateService(boolean isService) {
+        sIsWidgetUpdateService = isService;
     }
 }

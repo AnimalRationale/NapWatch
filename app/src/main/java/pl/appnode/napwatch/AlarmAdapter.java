@@ -65,7 +65,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 alarmViewHolder.vDuration.setText(alarm.mDuration + alarm.mTimeUnitSymbol);
                 Log.d(TAG, "Alarm view #2: alarm = " + alarm.mName + " alarmState: " + MainActivity.getAlarmState(position) + " // duration = " + alarm.mDuration);
             }
-        } else if (alarm.mIsOn & MainActivity.isService() & MainActivity.getAlarmState(position) == ON) {
+        } else if (alarm.mIsOn & MainActivity.isAlarmBroadcastService() & MainActivity.getAlarmState(position) == ON) {
             if (alarm.mDurationCounter == 0) {
                 alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_red);
             } else alarmViewHolder.vDuration.setBackgroundResource(R.drawable.round_button_orange);
@@ -105,7 +105,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
-                Log.d(TAG, "Alarm TAPPED: alarm.mIsOn = " + alarm.mIsOn + " // sIsService = " + MainActivity.isService());
+                Log.d(TAG, "Alarm TAPPED: alarm.mIsOn = " + alarm.mIsOn + " // sIsService = " + MainActivity.isAlarmBroadcastService());
                 alarmAction(position);
             }
         });
@@ -122,7 +122,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 setDuration(alarm);
-                WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, mContext);
+                widgetUpdate();
+                //WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, mContext);
             }
         });
     }
@@ -198,8 +199,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarm.mIsOn = false;
         notifyItemChanged(position);
         MainActivity.setAlarmState(position, OFF);
-        WidgetUpdate.setButtonOff(position + 1, mContext);
-        WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, mContext);
+        // WidgetUpdate.setButtonOff(position + 1, mContext);
+        // WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, mContext);
+        widgetUpdate();
         Log.d(TAG, "Alarm OFF.");
     }
 
@@ -213,6 +215,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         settingsIntent.putExtra("AlarmRingtoneVol", alarm.mRingtoneVolume);
         settingsIntent.putExtra("AlarmFullscreenOff", alarm.mFullscreenOff);
         ((MainActivity)mContext).startActivityForResult(settingsIntent, SETTINGS_INTENT_REQUEST);
+    }
+
+    private void widgetUpdate() {
+        if (!MainActivity.isWidgetUpdateService()) {
+            Context context = AppContext.getContext();
+            context.startService(new Intent(context, WidgetSetUpService.class));
+        }
     }
 
     public void setDuration(final AlarmInfo item) {
