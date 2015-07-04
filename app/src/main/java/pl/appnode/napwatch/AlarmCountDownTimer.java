@@ -13,9 +13,9 @@ import android.os.CountDownTimer;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
 import static pl.appnode.napwatch.StateConstants.OFF_SCREEN_START_FROM_SERVICE;
 import static pl.appnode.napwatch.StateConstants.WAKE_UP_MARGIN;
-import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
 
 public class AlarmCountDownTimer extends CountDownTimer {
     private final static String TAG = "::AlarmCountdownTimer";

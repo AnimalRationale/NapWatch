@@ -18,6 +18,7 @@ import java.util.List;
 import android.view.View.OnClickListener;
 
 import static pl.appnode.napwatch.AppSettings.isDarkTheme;
+import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
 import static pl.appnode.napwatch.StateConstants.BUTTON_PRESS_DELAY;
 import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.OFF;
@@ -29,8 +30,6 @@ import static pl.appnode.napwatch.StateConstants.ON;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.STOP;
-import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
-
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 

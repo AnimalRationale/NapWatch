@@ -22,11 +22,14 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.appnode.napwatch.AppSettings.isDarkTheme;
+import static pl.appnode.napwatch.PreferenceSetup.themeSetup;
+import static pl.appnode.napwatch.PreferenceSetup.orientationSetup;
+import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
 import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
 import static pl.appnode.napwatch.StateConstants.MINUTE_IN_MILLIS;
-import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.RESTORE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
@@ -34,10 +37,6 @@ import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
 import static pl.appnode.napwatch.StateConstants.TIMERS_COUNT;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
-import static pl.appnode.napwatch.PreferenceSetup.themeSetup;
-import static pl.appnode.napwatch.PreferenceSetup.orientationSetup;
-import static pl.appnode.napwatch.AppSettings.isDarkTheme;
-import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
 
 public class MainActivity extends Activity {
 
@@ -131,11 +130,6 @@ public class MainActivity extends Activity {
         unregisterReceiver(mCountDownBroadcast);
         Log.d(TAG, "OnPause unregistered broadcast receiver.");
         widgetUpdate();
-//        for (int i = 0; i < TIMERS_COUNT; i++) {
-//            if ( sAlarmState[i] == OFF) {
-//                WidgetUpdate.setButtonOff(i + 1, this);
-//            }
-//        }
     }
 
     @Override
@@ -159,7 +153,9 @@ public class MainActivity extends Activity {
         if (sIsAlarmBroadcastService) {
             Intent serviceIntent = new Intent(this, AlarmBroadcastService.class);
             stopService(serviceIntent);
-            Log.d(TAG, "OnDestroy stopping service.");
+            serviceIntent = new Intent(this, WidgetSetUpService.class);
+            stopService(serviceIntent);
+            Log.d(TAG, "OnDestroy stopping services.");
         }
         super.onDestroy();
     }
@@ -271,7 +267,6 @@ public class MainActivity extends Activity {
             alarm.mRingtoneVolume = (int) resultIntent.getExtras().get("AlarmRingtoneVol");
             mAA.notifyItemChanged(position);
             saveSharedPrefs();
-            //WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, this);
             widgetUpdate();
         }
     }
