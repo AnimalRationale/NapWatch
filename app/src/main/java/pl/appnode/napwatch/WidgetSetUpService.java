@@ -52,13 +52,31 @@ public class WidgetSetUpService extends Service {
     private static void setUpWidget(Context context) {
         getWidget(context);
         assignWidgetButtons(context);
-        setUpFromSharedPrefs(context);
+        if (MainActivity.mAA != null) {setUpFromAlarmList();}
+            else {setUpFromSharedPrefs(context);}
         sWidgetManager.updateAppWidget(sWidget, sWidgetViews);
         Log.d(TAG, "Widget updated.");
     }
 
     private static void setUpFromAlarmList () {
-
+        for (int i = 0; i < TIMERS_COUNT; i++) {
+            final AlarmInfo alarm = MainActivity.mAA.mAlarmList.get(i);
+            if (!alarm.mIsOn) {
+                if (alarm.mDurationCounter == 0) {
+                    sWidgetViews.setInt(WIDGET_BUTTONS[i + 1], "setBackgroundResource", R.drawable.round_button_red);
+                    sWidgetViews.setTextViewText(WIDGET_BUTTONS[i + 1], alarm.mDurationCounter + alarm.mTimeUnitSymbol);
+                    Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm finished = " + alarm.mName + " // duration = " + alarm.mDuration + alarm.mTimeUnitSymbol);
+                } else {
+                    sWidgetViews.setInt(WIDGET_BUTTONS[i + 1], "setBackgroundResource", R.drawable.round_button_green);
+                    sWidgetViews.setTextViewText(WIDGET_BUTTONS[i + 1], alarm.mDuration + alarm.mTimeUnitSymbol);
+                    Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm ready = " + alarm.mName + " // duration = " + alarm.mDuration + alarm.mTimeUnitSymbol);
+                }
+            } else if (alarm.mIsOn) {
+                sWidgetViews.setInt(WIDGET_BUTTONS[i + 1], "setBackgroundResource", R.drawable.round_button_orange);
+                sWidgetViews.setTextViewText(WIDGET_BUTTONS[i + 1], alarm.mDurationCounter + alarm.mTimeUnitSymbol);
+                Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm running = " + alarm.mName + " // duration = " + alarm.mDuration + alarm.mTimeUnitSymbol);
+            }
+        }
     }
 
     private static void setUpFromSharedPrefs (Context context) {
@@ -109,7 +127,7 @@ public class WidgetSetUpService extends Service {
         {
             mOrientation = newConfig.orientation;
             Log.d(TAG, "WidgetSetUpService orientation change.");
-            setUpWidget(getApplicationContext());
+            setUpWidget(AppContext.getContext());
         }
     }
 
