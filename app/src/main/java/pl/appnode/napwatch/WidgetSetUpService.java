@@ -24,7 +24,7 @@ import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTON_ACTION;
 public class WidgetSetUpService extends Service {
 
     private static final String TAG = "WidgetSetUpService";
-    private int mStartMode = START_STICKY;
+
     private int mOrientation;
     private static RemoteViews sWidgetViews = null;
     private static ComponentName sWidget = null;
@@ -39,13 +39,14 @@ public class WidgetSetUpService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        int startMode = START_STICKY;
         if (!sWidgetUpdateServiceRunning) {
             MainActivity.setIsWidgetUpdateService(true);
             sWidgetUpdateServiceRunning = true;
         }
         Log.d(TAG, "WidgetSetUpService Start.");
         setUpWidget(AppContext.getContext());
-        return mStartMode;
+        return startMode;
     }
 
     private static void getWidget(Context context) {
@@ -65,21 +66,24 @@ public class WidgetSetUpService extends Service {
 
     private static void setUpFromAlarmList () {
         for (int i = 0; i < TIMERS_COUNT; i++) {
-            final AlarmInfo alarm = MainActivity.mAA.mAlarmList.get(i);
+            AlarmInfo alarm = MainActivity.mAA.mAlarmList.get(i);
             if (!alarm.mIsOn) {
                 if (alarm.mDurationCounter == 0) {
                     sWidgetViews.setInt(WIDGET_BUTTONS[i + 1], "setBackgroundResource", R.drawable.round_button_red);
                     sWidgetViews.setTextViewText(WIDGET_BUTTONS[i + 1], alarm.mDurationCounter + alarm.mTimeUnitSymbol);
-                    Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm finished = " + alarm.mName + " // durationCounter = " + alarm.mDurationCounter + alarm.mTimeUnitSymbol);
+                    Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm finished = " + alarm.mName +
+                            " // durationCounter = " + alarm.mDurationCounter + alarm.mTimeUnitSymbol);
                 } else {
                     sWidgetViews.setInt(WIDGET_BUTTONS[i + 1], "setBackgroundResource", R.drawable.round_button_green);
                     sWidgetViews.setTextViewText(WIDGET_BUTTONS[i + 1], alarm.mDuration + alarm.mTimeUnitSymbol);
-                    Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm ready = " + alarm.mName + " // duration = " + alarm.mDuration + alarm.mTimeUnitSymbol);
+                    Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm ready = " + alarm.mName +
+                            " // duration = " + alarm.mDuration + alarm.mTimeUnitSymbol);
                 }
             } else if (alarm.mIsOn) {
                 sWidgetViews.setInt(WIDGET_BUTTONS[i + 1], "setBackgroundResource", R.drawable.round_button_orange);
                 sWidgetViews.setTextViewText(WIDGET_BUTTONS[i + 1], alarm.mDurationCounter + alarm.mTimeUnitSymbol);
-                Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm running = " + alarm.mName + " // durationCounter = " + alarm.mDurationCounter + alarm.mTimeUnitSymbol);
+                Log.d(TAG, "Widget button #" + WIDGET_BUTTONS[i + 1] + " : alarm running = " + alarm.mName +
+                        " // durationCounter = " + alarm.mDurationCounter + alarm.mTimeUnitSymbol);
             }
         }
     }
