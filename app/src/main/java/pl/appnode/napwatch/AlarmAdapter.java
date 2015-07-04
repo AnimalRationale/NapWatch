@@ -123,7 +123,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             public void onStopTrackingTouch(SeekBar seekBar) {
                 setDuration(alarm);
                 widgetUpdate();
-                //WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, mContext);
             }
         });
     }
@@ -199,8 +198,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         alarm.mIsOn = false;
         notifyItemChanged(position);
         MainActivity.setAlarmState(position, OFF);
-        // WidgetUpdate.setButtonOff(position + 1, mContext);
-        // WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, mContext);
         widgetUpdate();
         Log.d(TAG, "Alarm OFF.");
     }
