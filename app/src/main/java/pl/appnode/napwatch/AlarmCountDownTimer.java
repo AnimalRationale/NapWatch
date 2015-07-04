@@ -15,6 +15,7 @@ import android.util.Log;
 
 import static pl.appnode.napwatch.StateConstants.OFF_SCREEN_START_FROM_SERVICE;
 import static pl.appnode.napwatch.StateConstants.WAKE_UP_MARGIN;
+import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
 
 public class AlarmCountDownTimer extends CountDownTimer {
     private final static String TAG = "::AlarmCountdownTimer";
@@ -82,7 +83,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
         mNM.notify(mNotifyId, mNotify.build());
-        widgetUpdate();
+        // widgetUpdate();
     }
 
     @Override
@@ -171,12 +172,5 @@ public class AlarmCountDownTimer extends CountDownTimer {
         intent.putExtra("Command", OFF_SCREEN_START_FROM_SERVICE);
         intent.putExtra("AlarmName", mAlarmName);
         mContext.startActivity(intent);
-    }
-
-    private void widgetUpdate() {
-        if (MainActivity.isWidgetUpdateService()) {
-            Context context = AppContext.getContext();
-            context.startService(new Intent(context, WidgetSetUpService.class));
-        }
     }
 }

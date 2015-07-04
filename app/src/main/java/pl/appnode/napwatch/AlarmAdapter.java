@@ -29,6 +29,8 @@ import static pl.appnode.napwatch.StateConstants.ON;
 import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.START;
 import static pl.appnode.napwatch.StateConstants.STOP;
+import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
+
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
@@ -212,13 +214,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         settingsIntent.putExtra("AlarmRingtoneVol", alarm.mRingtoneVolume);
         settingsIntent.putExtra("AlarmFullscreenOff", alarm.mFullscreenOff);
         ((MainActivity)mContext).startActivityForResult(settingsIntent, SETTINGS_INTENT_REQUEST);
-    }
-
-    private void widgetUpdate() {
-        if (MainActivity.isWidgetUpdateService()) {
-            Context context = AppContext.getContext();
-            context.startService(new Intent(context, WidgetSetUpService.class));
-        }
     }
 
     public void setDuration(final AlarmInfo item) {

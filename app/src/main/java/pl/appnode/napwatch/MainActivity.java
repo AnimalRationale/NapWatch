@@ -37,6 +37,7 @@ import static pl.appnode.napwatch.StateConstants.UPDATE;
 import static pl.appnode.napwatch.PreferenceSetup.themeSetup;
 import static pl.appnode.napwatch.PreferenceSetup.orientationSetup;
 import static pl.appnode.napwatch.AppSettings.isDarkTheme;
+import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
 
 public class MainActivity extends Activity {
 
@@ -129,11 +130,12 @@ public class MainActivity extends Activity {
         saveSharedPrefs();
         unregisterReceiver(mCountDownBroadcast);
         Log.d(TAG, "OnPause unregistered broadcast receiver.");
-        for (int i = 0; i < TIMERS_COUNT; i++) {
-            if ( sAlarmState[i] == OFF) {
-                WidgetUpdate.setButtonOff(i + 1, this);
-            }
-        }
+        widgetUpdate();
+//        for (int i = 0; i < TIMERS_COUNT; i++) {
+//            if ( sAlarmState[i] == OFF) {
+//                WidgetUpdate.setButtonOff(i + 1, this);
+//            }
+//        }
     }
 
     @Override
@@ -269,7 +271,8 @@ public class MainActivity extends Activity {
             alarm.mRingtoneVolume = (int) resultIntent.getExtras().get("AlarmRingtoneVol");
             mAA.notifyItemChanged(position);
             saveSharedPrefs();
-            WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, this);
+            //WidgetUpdate.buttonTime(position + 1, alarm.mDuration + alarm.mTimeUnitSymbol, this);
+            widgetUpdate();
         }
     }
 
@@ -282,6 +285,7 @@ public class MainActivity extends Activity {
             alarm.mDurationCounter = (int) timeToFinish;
             if (!alarm.mIsOn & timeToFinish > 1) {alarm.mIsOn = true;}
             mAA.notifyItemChanged(position);
+            widgetUpdate();
         }
     }
 
