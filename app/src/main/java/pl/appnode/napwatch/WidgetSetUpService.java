@@ -17,6 +17,7 @@ import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION;
 import static pl.appnode.napwatch.StateConstants.DEFAULT_TIMER_DURATION_MODIFIER;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND;
+import static pl.appnode.napwatch.StateConstants.TIMERS_COUNT;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTON_ACTION;
 
@@ -56,12 +57,16 @@ public class WidgetSetUpService extends Service {
         Log.d(TAG, "Widget updated.");
     }
 
+    private static void setUpFromAlarmList () {
+
+    }
+
     private static void setUpFromSharedPrefs (Context context) {
         int timeUnit;
         String timeUnitSymbol = context.getString(R.string.time_unit_seconds);
         SharedPreferences alarmsPrefs = context.getSharedPreferences(ALARMS_PREFS_FILE, 0);
         String alarmPrefix;
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= TIMERS_COUNT; i++) {
             alarmPrefix = "Alarm_" + i;
             timeUnit = alarmsPrefs.getInt(alarmPrefix + "_TimeUnit", SECOND);
             switch (timeUnit) {
@@ -84,7 +89,7 @@ public class WidgetSetUpService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
         Log.d(TAG, "WidgetSetUpService Service reassigning app button.");
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= TIMERS_COUNT; i++) {
             sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
             Log.d(TAG, "WidgetSetUp Service reassigning timer #" + i + " button for action: " + WIDGET_BUTTON_ACTION[i]);
         }

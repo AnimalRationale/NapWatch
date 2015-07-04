@@ -32,6 +32,7 @@ import static pl.appnode.napwatch.StateConstants.SECOND;
 import static pl.appnode.napwatch.StateConstants.MINUTE;
 import static pl.appnode.napwatch.StateConstants.SECOND_IN_MILLIS;
 import static pl.appnode.napwatch.StateConstants.SETTINGS_INTENT_REQUEST;
+import static pl.appnode.napwatch.StateConstants.TIMERS_COUNT;
 import static pl.appnode.napwatch.StateConstants.UPDATE;
 import static pl.appnode.napwatch.PreferenceSetup.themeSetup;
 import static pl.appnode.napwatch.PreferenceSetup.orientationSetup;
@@ -127,7 +128,7 @@ public class MainActivity extends Activity {
         saveSharedPrefs();
         unregisterReceiver(mCountDownBroadcast);
         Log.d(TAG, "OnPause unregistered broadcast receiver.");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < TIMERS_COUNT; i++) {
             if ( sAlarmState[i] == OFF) {
                 WidgetUpdate.setButtonOff(i + 1, this);
             }
@@ -175,7 +176,7 @@ public class MainActivity extends Activity {
         int timeFactor = SECOND_IN_MILLIS;
 
         List<AlarmInfo> result = new ArrayList<AlarmInfo>();
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= TIMERS_COUNT; i++) {
             AlarmInfo alarm = new AlarmInfo();
             alarmPrefix = "Alarm_" + i;
             alarm.mName = alarmsPrefs.getString(alarmPrefix, "Def Alarm " + i);
@@ -213,7 +214,7 @@ public class MainActivity extends Activity {
     protected void saveSharedPrefs() {
         SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = alarmsPrefs.edit();
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i < TIMERS_COUNT; i++) {
             String alarmPrefix = "Alarm_" + (i + 1);
             AlarmInfo alarm = mAA.mAlarmList.get(i);
             editor.putString(alarmPrefix, alarm.mName);

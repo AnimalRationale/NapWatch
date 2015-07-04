@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import static pl.appnode.napwatch.StateConstants.TIMERS_COUNT;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTONS;
 import static pl.appnode.napwatch.StateConstants.WIDGET_BUTTON_ACTION;
 
@@ -59,7 +60,7 @@ public class WidgetUpdate {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
         Log.d(TAG, "WidgetSetUpService Service reassigning app button.");
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= TIMERS_COUNT; i++) {
             sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
             Log.d(TAG, "WidgetSetUp Service reassigning timer #" + i + " button for action: " + WIDGET_BUTTON_ACTION[i]);
         }
