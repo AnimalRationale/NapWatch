@@ -37,6 +37,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     private Context mContext;
     private boolean mIsFinished = false;
     private long mTimeUntilFinished;
+    AlarmInfo mAlarm;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId,
                                 String title, boolean alarmFullscreenOff ,String alarmUnit, int alarmDuration,
@@ -70,7 +71,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
         setVolume();
         mRingtone = RingtoneManager.getRingtone(mContext.getApplicationContext(), alert);
         mRingtone.setStreamType(AudioManager.STREAM_ALARM);
-        Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName  + " with duration " + mAlarmDuration + " " + mAlarmUnit);
+        Log.d(TAG, "Starting timer for [" + mAlarmId + "] = " + mAlarmName + " with duration " + mAlarmDuration + " " + mAlarmUnit);
+        mAlarm = MainActivity.mAA.mAlarmList.get(mAlarmId);
         widgetUpdate();
     }
 
@@ -83,6 +85,8 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
         mNM.notify(mNotifyId, mNotify.build());
+        mAlarm.mDurationCounter = (int) (millisUntilFinished / mTimeUnitFactor);
+        widgetUpdate();
     }
 
     @Override
