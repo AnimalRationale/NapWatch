@@ -110,6 +110,6 @@ public class AlarmBroadcastService extends Service {
         if (MainActivity.getAlarmState(alarmId) != RESTORE) {
             MainActivity.setAlarmState(alarmId, OFF);
         }
-        Log.d(TAG, "Alarm stopped #" + alarmId);
+        Log.d(TAG, "Alarm stopped #" + alarmId + " alarm state: " + MainActivity.getAlarmState(alarmId));
     }
 }

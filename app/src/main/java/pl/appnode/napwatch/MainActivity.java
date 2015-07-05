@@ -195,7 +195,7 @@ public class MainActivity extends Activity {
             alarm.mRingtoneVolume = alarmsPrefs.getInt(alarmPrefix + "_RingtoneVol", setMaxVolume());
             alarm.mFullscreenOff = alarmsPrefs.getBoolean(alarmPrefix + "_FullScreenOff", true);
             alarm.mFinishTime = alarmsPrefs.getLong(alarmPrefix + "_FinishTime", 0);
-            if (alarm.mFinishTime > SystemClock.elapsedRealtime()) {
+            if (alarm.mIsOn & alarm.mFinishTime > SystemClock.elapsedRealtime()) {
                 int continuation = (int) (((alarm.mFinishTime - SystemClock.elapsedRealtime()) + timeFactor) / timeFactor);
                 if (continuation < 100) {
                     alarm.mDurationCounter = continuation;
@@ -275,12 +275,11 @@ public class MainActivity extends Activity {
         if (intent.getExtras() != null) {
             long timeToFinish = intent.getLongExtra("countdown", 0);
             int position = intent.getIntExtra("AlarmId", 0);
-            Log.d(TAG, "Countdown time remaining: " + timeToFinish);
+            Log.d(TAG, "UpdateTime Broadcast - Countdown time remaining: " + timeToFinish);
             AlarmInfo alarm = mAA.mAlarmList.get(position);
             alarm.mDurationCounter = (int) timeToFinish;
             if (!alarm.mIsOn & timeToFinish > 1) {alarm.mIsOn = true;}
             mAA.notifyItemChanged(position);
-            widgetUpdate();
         }
     }
 
