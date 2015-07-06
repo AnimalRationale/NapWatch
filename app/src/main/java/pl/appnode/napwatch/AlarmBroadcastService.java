@@ -4,9 +4,11 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
 
+import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.EMPTY;
 import static pl.appnode.napwatch.StateConstants.OFF;
 import static pl.appnode.napwatch.StateConstants.ON;
@@ -109,6 +111,11 @@ public class AlarmBroadcastService extends Service {
         mAlarms[alarmId] = null;
         if (MainActivity.getAlarmState(alarmId) != RESTORE) {
             MainActivity.setAlarmState(alarmId, OFF);
+            SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
+            SharedPreferences.Editor editor = alarmsPrefs.edit();
+            String alarmPrefix = "Alarm_" + (mAlarmId + 1);
+            editor.putLong(alarmPrefix + "_FinishTime", 0);
+            editor.commit();
         }
         Log.d(TAG, "Alarm stopped #" + alarmId + " alarm state: " + MainActivity.getAlarmState(alarmId));
     }
