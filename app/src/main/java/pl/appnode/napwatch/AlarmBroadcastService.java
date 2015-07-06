@@ -32,7 +32,6 @@ public class AlarmBroadcastService extends Service {
     private String mAlarmRingtone;
     private int mAlarmRingtoneVolume;
     private int mAlarmCommand;
-    private int mStartMode = START_STICKY;
     
     private AlarmCountDownTimer[] mAlarms = new AlarmCountDownTimer[4];
 
@@ -43,6 +42,7 @@ public class AlarmBroadcastService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        int startMode = START_STICKY;
         mAlarmId = EMPTY;
         MainActivity.setIsAlarmBroadcastService(true);
         Log.d(TAG, "Setting sIsService TRUE.");
@@ -51,7 +51,7 @@ public class AlarmBroadcastService extends Service {
         Log.d(TAG, "mAlarmId = " + mAlarmId);
         if (mAlarmId != EMPTY && mAlarms[mAlarmId] != null && mAlarmCommand == STOP) {
             stopAlarm(mAlarmId);
-            return mStartMode;
+            return startMode;
         } else
         if (mAlarmId != EMPTY && mAlarms[mAlarmId] == null && mAlarmCommand == START) {
             getStartAlarmIntentData(intent);
@@ -60,7 +60,7 @@ public class AlarmBroadcastService extends Service {
                     mAlarmId, mAlarmName, mAlarmFullscreenOff, mAlarmUnit, mAlarmDuration, mAlarmRingtone, mAlarmRingtoneVolume, this.getApplicationContext());
             mAlarms[mAlarmId].start();
             MainActivity.setAlarmState(mAlarmId, ON);
-            return mStartMode;
+            return startMode;
         } else
         if (mAlarmId == EMPTY && mAlarmCommand == UPDATE) {
             for (int i = 0; i < 4; i++) {
@@ -68,10 +68,10 @@ public class AlarmBroadcastService extends Service {
                     mAlarms[i].broadcastTimeUntilFinished();
                 }
             }
-            return mStartMode;
+            return startMode;
         }
         Log.d(TAG, "Command not recognized.");
-        return mStartMode;
+        return startMode;
     }
 
     @Override

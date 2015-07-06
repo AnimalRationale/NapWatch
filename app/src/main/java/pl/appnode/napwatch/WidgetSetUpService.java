@@ -3,7 +3,6 @@ package pl.appnode.napwatch;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -117,7 +116,7 @@ public class WidgetSetUpService extends Service {
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[0], pendingIntent);
-        Log.d(TAG, "WidgetSetUpService Service reassigning app button.");
+        Log.d(TAG, "WidgetSetUp Service reassigning app button.");
         for (int i = 1; i <= TIMERS_COUNT; i++) {
             sWidgetViews.setOnClickPendingIntent(WIDGET_BUTTONS[i], getPendingSelfIntent(context, WIDGET_BUTTON_ACTION[i]));
             Log.d(TAG, "WidgetSetUp Service reassigning timer #" + i + " button for action: " + WIDGET_BUTTON_ACTION[i]);
@@ -127,17 +126,17 @@ public class WidgetSetUpService extends Service {
     private static PendingIntent getPendingSelfIntent(Context context, String action) {
         Intent intent = new Intent(context, NapWatchWidgetProvider.class);
         intent.setAction(action);
-        Log.d(TAG, "WidgetSetUpService Service pendingSelfIntent for action: " + action);
+        Log.d(TAG, "WidgetSetUp Service pendingSelfIntent for action: " + action);
         return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        Log.d(TAG, "WidgetSetUpService configuration change.");
+        Log.d(TAG, "WidgetSetUp Service configuration change.");
         if(newConfig.orientation != mOrientation)
         {
             mOrientation = newConfig.orientation;
-            Log.d(TAG, "WidgetSetUpService orientation change.");
+            Log.d(TAG, "WidgetSetUp Service orientation change.");
             setUpWidget(AppContext.getContext());
         }
     }
