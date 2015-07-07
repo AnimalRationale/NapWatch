@@ -111,6 +111,17 @@ public class AlarmBroadcastService extends Service {
         mAlarms[alarmId] = null;
         if (MainActivity.getAlarmState(alarmId) != RESTORE) {
             MainActivity.setAlarmState(alarmId, OFF);
+        }
+        Log.d(TAG, "Alarm stopped #" + alarmId + " alarm state: " + MainActivity.getAlarmState(alarmId));
+    }
+
+    public void cancelAlarm(int alarmId) {mAlarms[alarmId].stopRingtone();
+        mAlarms[alarmId].cancel();
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(alarmId);
+        mAlarms[alarmId] = null;
+        if (MainActivity.getAlarmState(alarmId) != RESTORE) {
+            MainActivity.setAlarmState(alarmId, OFF);
             SharedPreferences alarmsPrefs = getSharedPreferences(ALARMS_PREFS_FILE, MODE_PRIVATE);
             SharedPreferences.Editor editor = alarmsPrefs.edit();
             String alarmPrefix = "Alarm_" + (mAlarmId + 1);
@@ -118,5 +129,6 @@ public class AlarmBroadcastService extends Service {
             editor.commit();
         }
         Log.d(TAG, "Alarm stopped #" + alarmId + " alarm state: " + MainActivity.getAlarmState(alarmId));
+
     }
 }
