@@ -50,7 +50,7 @@ public class AlarmBroadcastService extends Service {
         if (intent.getExtras().get("AlarmCommand") != null) {mAlarmCommand = (Integer) intent.getExtras().get("AlarmCommand");}
         Log.d(TAG, "mAlarmId = " + mAlarmId);
         if (mAlarmId != EMPTY && mAlarms[mAlarmId] != null && mAlarmCommand == STOP) {
-            stopAlarm(mAlarmId);
+            cancelAlarm(mAlarmId);
             return startMode;
         } else
         if (mAlarmId != EMPTY && mAlarms[mAlarmId] == null && mAlarmCommand == START) {
