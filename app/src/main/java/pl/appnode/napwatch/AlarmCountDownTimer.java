@@ -84,6 +84,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mBI.putExtra("countdown", (millisUntilFinished) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
+        mNotify.setOngoing(true);
         mNM.notify(mNotifyId, mNotify.build());
         mAlarm.mDurationCounter = (int) (millisUntilFinished / mTimeUnitFactor);
         widgetUpdate();
