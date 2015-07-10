@@ -65,6 +65,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 .setContentTitle(mAlarmDuration + mContext.getResources().getString(R.string.notification_title))
                 .setContentText(mAlarmName + mContext.getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + mContext.getResources().getString(R.string.notification_text03))
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
+                .setOngoing(true)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(mNotifyId, mNotify.build());
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
@@ -84,7 +85,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
         mBI.putExtra("countdown", (millisUntilFinished) / mTimeUnitFactor);
         mContext.sendBroadcast(mBI);
         mNotify.setContentTitle(millisUntilFinished / mTimeUnitFactor + mAlarmUnit + mContext.getResources().getString(R.string.notification_title));
-        mNotify.setOngoing(true);
+
         mNM.notify(mNotifyId, mNotify.build());
         mAlarm.mDurationCounter = (int) (millisUntilFinished / mTimeUnitFactor);
         widgetUpdate();
