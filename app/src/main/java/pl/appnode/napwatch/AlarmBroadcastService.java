@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import static pl.appnode.napwatch.StateConstants.ALARMS_PREFS_FILE;
 import static pl.appnode.napwatch.StateConstants.EMPTY;
@@ -81,7 +82,7 @@ public class AlarmBroadcastService extends Service {
                 stopAlarm(i);
             }
         }
-        Log.d(TAG, "CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
+        Log.d(TAG, "onDestroy CountDownTimer for alarm [" + mAlarmId + "] cancelled.");
         MainActivity.setIsAlarmBroadcastService(false);
         AlarmReceiver.releaseLock();
         super.onDestroy();
