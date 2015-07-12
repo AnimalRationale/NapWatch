@@ -66,6 +66,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
                 .setContentText(mAlarmName + mContext.getResources().getString(R.string.notification_text02) + mAlarmDuration + mAlarmUnit + mContext.getResources().getString(R.string.notification_text03))
                 .setSmallIcon(R.drawable.ic_alarm_add_grey600_24dp)
                 .setOngoing(true)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setContentIntent(resultPendingIntent); // TODO: use resources in smarter way :) !
         mNM.notify(mNotifyId, mNotify.build());
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
