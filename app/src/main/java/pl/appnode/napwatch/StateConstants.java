@@ -29,6 +29,7 @@ public final class StateConstants {
     public static final int UPDATE = 2;
     public static final int EMPTY = 99;
     public static final int TIMERS_COUNT = 4;
+    public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     public static final int SETTINGS_INTENT_REQUEST = 501;
     public static final int RINGTONE_INTENT_REQUEST = 502;
     public static final int[] WIDGET_BUTTONS = {

@@ -14,12 +14,12 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import static pl.appnode.napwatch.WidgetUpdate.widgetUpdate;
+import static pl.appnode.napwatch.StateConstants.COUNTDOWN_BROADCAST;
 import static pl.appnode.napwatch.StateConstants.OFF_SCREEN_START_FROM_SERVICE;
 import static pl.appnode.napwatch.StateConstants.WAKE_UP_MARGIN;
 
 public class AlarmCountDownTimer extends CountDownTimer {
     private final static String TAG = "::AlarmCountdownTimer";
-    public static final String COUNTDOWN_BROADCAST = "pl.appnode.napwatch";
     private Intent mBI = new Intent(COUNTDOWN_BROADCAST);
     private int mNotifyId;
     private NotificationManager mNM;
