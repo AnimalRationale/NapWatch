@@ -12,4 +12,3 @@ public class AlarmInfo {
     protected int mRingtoneVolume;
     protected boolean mFullscreenOff;
 }
-

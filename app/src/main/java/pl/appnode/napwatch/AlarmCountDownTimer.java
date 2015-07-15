@@ -40,7 +40,7 @@ public class AlarmCountDownTimer extends CountDownTimer {
     AlarmInfo mAlarm;
 
     public AlarmCountDownTimer (long millisInFuture, long countDownInterval, int alarmId,
-                                String title, boolean alarmFullscreenOff ,String alarmUnit, int alarmDuration,
+                                String title, boolean alarmFullscreenOff, String alarmUnit, int alarmDuration,
                                 String alarmRingtone, int alarmRingtoneVolume, Context context) {
         super(millisInFuture, countDownInterval);
         mAlarmId = alarmId;
