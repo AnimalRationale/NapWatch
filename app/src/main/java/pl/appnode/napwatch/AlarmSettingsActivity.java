@@ -64,7 +64,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         getWindow().setAttributes(layoutParams);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         this.setFinishOnTouchOutside(false);
-        colorFixForMaterialDark();
+        colorFixForMaterialDarkTheme();
         mAudioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
         mOriginalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         mTitle = (TextView) findViewById(R.id.alarmEditTitle);
@@ -228,7 +228,7 @@ public class AlarmSettingsActivity extends Activity implements View.OnClickListe
         startActivityForResult(ringtoneIntent, RINGTONE_INTENT_REQUEST);
     }
 
-    private void colorFixForMaterialDark() {
+    private void colorFixForMaterialDarkTheme() {
         if (isDarkTheme(this) & Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ImageView[] imageViews = new ImageView[2];
             imageViews[0] = (ImageView) findViewById(R.id.volumeIconMute);
